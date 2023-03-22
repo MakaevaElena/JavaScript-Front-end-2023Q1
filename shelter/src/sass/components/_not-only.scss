@@ -1,0 +1,38 @@
+.not-only {
+  background-image: url('../../src/img/not-only/start-screen-gradient-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(90.8) rem;
+  padding-top: 25.5rem;
+  margin-top: -18rem;
+}
+
+.not-only__wrapper {
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+  // padding: 0 4rem 0 4rem;
+}
+
+.not-only__content {
+  max-width: 46rem;
+  padding-top: 16.3rem;
+
+  p {
+    color: $color-dark-s;
+    padding-top: 2.5rem;
+  }
+}
+
+.not-only__right {
+  // justify-items: center;
+  background-image: url('../../src/img/not-only/start-screen-puppy.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 69.8rem;
+  height: 72.8rem;
+}
+
+.button__not-only {
+  padding-top: 2.7rem;
+}

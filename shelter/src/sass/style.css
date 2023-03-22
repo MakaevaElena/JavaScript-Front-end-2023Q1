@@ -1,0 +1,237 @@
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  font-family: "Arial", Verdana, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4.4rem;
+  line-height: 130%;
+  color: #ffffff;
+}
+
+h3 {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3.5rem;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+}
+
+h4 {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.3rem;
+  letter-spacing: 0.06em;
+}
+
+h5 {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 110%;
+  letter-spacing: 0.06em;
+}
+
+p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 160%;
+  letter-spacing: 6%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.our-pets .columns {
+  flex-wrap: wrap;
+}
+
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 4rem 0 4rem;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  margin-top: 3rem;
+  margin-left: 6rem;
+}
+
+.navigation .active {
+  border-bottom: 0.2rem solid #f1cdb3;
+}
+
+.navigation__link > a {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  color: #fafafa;
+  padding-bottom: 0.3rem;
+}
+
+.our-pets .navigation__link > a {
+  color: #292929;
+}
+
+.navigation__link:not(:first-child) {
+  margin-left: 3.5rem;
+}
+
+.navigation__link:hover {
+  border-bottom: 0.2rem solid #f1cdb3;
+}
+
+.hamburger {
+  display: none;
+}
+
+.button {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.7rem;
+  line-height: 130%;
+  color: #292929;
+  letter-spacing: 0.06em;
+  padding: 1.5rem 4.5rem;
+  border-radius: 10rem;
+  background-color: #f1cdb3;
+  border: none;
+}
+
+.button a {
+  color: inherit;
+}
+
+.button:hover {
+  background-color: #fddcc4;
+}
+
+.button__learn {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.7rem;
+  line-height: 130%;
+  color: #292929;
+  letter-spacing: 0.06em;
+  padding: 1.3rem 4.3rem;
+  border-radius: 10rem;
+  background-color: #fafafa;
+  border: 0.2rem solid #f1cdb3;
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fafafa;
+}
+
+.our-pets .header__wrapper {
+  color: #292929;
+  padding-bottom: 1rem;
+}
+
+.header__left {
+  padding-top: 3rem;
+}
+
+.header__logo > a {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3.2rem;
+  line-height: 3.52rem;
+  color: #f1cdb3;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.our-pets .header__logo > a {
+  color: #545454;
+}
+
+.logo__subtitle {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.495rem;
+  letter-spacing: 0.1em;
+}
+
+.not-only {
+  background-image: url("../../src/img/not-only/start-screen-gradient-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 90.8 rem;
+  padding-top: 25.5rem;
+  margin-top: -18rem;
+}
+
+.not-only__wrapper {
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+}
+
+.not-only__content {
+  max-width: 46rem;
+  padding-top: 16.3rem;
+}
+.not-only__content p {
+  color: #cdcdcd;
+  padding-top: 2.5rem;
+}
+
+.not-only__right {
+  background-image: url("../../src/img/not-only/start-screen-puppy.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 69.8rem;
+  height: 72.8rem;
+}
+
+.button__not-only {
+  padding-top: 2.7rem;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,31 @@
+.button {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 1.7rem, 130%);
+  color: $color-dark-3xl;
+  letter-spacing: 0.06em;
+
+  padding: 1.5rem 4.5rem;
+  border-radius: 10rem;
+  background-color: $color-primary;
+  border: none;
+}
+
+.button a {
+  color: inherit;
+}
+
+.button:hover {
+  background-color: $color-primary-light;
+}
+
+.button__learn {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 1.7rem, 130%);
+  color: $color-dark-3xl;
+  letter-spacing: 0.06em;
+
+  padding: 1.3rem 4.3rem;
+  border-radius: 10rem;
+  background-color: $color-light-s;
+  border: 0.2rem solid $color-primary;
+}

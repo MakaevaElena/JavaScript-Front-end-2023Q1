@@ -1,0 +1,37 @@
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // padding-bottom: 1rem;
+  // padding: 0rem 4rem 0 4rem;
+
+  color: $color-light-s;
+  // height: 11.5rem;
+}
+
+.our-pets .header__wrapper {
+  color: $color-dark-3xl;
+  padding-bottom: 1rem;
+}
+
+.header__left {
+  padding-top: 3rem;
+}
+
+.header__logo > a {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 3.2rem, 3.52rem);
+  color: $color-primary;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.our-pets .header__logo > a {
+  color: $color-dark-l;
+}
+
+.logo__subtitle {
+  @include font(normal, 400, 1.3rem, 1.495rem);
+  letter-spacing: 0.1em;
+}

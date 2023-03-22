@@ -1,0 +1,55 @@
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  font-family: 'Arial', Verdana, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 4.4rem, 130%);
+  color: $color-light-xl;
+}
+
+h3 {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 3.5rem, 130%);
+  letter-spacing: 0.06em;
+}
+
+h4 {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 2rem, 2.3rem);
+  letter-spacing: 0.06em;
+}
+
+h5 {
+  font-family: 'Georgia', Verdana, serif;
+  @include font(normal, 400, 1.5rem, 110%);
+  letter-spacing: 0.06em;
+}
+
+p {
+  @include font(normal, 400, 1.5rem, 160%);
+  // @include font(normal, 400, 1.5rem, 2.4rem);
+  letter-spacing: 6%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}

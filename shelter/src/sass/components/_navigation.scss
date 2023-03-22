@@ -1,0 +1,36 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  margin-top: 3rem;
+  margin-left: 6rem;
+}
+
+.navigation .active {
+  border-bottom: 0.2rem solid $color-primary;
+}
+
+.navigation__link > a {
+  @include font(normal, 400, 1.5rem, 2.4rem);
+  // text-decoration: none;
+  // cursor: pointer;
+  color: $color-light-s;
+  padding-bottom: 0.3rem;
+}
+
+.our-pets .navigation__link > a {
+  color: $color-dark-3xl;
+}
+
+// .navigation__link > a:active {
+//   border-bottom: 0.2rem solid $color-primary;
+// }
+
+.navigation__link:not(:first-child) {
+  margin-left: 3.5rem;
+}
+
+.navigation__link:hover {
+  border-bottom: 0.2rem solid $color-primary;
+}

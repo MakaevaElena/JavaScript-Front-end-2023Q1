@@ -82,26 +82,30 @@ footer {
   background-image: url("../../src/img/footer/footer-gradient-background.png");
   background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 3.7rem;
 }
 footer h3 {
   color: #ffffff;
 }
 footer .left {
-  width: 31%;
+  width: 33%;
   padding-top: 1.9rem;
+  padding-bottom: 6rem;
 }
 footer .center {
-  width: 33%;
+  width: 35%;
   padding-top: 1.9rem;
 }
 footer .center .footer__info {
   padding-top: 3rem;
 }
+footer .footer .columns {
+  flex-wrap: wrap;
+}
 footer .right {
-  width: 33%;
+  width: 25%;
   background-image: url("../../src/img/footer/footer-puppy.png");
-  width: 30rem;
-  height: 31rem;
+  background-repeat: no-repeat;
 }
 
 .footer__info {
@@ -281,8 +285,7 @@ footer .right {
   height: 58.8rem;
   display: flex;
   align-items: top;
-  justify-content: space-between;
-  padding: 0 21.5rem 0 21.5rem;
+  justify-content: center;
 }
 
 .about__left {
@@ -290,6 +293,7 @@ footer .right {
   background-repeat: no-repeat;
   background-size: contain;
   margin-top: 8rem;
+  margin-right: 12rem;
   width: 30rem;
   height: 40.8rem;
 }

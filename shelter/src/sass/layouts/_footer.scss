@@ -2,30 +2,38 @@ footer {
   background-image: url('../../src/img/footer/footer-gradient-background.png');
   background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 3.7rem;
 
   h3 {
     color: $color-light-xl;
   }
 
   .left {
-    width: 31%;
+    width: 33%;
     padding-top: 1.9rem;
+    padding-bottom: 6rem;
   }
 
   .center {
-    width: 33%;
+    width: 35%;
     padding-top: 1.9rem;
+    // margin-left:14rem;
 
     .footer__info {
       padding-top: 3rem;
     }
   }
 
+  .footer .columns {
+    flex-wrap: wrap;
+  }
+
   .right {
-    width: 33%;
+    width: 25%;
     background-image: url('../../src/img/footer/footer-puppy.png');
-    width: 30rem;
-    height: 31rem;
+    background-repeat: no-repeat;
+    // height: 31rem;
+    // margin-left:13rem;
   }
 }
 

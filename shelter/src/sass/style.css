@@ -70,42 +70,51 @@ a {
 
 .columns {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 }
 
-.our-pets .columns {
-  flex-wrap: wrap;
+.main .columns {
+  flex-wrap: nowrap;
+}
+
+.footer__wrapper.columns {
+  justify-content: center;
+  row-gap: 2rem;
+  column-gap: 8rem;
 }
 
 footer {
   background-image: url("../../src/img/footer/footer-gradient-background.png");
   background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 footer h3 {
   color: #ffffff;
 }
 footer .left {
-  width: 31%;
-  padding-top: 1.9rem;
+  flex-basis: 30%;
 }
 footer .center {
-  width: 33%;
-  padding-top: 1.9rem;
+  flex-basis: 31.6%;
+  padding-bottom: 0.5rem;
 }
 footer .center .footer__info {
   padding-top: 3rem;
 }
 footer .right {
-  width: 33%;
-  background-image: url("../../src/img/footer/footer-puppy.png");
   width: 30rem;
   height: 31rem;
+  background-image: url("../../src/img/footer/footer-puppy.png");
+  background-repeat: no-repeat;
+  margin-top: 3.5rem;
 }
 
 .footer__info {
-  padding-top: 3.5rem;
+  padding-top: 3.7rem;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -113,12 +122,9 @@ footer .right {
   width: 30rem;
 }
 .footer__info h4 {
+  margin-top: 0.1rem;
   margin-left: 2rem;
   color: #f1cdb3;
-}
-
-.footer__wrapper {
-  padding-top: 4rem;
 }
 
 .wrapper {
@@ -239,6 +245,7 @@ footer .right {
   font-size: 1.3rem;
   line-height: 1.495rem;
   letter-spacing: 0.1em;
+  padding-left: 0.5rem;
 }
 
 .not-only {
@@ -278,11 +285,10 @@ footer .right {
 }
 
 .about__wrapper {
-  height: 58.8rem;
   display: flex;
   align-items: top;
-  justify-content: space-between;
-  padding: 0 21.5rem 0 21.5rem;
+  justify-content: center;
+  padding-bottom: 10rem;
 }
 
 .about__left {
@@ -290,6 +296,7 @@ footer .right {
   background-repeat: no-repeat;
   background-size: contain;
   margin-top: 8rem;
+  margin-right: 12rem;
   width: 30rem;
   height: 40.8rem;
 }
@@ -315,6 +322,9 @@ footer .right {
   padding: 8rem 0 6rem 0;
 }
 
+.our-pets.friends {
+  padding-bottom: 9.8rem;
+}
 .our-pets.friends h3 {
   padding: 8.5rem 0 6rem 0;
 }
@@ -370,16 +380,16 @@ footer .right {
   margin-top: 3rem;
 }
 .pagination .double-row-left {
-  background-image: url("/src/img/pagination/double_rows_left.png");
+  background-image: url("../../src/img/pagination/double_rows_left.png");
 }
 .pagination .row__left {
-  background-image: url("/src/img/pagination/row_left.png");
+  background-image: url("../../src/img/pagination/row_left.png");
 }
 .pagination .row__right {
-  background-image: url("/src/img/pagination/row_active_right.png");
+  background-image: url("../../src/img/pagination/row_active_right.png");
 }
 .pagination .double-row-right {
-  background-image: url("/src/img/pagination/double_rows_active_right.png");
+  background-image: url("../../src/img/pagination/double_rows_active_right.png");
 }
 .pagination .row:not(:first-child) {
   margin-left: 1.8rem;
@@ -424,7 +434,7 @@ footer .right {
 }
 
 .help {
-  height: 61.1rem;
+  padding-bottom: 10rem;
 }
 .help h3 {
   text-align: center;
@@ -502,7 +512,7 @@ footer .right {
 }
 
 .donation__wrapper {
-  height: 46rem;
+  padding-bottom: 8.7rem;
   display: flex;
   align-items: top;
   justify-content: center;
@@ -511,11 +521,10 @@ footer .right {
 .donation__left {
   background-image: url("../../src/img/donation/donation-dog.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   margin-top: 9.2rem;
   margin-right: 3rem;
   width: 50.5rem;
-  height: 26.1rem;
 }
 
 .donation__content {

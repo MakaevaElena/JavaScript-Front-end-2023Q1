@@ -16,10 +16,6 @@
 }
 
 .header__logo > a {
-  font-family: 'Georgia', Verdana, serif;
-  @include font(normal, 400, 3.2rem, 3.52rem);
-  color: $color-primary;
-  letter-spacing: 0.06em;
   text-decoration: none;
   cursor: pointer;
 }

@@ -1,0 +1,68 @@
+.help {
+  height: 61.1rem;
+
+  h3 {
+    text-align: center;
+    padding: 8rem 0 6rem 0;
+  }
+
+  h4 {
+    margin-top: 3rem;
+  }
+}
+
+.point {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+
+  &__img {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 6rem;
+    height: 6rem;
+  }
+}
+
+.help-wrapper {
+  padding: 0 8.7rem;
+}
+
+.food-img {
+  background-image: url('../../src/img/help/food.png');
+}
+.transportation-img {
+  background-image: url('../../src/img/help/icon-transportation.png');
+}
+.toys-img {
+  background-image: url('../../src/img/help/icon-toys.png');
+}
+.bowls-img {
+  background-image: url('../../src/img/help/icon-bowls-and-cups.png');
+}
+.shampoos-img {
+  background-image: url('../../src/img/help/icon-shampoos.png');
+}
+.vitamins-img {
+  background-image: url('../../src/img/help/icon-vitamins.png');
+}
+.medicines-img {
+  background-image: url('../../src/img/help/medicines.png');
+}
+.collars-img {
+  background-image: url('../../src/img/help/collars-or-leashes.png');
+}
+.sleeping-img {
+  background-image: url('../../src/img/help/sleeping-area.png');
+}
+
+.help-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 5.5rem;
+  column-gap: 12rem;
+}

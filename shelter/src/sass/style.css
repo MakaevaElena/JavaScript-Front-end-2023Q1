@@ -263,4 +263,121 @@ a {
   padding-top: 1rem;
 }
 
+.friends {
+  background-color: #f6f6f6;
+  padding-bottom: 10rem;
+}
+.friends h3 {
+  text-align: center;
+  padding: 8rem 0 6rem 0;
+}
+
+.our-pets.friends h3 {
+  padding: 8.5rem 0 6rem 0;
+}
+
+.friends__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.carousel-wrapper {
+  width: 99rem;
+  padding: 0 5rem;
+  overflow: hidden;
+}
+
+.our-pets .carousel-wrapper {
+  width: 100%;
+  padding: 0;
+}
+
+.pet-card {
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3rem;
+  cursor: pointer;
+}
+
+.pet-card:hover .button__learn {
+  background-color: #fddcc4;
+}
+
+.our-pets .pet-card {
+  margin-bottom: 3.2rem;
+}
+
+.pet-name {
+  padding: 2.5rem 0 2.8rem 0;
+}
+
+.button__friends {
+  text-align: center;
+  margin-top: 6rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+.pagination .double-row-left {
+  background-image: url("/src/img/pagination/double_rows_left.png");
+}
+.pagination .row__left {
+  background-image: url("/src/img/pagination/row_left.png");
+}
+.pagination .row__right {
+  background-image: url("/src/img/pagination/row_active_right.png");
+}
+.pagination .double-row-right {
+  background-image: url("/src/img/pagination/double_rows_active_right.png");
+}
+.pagination .row:not(:first-child) {
+  margin-left: 1.8rem;
+}
+.pagination .number {
+  text-align: center;
+  background-color: #f1cdb3;
+}
+.pagination .number h4 {
+  padding-top: 1rem;
+}
+
+.row {
+  border: 0.2rem solid #cdcdcd;
+  border-radius: 100%;
+  height: 5rem;
+  width: 5rem;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: #f1cdb3;
+}
+
+.row.active {
+  border: 0.2rem solid #f1cdb3;
+}
+
+.slider__row__left {
+  background-image: url("../../src/img/our-friends/Arrow-left.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.slider__row__right {
+  background-image: url("../../src/img/our-friends/Arrow-left.png");
+  transform: rotate(-180deg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
 /*# sourceMappingURL=style.css.map */

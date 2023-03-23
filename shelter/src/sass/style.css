@@ -234,4 +234,33 @@ a {
   padding-top: 2.7rem;
 }
 
+.about__wrapper {
+  height: 58.8rem;
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+  padding: 0 21.5rem 0 21.5rem;
+}
+
+.about__left {
+  background-image: url("../../src/img/about/about-pets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 8rem;
+  width: 30rem;
+  height: 40.8rem;
+}
+
+.about__content {
+  max-width: 43rem;
+  padding-top: 9.3rem;
+}
+.about__content h3 {
+  color: #545454;
+}
+.about__content p {
+  color: #4c4c4c;
+  padding-top: 1rem;
+}
+
 /*# sourceMappingURL=style.css.map */

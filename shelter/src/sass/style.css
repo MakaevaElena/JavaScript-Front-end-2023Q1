@@ -19,6 +19,16 @@ h5 {
   padding: 0;
 }
 
+h1 {
+  font-family: "Georgia", Verdana, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3.2rem;
+  line-height: 3.52rem;
+  color: #f1cdb3;
+  letter-spacing: 0.06em;
+}
+
 h2 {
   font-family: "Georgia", Verdana, serif;
   font-style: normal;
@@ -128,7 +138,7 @@ footer .right {
 }
 
 .wrapper {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 4rem 0 4rem;
 }
@@ -144,6 +154,12 @@ footer .right {
 
 .navigation .active {
   border-bottom: 0.2rem solid #f1cdb3;
+  color: #fafafa;
+}
+
+.disabled-link {
+  pointer-events: none;
+  cursor: default;
 }
 
 .navigation__link > a {
@@ -151,7 +167,7 @@ footer .right {
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.4rem;
-  color: #fafafa;
+  color: #cdcdcd;
   padding-bottom: 0.3rem;
 }
 
@@ -163,7 +179,8 @@ footer .right {
   margin-left: 3.5rem;
 }
 
-.navigation__link:hover {
+.navigation__link:hover > a:not(.disabled-link) {
+  transition: 0.3s;
   border-bottom: 0.2rem solid #f1cdb3;
 }
 
@@ -179,7 +196,8 @@ footer .right {
   line-height: 130%;
   color: #292929;
   letter-spacing: 0.06em;
-  padding: 1.5rem 4.5rem;
+  text-align: center;
+  padding: 1.5rem 4.4rem;
   border-radius: 10rem;
   background-color: #f1cdb3;
   border: none;
@@ -190,6 +208,7 @@ footer .right {
 }
 
 .button:hover {
+  transition: 0.3s;
   background-color: #fddcc4;
 }
 
@@ -224,13 +243,6 @@ footer .right {
 }
 
 .header__logo > a {
-  font-family: "Georgia", Verdana, serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 3.2rem;
-  line-height: 3.52rem;
-  color: #f1cdb3;
-  letter-spacing: 0.06em;
   text-decoration: none;
   cursor: pointer;
 }
@@ -282,6 +294,7 @@ footer .right {
 
 .button__not-only {
   padding-top: 2.7rem;
+  width: 20.8rem;
 }
 
 .about__wrapper {
@@ -322,8 +335,12 @@ footer .right {
   padding: 8rem 0 6rem 0;
 }
 
+.main .carusel {
+  padding-bottom: 6rem;
+}
+
 .our-pets.friends {
-  padding-bottom: 9.8rem;
+  padding-bottom: 3.6rem;
 }
 .our-pets.friends h3 {
   padding: 8.5rem 0 6rem 0;
@@ -354,10 +371,18 @@ footer .right {
   align-items: center;
   padding-bottom: 3rem;
   cursor: pointer;
+  border-radius: 0.9rem;
+}
+
+.pet-card:hover {
+  transition: 0.4s;
+  box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .pet-card:hover .button__learn {
+  transition: 0.4s;
   background-color: #fddcc4;
+  border: 0.2rem solid #fddcc4;
 }
 
 .our-pets .pet-card {
@@ -370,7 +395,8 @@ footer .right {
 
 .button__friends {
   text-align: center;
-  margin-top: 6rem;
+  margin: 0 auto;
+  width: 17.2rem;
 }
 
 .pagination {
@@ -410,10 +436,13 @@ footer .right {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   cursor: pointer;
+  margin-bottom: 6.2rem;
 }
 
 .row:hover {
+  transition: 0.4s;
   background-color: #f1cdb3;
+  border: 0.2rem solid #f1cdb3;
 }
 
 .row.active {

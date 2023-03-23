@@ -3,11 +3,13 @@
   @include font(normal, 400, 1.7rem, 130%);
   color: $color-dark-3xl;
   letter-spacing: 0.06em;
-
-  padding: 1.5rem 4.5rem;
+  // min-width: 12rem;
+  text-align: center;
+  padding: 1.5rem 4.4rem;
   border-radius: 10rem;
   background-color: $color-primary;
   border: none;
+  // transition: 3s;
 }
 
 .button a {
@@ -15,6 +17,7 @@
 }
 
 .button:hover {
+  transition: 0.3s;
   background-color: $color-primary-light;
 }
 

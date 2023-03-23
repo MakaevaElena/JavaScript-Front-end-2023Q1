@@ -9,13 +9,19 @@
 
 .navigation .active {
   border-bottom: 0.2rem solid $color-primary;
+  color:$color-light-s;
+}
+
+ .disabled-link {
+  pointer-events: none;
+  cursor: default;
 }
 
 .navigation__link > a {
   @include font(normal, 400, 1.5rem, 2.4rem);
   // text-decoration: none;
   // cursor: pointer;
-  color: $color-light-s;
+  color:$color-dark-s;
   padding-bottom: 0.3rem;
 }
 
@@ -31,6 +37,7 @@
   margin-left: 3.5rem;
 }
 
-.navigation__link:hover {
+.navigation__link:hover > a:not(.disabled-link) {
+  transition: 0.3s;
   border-bottom: 0.2rem solid $color-primary;
 }

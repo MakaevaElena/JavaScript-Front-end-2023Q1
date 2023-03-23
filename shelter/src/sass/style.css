@@ -78,6 +78,49 @@ a {
   flex-wrap: wrap;
 }
 
+footer {
+  background-image: url("../../src/img/footer/footer-gradient-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+footer h3 {
+  color: #ffffff;
+}
+footer .left {
+  width: 31%;
+  padding-top: 1.9rem;
+}
+footer .center {
+  width: 33%;
+  padding-top: 1.9rem;
+}
+footer .center .footer__info {
+  padding-top: 3rem;
+}
+footer .right {
+  width: 33%;
+  background-image: url("../../src/img/footer/footer-puppy.png");
+  width: 30rem;
+  height: 31rem;
+}
+
+.footer__info {
+  padding-top: 3.5rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: #f1cdb3;
+  width: 30rem;
+}
+.footer__info h4 {
+  margin-left: 2rem;
+  color: #f1cdb3;
+}
+
+.footer__wrapper {
+  padding-top: 4rem;
+}
+
 .wrapper {
   max-width: 1280px;
   margin: 0 auto;

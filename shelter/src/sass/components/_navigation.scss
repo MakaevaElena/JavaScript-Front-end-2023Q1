@@ -12,7 +12,7 @@
   color:$color-light-s;
 }
 
- a.disabled-link {
+ .disabled-link {
   pointer-events: none;
   cursor: default;
 }
@@ -38,5 +38,6 @@
 }
 
 .navigation__link:hover > a:not(.disabled-link) {
+  transition: 0.3s;
   border-bottom: 0.2rem solid $color-primary;
 }

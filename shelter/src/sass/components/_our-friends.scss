@@ -44,16 +44,19 @@
   align-items: center;
   padding-bottom: 3rem;
   cursor: pointer;
-  
   border-radius: 0.9rem;
+  // transition: 3s;
 }
 
 .pet-card:hover {
+  transition: 0.4s;
   box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .pet-card:hover .button__learn {
+  transition: 0.4s;
   background-color: $color-primary-light;
+  border:0.2rem solid $color-primary-light;
 }
 
 .our-pets .pet-card {
@@ -118,7 +121,9 @@
 }
 
 .row:hover {
+  transition: 0.4s;
   background-color: $color-primary;
+  border:0.2rem solid $color-primary;
 }
 
 .row.active {

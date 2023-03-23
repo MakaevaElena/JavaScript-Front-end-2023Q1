@@ -157,7 +157,7 @@ footer .right {
   color: #fafafa;
 }
 
-a.disabled-link {
+.disabled-link {
   pointer-events: none;
   cursor: default;
 }
@@ -180,6 +180,7 @@ a.disabled-link {
 }
 
 .navigation__link:hover > a:not(.disabled-link) {
+  transition: 0.3s;
   border-bottom: 0.2rem solid #f1cdb3;
 }
 
@@ -207,6 +208,7 @@ a.disabled-link {
 }
 
 .button:hover {
+  transition: 0.3s;
   background-color: #fddcc4;
 }
 
@@ -373,11 +375,14 @@ a.disabled-link {
 }
 
 .pet-card:hover {
+  transition: 0.4s;
   box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .pet-card:hover .button__learn {
+  transition: 0.4s;
   background-color: #fddcc4;
+  border: 0.2rem solid #fddcc4;
 }
 
 .our-pets .pet-card {
@@ -435,7 +440,9 @@ a.disabled-link {
 }
 
 .row:hover {
+  transition: 0.4s;
   background-color: #f1cdb3;
+  border: 0.2rem solid #f1cdb3;
 }
 
 .row.active {

@@ -9,6 +9,7 @@
   border-radius: 10rem;
   background-color: $color-primary;
   border: none;
+  // transition: 3s;
 }
 
 .button a {
@@ -16,6 +17,7 @@
 }
 
 .button:hover {
+  transition: 0.3s;
   background-color: $color-primary-light;
 }
 

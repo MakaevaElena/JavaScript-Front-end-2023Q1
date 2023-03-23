@@ -9,7 +9,7 @@
 }
 
 .our-pets.friends {
-  // padding: 0 0 48rem 0;
+  padding-bottom: 9.8rem;
   h3 {
     padding: 8.5rem 0 6rem 0;
   }
@@ -57,7 +57,6 @@
 .button__friends {
   text-align: center;
   margin-top: 6rem;
-  // margin-bottom:10rem;
 }
 
 .pagination {
@@ -67,17 +66,17 @@
   margin-top: 3rem;
 
   .double-row-left {
-    background-image: url('/src/img/pagination/double_rows_left.png');
+    background-image: url('../../src/img/pagination/double_rows_left.png');
   }
   .row__left {
-    background-image: url('/src/img/pagination/row_left.png');
+    background-image: url('../../src/img/pagination/row_left.png');
   }
   .row__right {
-    background-image: url('/src/img/pagination/row_active_right.png');
+    background-image: url('../../src/img/pagination/row_active_right.png');
   }
 
   .double-row-right {
-    background-image: url('/src/img/pagination/double_rows_active_right.png');
+    background-image: url('../../src/img/pagination/double_rows_active_right.png');
   }
 
   .row:not(:first-child) {

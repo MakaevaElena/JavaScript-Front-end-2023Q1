@@ -2,11 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // padding-bottom: 1rem;
-  // padding: 0rem 4rem 0 4rem;
 
   color: $color-light-s;
-  // height: 11.5rem;
 }
 
 .our-pets .header__wrapper {
@@ -34,4 +31,5 @@
 .logo__subtitle {
   @include font(normal, 400, 1.3rem, 1.495rem);
   letter-spacing: 0.1em;
+  padding-left: 0.5rem;
 }

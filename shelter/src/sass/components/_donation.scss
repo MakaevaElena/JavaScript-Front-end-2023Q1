@@ -1,0 +1,55 @@
+.donation {
+  background-color: $color-light-l;
+}
+
+.donation__wrapper {
+  height: 46rem;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  //   padding: 0 21.5rem 0 21.5rem;
+}
+
+.donation__left {
+  background-image: url('../../src/img/donation/donation-dog.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 9.2rem;
+  margin-right: 3rem;
+  width: 50.5rem;
+  height: 26.1rem;
+}
+
+.donation__content {
+  max-width: 38rem;
+  padding-top: 8rem;
+
+  h3 {
+    padding-bottom: 2rem;
+  }
+
+  h4 {
+    margin-left: 1.4rem;
+  }
+
+  h5 {
+    color: $color-dark-l;
+    padding-bottom: 2rem;
+  }
+
+  .donation__text {
+    @include font(italic, 400, 1.2rem, 1.8rem);
+    color: $color-dark-m;
+  }
+}
+
+.payment__button {
+  width: 31.9rem;
+  border-radius: 0.9rem;
+  //   height: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+  margin-bottom: 2rem;
+}

@@ -2,6 +2,11 @@
   justify-content: center;
   row-gap: 2rem;
   column-gap: 8rem;
+
+  @include media-tablet {
+    margin-top: 2.5rem;
+    column-gap: 4rem;
+  }
 }
 
 footer {

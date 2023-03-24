@@ -1,4 +1,3 @@
-$content-width: 1200px;
 $color-primary: #f1cdb3;
 $color-primary-light: #fddcc4;
 $color-light-s: #fafafa;
@@ -11,8 +10,12 @@ $color-dark-l: #545454;
 $color-dark-m: #b2b2b2;
 $color-light-l: #f6f6f6;
 
-$desktop-width: 1600px; //1600: wrapper 1160 media-desktop
-//1440 1280 1220
-$small-desktop-width: 1000px; // 1000: wrapper 940 media-tablet
-$tablet-width: 640px; //640: wrapper 600 media-mobile.  +burger
-$mobile-width: 320px; //320: wrapper 300 media-mobile
+$content-width: 1200px; //1280
+
+$desktop-width: 1280px; //1280: wrapper 1200 media-desktop
+$small-desktop-width: 1000px; // 1000: wrapper 920 media-small-desktop
+$tablet-width: 768px; //768 -30*2: wrapper 708 media-tablet.
+$mobile-width: 320px; //320 -10*2: wrapper 300 media-mobile +burger
+
+// @include media-tablet {}
+// @include media-mobile {}

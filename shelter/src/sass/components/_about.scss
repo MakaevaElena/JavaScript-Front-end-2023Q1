@@ -4,6 +4,11 @@
   align-items: top;
   justify-content: center;
   padding-bottom: 10rem;
+
+  @include media-tablet {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }
 
 .about__left {
@@ -14,6 +19,10 @@
   margin-right: 12rem;
   width: 30rem;
   height: 40.8rem;
+
+  @include media-tablet {
+    margin: 6.5rem 0rem 0 0rem;
+  }
 }
 
 .about__content {
@@ -27,5 +36,9 @@
   p {
     color: $color-dark-xl;
     padding-top: 1rem;
+  }
+
+  @include media-tablet {
+    padding-top: 8rem;
   }
 }

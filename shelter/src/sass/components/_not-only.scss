@@ -5,6 +5,10 @@
   height: calc(90.8) rem;
   padding-top: 25.5rem;
   margin-top: -18rem;
+
+  @include media-tablet {
+    padding-top: 22.5rem;
+  }
 }
 
 .not-only__wrapper {
@@ -12,11 +16,20 @@
   align-items: top;
   justify-content: space-between;
   // padding: 0 4rem 0 4rem;
+
+  @include media-tablet {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .not-only__content {
   max-width: 46rem;
   padding-top: 16.3rem;
+  @include media-tablet {
+    padding-top: 0rem;
+  }
 
   p {
     color: $color-dark-s;
@@ -31,9 +44,20 @@
   background-size: contain;
   width: 69.8rem;
   height: 72.8rem;
+
+  @include media-tablet {
+    width: 56.9rem;
+    height: 59.3rem;
+    margin-top: 10rem;
+    margin-left: 14rem;
+  }
 }
 
 .button__not-only {
   padding-top: 2.7rem;
   width: 20.8rem;
+
+  @include media-tablet {
+    margin: 0 auto;
+  }
 }

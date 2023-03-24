@@ -94,6 +94,12 @@ a {
   row-gap: 2rem;
   column-gap: 8rem;
 }
+@media (max-width: 768px) {
+  .footer__wrapper.columns {
+    margin-top: 2.5rem;
+    column-gap: 4rem;
+  }
+}
 
 footer {
   background-image: url("../../src/img/footer/footer-gradient-background.png");
@@ -143,13 +149,23 @@ footer .right {
   padding: 0 4rem 0 4rem;
 }
 
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 0 3rem 0 3rem;
+  }
+}
+@media (max-width: 320px) {
+  .wrapper {
+    max-width: 300px;
+    padding: 0 1rem 0 1rem;
+  }
+}
 .navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
   list-style-type: none;
   margin-top: 3rem;
-  margin-left: 6rem;
 }
 
 .navigation .active {
@@ -268,16 +284,33 @@ footer .right {
   padding-top: 25.5rem;
   margin-top: -18rem;
 }
+@media (max-width: 768px) {
+  .not-only {
+    padding-top: 22.5rem;
+  }
+}
 
 .not-only__wrapper {
   display: flex;
   align-items: top;
   justify-content: space-between;
 }
+@media (max-width: 768px) {
+  .not-only__wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
 
 .not-only__content {
   max-width: 46rem;
   padding-top: 16.3rem;
+}
+@media (max-width: 768px) {
+  .not-only__content {
+    padding-top: 0rem;
+  }
 }
 .not-only__content p {
   color: #cdcdcd;
@@ -291,10 +324,23 @@ footer .right {
   width: 69.8rem;
   height: 72.8rem;
 }
+@media (max-width: 768px) {
+  .not-only__right {
+    width: 56.9rem;
+    height: 59.3rem;
+    margin-top: 10rem;
+    margin-left: 14rem;
+  }
+}
 
 .button__not-only {
   padding-top: 2.7rem;
   width: 20.8rem;
+}
+@media (max-width: 768px) {
+  .button__not-only {
+    margin: 0 auto;
+  }
 }
 
 .about__wrapper {
@@ -302,6 +348,12 @@ footer .right {
   align-items: top;
   justify-content: center;
   padding-bottom: 10rem;
+}
+@media (max-width: 768px) {
+  .about__wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }
 
 .about__left {
@@ -312,6 +364,11 @@ footer .right {
   margin-right: 12rem;
   width: 30rem;
   height: 40.8rem;
+}
+@media (max-width: 768px) {
+  .about__left {
+    margin: 6.5rem 0rem 0 0rem;
+  }
 }
 
 .about__content {
@@ -325,6 +382,11 @@ footer .right {
   color: #4c4c4c;
   padding-top: 1rem;
 }
+@media (max-width: 768px) {
+  .about__content {
+    padding-top: 8rem;
+  }
+}
 
 .friends {
   background-color: #f6f6f6;
@@ -337,6 +399,7 @@ footer .right {
 
 .main .carusel {
   padding-bottom: 6rem;
+  column-gap: 4rem;
 }
 
 .our-pets.friends {
@@ -351,11 +414,16 @@ footer .right {
   align-items: center;
   justify-content: space-around;
 }
-
 .carousel-wrapper {
   width: 99rem;
   padding: 0 5rem;
   overflow: hidden;
+}
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    padding: 0 1.2rem;
+    width: auto;
+  }
 }
 
 .our-pets .carousel-wrapper {
@@ -438,6 +506,11 @@ footer .right {
   cursor: pointer;
   margin-bottom: 6.2rem;
 }
+@media (max-width: 768px) {
+  .row {
+    width: 10%;
+  }
+}
 
 .row:hover {
   transition: 0.4s;
@@ -491,7 +564,6 @@ footer .right {
 .help-wrapper {
   padding: 0 8.7rem;
 }
-
 .food-img {
   background-image: url("../../src/img/help/food.png");
 }
@@ -531,9 +603,18 @@ footer .right {
 .help-grid {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   row-gap: 5.5rem;
-  column-gap: 12rem;
+  column-gap: 10%;
+}
+@media (max-width: 768px) {
+  .help-grid {
+    justify-content: space-around;
+    align-content: center;
+    align-self: center;
+    column-gap: 10%;
+  }
 }
 
 .donation {
@@ -546,6 +627,14 @@ footer .right {
   align-items: top;
   justify-content: center;
 }
+@media (max-width: 768px) {
+  .donation__wrapper {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10rem;
+  }
+}
 
 .donation__left {
   background-image: url("../../src/img/donation/donation-dog.png");
@@ -554,6 +643,13 @@ footer .right {
   margin-top: 9.2rem;
   margin-right: 3rem;
   width: 50.5rem;
+  height: 26.1rem;
+}
+@media (max-width: 768px) {
+  .donation__left {
+    margin-top: 5rem;
+    margin-right: 0;
+  }
 }
 
 .donation__content {

@@ -1,5 +1,4 @@
 .help {
-  // height: 61.1rem;
   padding-bottom: 10rem;
 
   h3 {
@@ -17,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: fit-content;
 
   &__img {
@@ -30,6 +30,10 @@
 
 .help-wrapper {
   padding: 0 8.7rem;
+
+  @include media-tablet {
+    // padding: 0 6.9rem;
+  }
 }
 
 .food-img {
@@ -63,7 +67,17 @@
 .help-grid {
   display: flex;
   justify-content: center;
+  align-items: center;
+
   flex-wrap: wrap;
   row-gap: 5.5rem;
-  column-gap: 12rem;
+  // column-gap: 12rem;
+  column-gap: 10%;
+
+  @include media-tablet {
+    justify-content: space-around;
+    align-content: center;
+    align-self: center;
+    column-gap: 10%;
+  }
 }

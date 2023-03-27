@@ -2,7 +2,7 @@
   "name": "makaevaelena-jsfe2023q1",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "style": "sass --watch src/sass/style.scss src/sass/style.css"
   },

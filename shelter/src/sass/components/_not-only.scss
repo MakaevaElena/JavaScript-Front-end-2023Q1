@@ -2,7 +2,8 @@
   background-image: url('../../src/img/not-only/start-screen-gradient-background.png');
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(90.8) rem;
+  // height: calc(90.8) rem;
+
   padding-top: 25.5rem;
   margin-top: -18rem;
 
@@ -25,9 +26,14 @@
 }
 
 .not-only__content {
-  max-width: 46rem;
-  padding-top: 16.3rem;
+  // width: 46rem;
+  max-width: 39%;
+
+  // padding-top: 16.3rem;
+  padding-top: 13.55%;
+  // padding-bottom: 20.3%;
   @include media-tablet {
+    max-width: 65%;
     padding-top: 0rem;
   }
 
@@ -38,15 +44,35 @@
 }
 
 .not-only__right {
+  display: flex;
+  justify-content: center;
+  // align-items: end;
+  width: 58%;
+  height: 72.8rem;
+  // height: 56.81vw;
+
+  @include media-desktop {
+    height: 56.81vw;
+  }
+
+  @include media-tablet {
+    width: 100%;
+    height: 90vw;
+  }
+}
+
+.right__img {
   // justify-items: center;
   background-image: url('../../src/img/not-only/start-screen-puppy.png');
   background-repeat: no-repeat;
   background-size: contain;
-  width: 69.8rem;
-  height: 72.8rem;
+  // width: 69.8rem;
+  width: 100%;
+  //  height: 72.8rem;
 
   @include media-tablet {
-    width: 56.9rem;
+    // width: 56.9rem;
+    // width: 81%;
     height: 59.3rem;
     margin-top: 10rem;
     margin-left: 14rem;
@@ -54,10 +80,13 @@
 }
 
 .button__not-only {
-  padding-top: 2.7rem;
+  // padding-top: 2.7rem;
+  padding-top: 6%;
   width: 20.8rem;
+  // padding-bottom: 52%;
 
   @include media-tablet {
     margin: 0 auto;
+    // padding-bottom: 0;
   }
 }

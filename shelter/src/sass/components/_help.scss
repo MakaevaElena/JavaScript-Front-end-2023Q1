@@ -71,8 +71,8 @@
 
   flex-wrap: wrap;
   row-gap: 5.5rem;
-  // column-gap: 12rem;
-  column-gap: 10%;
+  column-gap: 12rem;
+  // column-gap: 10%;
 
   @include media-tablet {
     justify-content: space-around;

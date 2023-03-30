@@ -89,6 +89,12 @@ a {
   flex-wrap: nowrap;
 }
 
+@media (max-width: 870px) {
+  .our-pets .columns {
+    justify-content: space-around;
+  }
+}
+
 .footer__wrapper.columns {
   justify-content: center;
   row-gap: 2rem;
@@ -128,6 +134,11 @@ footer .right {
   background-repeat: no-repeat;
   margin-top: 3.5rem;
 }
+@media (max-width: 870px) {
+  footer .right {
+    margin-top: 4rem;
+  }
+}
 
 .footer__info {
   padding-top: 3.7rem;
@@ -166,6 +177,11 @@ footer .right {
   justify-content: space-between;
   list-style-type: none;
   margin-top: 3rem;
+}
+@media (max-width: 870px) {
+  .navigation {
+    margin-top: 2.85rem;
+  }
 }
 
 .navigation .active {
@@ -252,6 +268,11 @@ footer .right {
 .our-pets .header__wrapper {
   color: #292929;
   padding-bottom: 1rem;
+}
+@media (max-width: 870px) {
+  .our-pets .header__wrapper {
+    padding-bottom: 1.4rem;
+  }
 }
 
 .header__left {
@@ -421,8 +442,18 @@ footer .right {
 .our-pets.friends {
   padding-bottom: 3.6rem;
 }
+@media (max-width: 870px) {
+  .our-pets.friends {
+    padding-bottom: 1.3rem;
+  }
+}
 .our-pets.friends h3 {
   padding: 8.5rem 0 6rem 0;
+}
+@media (max-width: 870px) {
+  .our-pets.friends h3 {
+    padding: 8rem 0 3rem 0;
+  }
 }
 
 .friends__wrapper {
@@ -430,6 +461,7 @@ footer .right {
   align-items: center;
   justify-content: space-around;
 }
+
 .carousel-wrapper {
   width: 99rem;
   padding: 0 5rem;
@@ -445,6 +477,11 @@ footer .right {
 .our-pets .carousel-wrapper {
   width: 100%;
   padding: 0;
+}
+@media (max-width: 870px) {
+  .our-pets .carousel-wrapper {
+    width: 88%;
+  }
 }
 
 .pet-card {
@@ -473,6 +510,11 @@ footer .right {
   margin-bottom: 3.2rem;
 }
 
+@media (max-width: 870px) {
+  .hidden__pet-card {
+    display: none;
+  }
+}
 .pet-name {
   padding: 2.5rem 0 2.8rem 0;
 }
@@ -488,6 +530,12 @@ footer .right {
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
+}
+@media (max-width: 870px) {
+  .pagination {
+    margin: 1.1rem auto 0rem auto;
+    width: 65%;
+  }
 }
 .pagination .double-row-left {
   background-image: url("../../src/img/pagination/double_rows_left.png");

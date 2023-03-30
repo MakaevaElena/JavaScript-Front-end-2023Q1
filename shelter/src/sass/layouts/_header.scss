@@ -9,6 +9,9 @@
 .our-pets .header__wrapper {
   color: $color-dark-3xl;
   padding-bottom: 1rem;
+  @include media-tablet {
+    padding-bottom: 1.4rem;
+  }
 }
 
 .header__left {

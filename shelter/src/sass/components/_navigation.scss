@@ -6,9 +6,9 @@
   margin-top: 3rem;
   // margin-left: 6rem;
 
-  // @include media-tablet {
-  //   margin-left: 0rem;
-  // }
+  @include media-tablet {
+    margin-top: 2.85rem;
+  }
 }
 
 .navigation .active {

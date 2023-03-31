@@ -4,10 +4,23 @@
   h3 {
     text-align: center;
     padding: 8rem 0 6rem 0;
+
+    @include media-mobile {
+      padding: 4.2rem 0 3rem 0;
+      padding: 3.55rem 0 3.5rem 0;
+    }
   }
 
   h4 {
     margin-top: 3rem;
+    @include media-mobile {
+      margin-top: 1.7rem;
+      @include font(normal, 400, 1.5rem, 110%);
+    }
+  }
+
+  @include media-mobile {
+    padding-bottom: 3.5rem;
   }
 }
 
@@ -16,8 +29,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: fit-content;
+
+  @include media-tablet {
+    width: 17rem;
+  }
+  @include media-mobile {
+    width: 13rem;
+  }
 
   &__img {
     background-position: 50% 50%;
@@ -32,36 +51,73 @@
   padding: 0 8.7rem;
 
   @include media-tablet {
-    // padding: 0 6.9rem;
+    padding: 0 7rem;
+  }
+
+  @include media-mobile {
+    padding: 0.5rem 1.5rem;
   }
 }
 
+// .point__img {
+//   @include media-mobile {
+//     background-size: 65%;
+//   }
+// }
+
 .food-img {
   background-image: url('../../src/img/help/food.png');
+  @include media-mobile {
+    background-size: 65%;
+  }
 }
 .transportation-img {
   background-image: url('../../src/img/help/icon-transportation.png');
+  @include media-mobile {
+    background-size: 85%;
+  }
 }
 .toys-img {
   background-image: url('../../src/img/help/icon-toys.png');
+  @include media-mobile {
+    background-size: 81%;
+  }
 }
 .bowls-img {
   background-image: url('../../src/img/help/icon-bowls-and-cups.png');
+  @include media-mobile {
+    background-size: 80%;
+  }
 }
 .shampoos-img {
   background-image: url('../../src/img/help/icon-shampoos.png');
+  @include media-mobile {
+    background-size: 75%;
+  }
 }
 .vitamins-img {
   background-image: url('../../src/img/help/icon-vitamins.png');
+  @include media-mobile {
+    background-size: 75%;
+  }
 }
 .medicines-img {
   background-image: url('../../src/img/help/medicines.png');
+  @include media-mobile {
+    background-size: 75%;
+  }
 }
 .collars-img {
   background-image: url('../../src/img/help/collars-or-leashes.png');
+  @include media-mobile {
+    background-size: 75%;
+  }
 }
 .sleeping-img {
   background-image: url('../../src/img/help/sleeping-area.png');
+  @include media-mobile {
+    background-size: 75%;
+  }
 }
 
 .help-grid {
@@ -72,12 +128,14 @@
   flex-wrap: wrap;
   row-gap: 5.5rem;
   column-gap: 12rem;
-  // column-gap: 10%;
 
   @include media-tablet {
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: center;
     align-self: center;
-    column-gap: 10%;
+    column-gap: 0rem;
+  }
+  @include media-mobile {
+    row-gap: 2.4rem;
   }
 }

@@ -2,8 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   color: $color-light-s;
+
+  @include media-mobile { 
+    margin: 0 1rem;
+  }
 }
 
 .our-pets .header__wrapper {

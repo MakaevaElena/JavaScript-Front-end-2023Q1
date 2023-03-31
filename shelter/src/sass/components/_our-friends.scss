@@ -2,9 +2,17 @@
   background-color: $color-light-l;
   padding-bottom: 10rem;
 
+  @include media-mobile {
+    padding-bottom: 4.2rem;
+  }
+
   h3 {
     text-align: center;
     padding: 8rem 0 6rem 0;
+
+    @include media-mobile {
+      padding: 3.2rem 0 4rem 0;
+    }
   }
 }
 
@@ -12,6 +20,10 @@
   padding-bottom: 6rem;
   column-gap: 4rem;
   // margin: 0 1rem 0 1rem;
+
+  @include media-mobile {
+    padding-bottom: 11.8rem;
+  }
 }
 
 .our-pets.friends {
@@ -32,6 +44,11 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+  @include media-mobile {
+    // flex-direction: column;
+    position: relative;
+  }
 }
 
 .carousel-wrapper {
@@ -149,6 +166,10 @@
   @include media-tablet {
     width: 10%;
   }
+
+  @include media-mobile {
+    width: 15%;
+  }
 }
 
 .row:hover {
@@ -165,6 +186,14 @@
   background-image: url('../../src/img/our-friends/Arrow-left.png');
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  order: -1;
+
+  @include media-mobile {
+    position: absolute;
+    top: 83%;
+    left: 22%;
+    order: 0;
+  }
 }
 
 .slider__row__right {
@@ -172,4 +201,11 @@
   transform: rotate(-180deg);
   background-repeat: no-repeat;
   background-position: 50% 50%;
+
+  @include media-mobile {
+    position: absolute;
+    top: 83%;
+    left: 63%;
+    order: 0;
+  }
 }

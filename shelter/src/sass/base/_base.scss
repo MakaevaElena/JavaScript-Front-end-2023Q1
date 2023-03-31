@@ -1,6 +1,5 @@
 html {
   font-size: 10px;
-  // font-size: 1vw;
   scroll-behavior: smooth;
 }
 
@@ -31,12 +30,22 @@ h2 {
   font-family: 'Georgia', Verdana, serif;
   @include font(normal, 400, 4.4rem, 130%);
   color: $color-light-xl;
+
+  @include media-mobile {
+    @include font(normal, 400, 2.5rem, 3.25rem);
+    letter-spacing: 0.06em;
+  }
 }
 
 h3 {
   font-family: 'Georgia', Verdana, serif;
   @include font(normal, 400, 3.5rem, 130%);
   letter-spacing: 0.06em;
+
+  @include media-mobile {
+    @include font(normal, 400, 2.5rem, 3.25rem);
+    letter-spacing: 0.06em;
+  }
 }
 
 h4 {

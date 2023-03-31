@@ -15,8 +15,9 @@ $content-width: 1200px; //1280
 $desktop-width: 1280px; //1280: wrapper 1200 media-desktop
 $small-desktop-width: 1000px; // 1000: wrapper 920 media-small-desktop
 $tablet-width: 768px; //768 -30*2: wrapper 708 media-tablet.
-$tablet-width: 870px;
+$tablet-width: 819px;
+$burger-width: 767px;
 $mobile-width: 320px; //320 -10*2: wrapper 300 media-mobile +burger
-
+$mobile-width: 500px;
 // @include media-tablet {}
 // @include media-mobile {}

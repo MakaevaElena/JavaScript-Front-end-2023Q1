@@ -29,13 +29,16 @@
 .our-pets.friends {
   padding-bottom: 3.6rem;
   @include media-tablet {
-    padding-bottom: 1.3rem;
+    padding-bottom: 4.2rem;
   }
 
   h3 {
     padding: 8.5rem 0 6rem 0;
     @include media-tablet {
       padding: 8rem 0 3rem 0;
+    }
+    @include media-mobile {
+      padding: 4rem 0 4rem 0;
     }
   }
 }
@@ -49,6 +52,9 @@
     // flex-direction: column;
     position: relative;
   }
+}
+
+.our-pets .friends__wrapper {
 }
 
 .carousel-wrapper {
@@ -94,6 +100,15 @@
 
 .our-pets .pet-card {
   margin-bottom: 3.2rem;
+  @include media-mobile {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.hidden__mobile {
+  @include media-mobile {
+    display: none;
+  }
 }
 
 @include media-tablet {
@@ -102,8 +117,14 @@
   }
 }
 
-.pet-name {
+.main .pet-name {
   padding: 2.5rem 0 2.8rem 0;
+}
+
+.our-pets .pet-name {
+  @include media-mobile {
+    padding: 3rem 0 3rem 0;
+  }
 }
 
 .button__friends {
@@ -111,6 +132,9 @@
   // margin-top: 6rem;
   margin: 0 auto;
   width: 17.2rem;
+  @include media-mobile {
+    margin-top: 0rem;
+  }
 }
 
 .pagination {
@@ -122,6 +146,11 @@
   @include media-tablet {
     margin: 1.1rem auto 0rem auto;
     width: 65%;
+  }
+  @include media-mobile {
+    justify-content: space-around;
+    margin-top: 1.5rem;
+    width: 30rem;
   }
 
   .double-row-left {
@@ -140,6 +169,9 @@
 
   .row:not(:first-child) {
     margin-left: 1.8rem;
+    @include media-mobile {
+      margin-left: 0.8rem;
+    }
   }
 
   .number {
@@ -148,6 +180,13 @@
     h4 {
       padding-top: 1rem;
     }
+  }
+}
+
+.pagination .row {
+  @include media-mobile {
+    width: 15vw;
+    height: 15vw;
   }
 }
 
@@ -169,6 +208,7 @@
 
   @include media-mobile {
     width: 15%;
+    margin-bottom: 0;
   }
 }
 

@@ -29,7 +29,10 @@
 .our-pets.friends {
   padding-bottom: 3.6rem;
   @include media-tablet {
-    padding-bottom: 4.2rem;
+    padding-bottom: 7.8rem;
+  }
+  @include media-mobile {
+    padding-bottom: 4.5rem;
   }
 
   h3 {
@@ -52,9 +55,6 @@
     // flex-direction: column;
     position: relative;
   }
-}
-
-.our-pets .friends__wrapper {
 }
 
 .carousel-wrapper {
@@ -122,6 +122,10 @@
 }
 
 .our-pets .pet-name {
+  padding: 2.5rem 0 2.8rem 0;
+  @include media-tablet {
+    padding: 2.5rem 0 3rem 0;
+  }
   @include media-mobile {
     padding: 3rem 0 3rem 0;
   }
@@ -144,7 +148,7 @@
   margin-top: 3rem;
 
   @include media-tablet {
-    margin: 1.1rem auto 0rem auto;
+    margin: 0.6rem auto 0rem auto;
     width: 65%;
   }
   @include media-mobile {
@@ -169,6 +173,10 @@
 
   .row:not(:first-child) {
     margin-left: 1.8rem;
+
+    @include media-tablet {
+      margin-left: 2.2rem;
+    }
     @include media-mobile {
       margin-left: 0.8rem;
     }
@@ -184,6 +192,11 @@
 }
 
 .pagination .row {
+  @include media-tablet {
+    width: 6vw;
+    height: 6vw;
+    margin-bottom: 0;
+  }
   @include media-mobile {
     width: 15vw;
     height: 15vw;

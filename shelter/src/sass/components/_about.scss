@@ -4,6 +4,14 @@
   align-items: top;
   justify-content: center;
   padding-bottom: 10rem;
+
+  @include media-tablet {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  @include media-mobile {
+    padding-bottom: 0;
+  }
 }
 
 .about__left {
@@ -14,18 +22,49 @@
   margin-right: 12rem;
   width: 30rem;
   height: 40.8rem;
+
+  @include media-tablet {
+    margin: 6.5rem 0rem 0 0rem;
+  }
+  @include media-mobile {
+    margin: 4rem 0rem 0 0rem;
+    width: 87%;
+  }
 }
 
 .about__content {
   max-width: 43rem;
   padding-top: 9.3rem;
+  @include media-mobile {
+    padding-top: 4.4rem !important;
+  }
 
   h3 {
     color: $color-dark-l;
+
+    @include media-mobile {
+      text-align: center;
+      // padding-bottom: 2.2rem;
+    }
   }
 
   p {
     color: $color-dark-xl;
     padding-top: 1rem;
+
+    @include media-mobile {
+      // letter-spacing: 0.06em;
+      text-align: justify;
+      margin: 0;
+      padding: 0;
+      padding-top: 2.2rem;
+    }
+  }
+
+  @include media-tablet {
+    padding-top: 8rem;
+  }
+  @include media-mobile {
+    max-width: 90%;
   }
 }

@@ -4,15 +4,24 @@
   justify-content: space-between;
   list-style-type: none;
   margin-top: 3rem;
-  margin-left: 6rem;
+  // margin-left: 6rem;
+
+  @include media-burger {
+    margin-top: 2.85rem;
+    display: none;
+  }
+
+  // @include media-mobile {
+  //   display: none;
+  // }
 }
 
 .navigation .active {
   border-bottom: 0.2rem solid $color-primary;
-  color:$color-light-s;
+  color: $color-light-s;
 }
 
- .disabled-link {
+.disabled-link {
   pointer-events: none;
   cursor: default;
 }
@@ -21,7 +30,7 @@
   @include font(normal, 400, 1.5rem, 2.4rem);
   // text-decoration: none;
   // cursor: pointer;
-  color:$color-dark-s;
+  color: $color-dark-s;
   padding-bottom: 0.3rem;
 }
 

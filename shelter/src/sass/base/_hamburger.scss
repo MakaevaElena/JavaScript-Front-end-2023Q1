@@ -1,4 +1,48 @@
+%hamburger-line {
+  position: relative;
+  content: '';
+  display: block;
+  margin: 8px 0;
+  background: $color-primary;
+  border-radius: 2px;
+  width: 100%;
+  height: 2px;
+}
+
 .hamburger {
-  //   margin-right: 20px;
+  padding-top: 1.1rem;
   display: none;
+  // width: 11%;
+  width: 3rem;
+
+  &__line {
+    @extend %hamburger-line;
+  }
+  &:before {
+    @extend %hamburger-line;
+  }
+  &:after {
+    @extend %hamburger-line;
+  }
+}
+
+.our-pets .hamburger {
+  &__line {
+    @extend %hamburger-line;
+    background: black;
+  }
+  &:before {
+    @extend %hamburger-line;
+    background: black;
+  }
+  &:after {
+    @extend %hamburger-line;
+    background: black;
+  }
+}
+
+@include media-burger {
+  .hamburger {
+    display: inline-block;
+  }
 }

@@ -13,11 +13,11 @@
   }
 }
 
-// .our-pets .footer__wrapper.columns {
-//   @include media-mobile {
-//     row-gap: 4rem;
-//   }
-// }
+.our-pets .footer__wrapper.columns {
+  @include media-tablet {
+    margin-top: 0rem;
+  }
+}
 
 footer {
   background-image: url('../../src/img/footer/footer-gradient-background.png');
@@ -104,8 +104,12 @@ footer {
 }
 
 footer.our-pets {
+  @include media-tablet {
+    padding-top: 3rem;
+    // padding-bottom: 0rem;
+  }
   @include media-mobile {
-    padding-top: 1rem;
+    // padding-top: 1rem;
   }
 }
 

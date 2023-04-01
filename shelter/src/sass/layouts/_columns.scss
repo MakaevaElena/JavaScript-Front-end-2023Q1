@@ -8,3 +8,9 @@
 .main .columns {
   flex-wrap: nowrap;
 }
+
+.our-pets .columns {
+  @include media-tablet {
+    justify-content: space-around;
+  }
+}

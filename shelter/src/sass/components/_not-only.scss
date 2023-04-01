@@ -2,21 +2,42 @@
   background-image: url('../../src/img/not-only/start-screen-gradient-background.png');
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(90.8) rem;
+  // height: calc(90.8) rem;
+
   padding-top: 25.5rem;
   margin-top: -18rem;
+
+  @include media-tablet {
+    padding-top: 22.5rem;
+  }
 }
 
 .not-only__wrapper {
   display: flex;
-  align-items: top;
+  // align-items: top;
+  align-items: center;
   justify-content: space-between;
-  // padding: 0 4rem 0 4rem;
+
+  @include media-tablet {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .not-only__content {
-  max-width: 46rem;
-  padding-top: 16.3rem;
+  max-width: 39%;
+  padding-bottom: 6.8%;
+  @include media-tablet {
+    max-width: 65%;
+    padding-top: 0rem;
+    padding-bottom: 0;
+  }
+
+  @include media-mobile {
+    text-align: center;
+    max-width: 100%;
+  }
 
   p {
     color: $color-dark-s;
@@ -25,15 +46,53 @@
 }
 
 .not-only__right {
-  // justify-items: center;
+  display: flex;
+  justify-content: center;
+  // align-items: end;
+  // width: 58%;
+  width: 69.8rem;
+  // height: 72.8rem;
+  height: 37.8vw;
+
+  @include media-desktop {
+    width: 69.8rem;
+    height: 56.81vw;
+  }
+
+  @include media-tablet {
+    width: 70.8rem;
+    height: 90vw;
+  }
+  @include media-mobile {
+    width: 31rem;
+    height: 37.6rem;
+  }
+}
+
+.right__img {
   background-image: url('../../src/img/not-only/start-screen-puppy.png');
   background-repeat: no-repeat;
   background-size: contain;
-  width: 69.8rem;
-  height: 72.8rem;
+  width: 100%;
+
+  @include media-tablet {
+    margin-top: 10rem;
+    margin-left: 14rem;
+  }
+  @include media-mobile {
+    margin-left: 4rem;
+  }
 }
 
 .button__not-only {
-  padding-top: 2.7rem;
+  padding-top: 6%;
   width: 20.8rem;
+
+  @include media-tablet {
+    margin: 0 auto;
+  }
+
+  @include media-mobile {
+    margin-top: 2.5rem;
+  }
 }

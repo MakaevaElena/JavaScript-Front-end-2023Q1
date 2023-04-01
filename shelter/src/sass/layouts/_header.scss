@@ -2,13 +2,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   color: $color-light-s;
+
+  @include media-mobile { 
+    margin: 0 1rem;
+  }
 }
 
 .our-pets .header__wrapper {
   color: $color-dark-3xl;
   padding-bottom: 1rem;
+  @include media-tablet {
+    padding-bottom: 1.4rem;
+  }
 }
 
 .header__left {
@@ -29,3 +35,6 @@
   letter-spacing: 0.1em;
   padding-left: 0.5rem;
 }
+
+// @include media-tablet {}
+// @include media-mobile {}

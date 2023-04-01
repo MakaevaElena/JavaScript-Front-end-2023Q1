@@ -11,6 +11,7 @@
 
 .our-pets .columns {
   @include media-tablet {
-    justify-content: space-around;
+    // justify-content: space-around;
+    justify-content: flex-start;
   }
 }

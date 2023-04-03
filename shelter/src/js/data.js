@@ -38,7 +38,7 @@ export const pets = [
   },
   {
     name: 'Scarlett',
-    img: 'src/img/our-friends/pets-scarlett.png',
+    img: 'src/img/our-friends/pets-scarlet.png',
     type: 'Dog',
     breed: 'Jack Russell Terrier',
     description:

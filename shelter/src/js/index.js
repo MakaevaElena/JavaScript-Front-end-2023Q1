@@ -2,24 +2,44 @@ import { pets } from './data.js';
 import { MainPetCard } from './petCard.js';
 // console.log(pets);
 
+const mediaTablet = window.matchMedia('(max-width: 768px)');
+const mediaMobile = window.matchMedia('(max-width: 320px)');
 const mainCaruselWrapper = document.querySelector('.main .carusel');
+const petsCaruselWrapper = document.querySelector('.our-pets .carusel');
 
 window.onload = function () {
   if (pets) {
-    clearMainCaruselWrapper();
+    // const clearMainCaruselWrapper();
+    if (mainCaruselWrapper) {
+      // mainCaruselWrapper.innerHTML = '';
+      renderMainPetsCards(pets)
+        .slice(0, 3)
+        .map((el) => mainCaruselWrapper.append(el.createMainPetCard()));
+    }
 
-    renderMainPetsCards(pets)
-      .slice(0, 3)
-      .map((el) => mainCaruselWrapper.append(el.createMainPetCard()));
+    if (petsCaruselWrapper) {
+      // petsCaruselWrapper.innerHTML = '';
+      let number = 8;
+      if (mediaTablet) {
+        number = 6;
+      }
+      if (mediaMobile) {
+        number = 3;
+      }
+      renderMainPetsCards(pets)
+        .slice(0, number)
+        .map((el) => petsCaruselWrapper.append(el.createMainPetCard()));
+    }
 
     // addTestimonialsHandler();
   }
 };
 
-const clearMainCaruselWrapper = function () {
-  mainCaruselWrapper.innerHTML = '';
-  // return wrapper;
-};
+// const clearMainCaruselWrapper = function () {
+//   mainCaruselWrapper.innerHTML = '';
+//   petsCaruselWrapper.innerHTML = '';
+//   // return wrapper;
+// };
 
 const renderMainPetsCards = function (data) {
   const mainPetsCards = [];

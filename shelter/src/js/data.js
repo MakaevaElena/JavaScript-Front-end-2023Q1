@@ -13,6 +13,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 1,
     name: 'Sophia',
     img: 'src/img/our-friends/pets-sophia.png',
     type: 'Dog',
@@ -25,6 +26,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 2,
     name: 'Woody',
     img: 'src/img/our-friends/pets-woody.png',
     type: 'Dog',
@@ -37,6 +39,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 3,
     name: 'Scarlett',
     img: 'src/img/our-friends/pets-scarlet.png',
     type: 'Dog',
@@ -49,6 +52,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 4,
     name: 'Katrine',
     img: 'src/img/our-friends/pets-katrine.png',
     type: 'Cat',
@@ -61,6 +65,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 5,
     name: 'Timmy',
     img: 'src/img/our-friends/pets-timmy.png',
     type: 'Cat',
@@ -73,6 +78,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 6,
     name: 'Freddie',
     img: 'src/img/our-friends/pets-freddie.png',
     type: 'Cat',
@@ -85,6 +91,7 @@ export const pets = [
     parasites: ['none'],
   },
   {
+    id: 7,
     name: 'Charly',
     img: 'src/img/our-friends/pets-charly.png',
     type: 'Dog',

@@ -29,7 +29,7 @@ export class MainPetCard {
 
     const element = template.cloneNode(true);
 
-    console.log(element);
+    // console.log(element);
     element.querySelector('.pet-img img').src = this.img;
     element.querySelector('.pet-name').textContent = this.name;
 

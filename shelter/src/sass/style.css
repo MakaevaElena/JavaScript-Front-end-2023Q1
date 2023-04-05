@@ -623,12 +623,16 @@ footer .right {
   }
 }
 
-.main .carusel {
+.main .item-left,
+.item-right,
+.item-center {
   padding-bottom: 6rem;
-  column-gap: 4rem;
+  column-gap: 9rem;
 }
 @media (max-width: 500px) {
-  .main .carusel {
+  .main .item-left,
+  .item-right,
+  .item-center {
     padding-bottom: 11.8rem;
   }
 }
@@ -890,6 +894,39 @@ footer .right {
     left: 63%;
     order: 0;
   }
+}
+
+.carusel {
+  display: flex;
+  column-gap: 9rem;
+  position: relative;
+  left: -108rem;
+}
+
+@keyframes move-right {
+  from {
+    left: -108rem;
+  }
+  to {
+    left: -216rem;
+  }
+}
+.transition-right {
+  animation-name: move-right;
+  animation-duration: 5s;
+}
+
+@keyframes move-left {
+  from {
+    left: -108rem;
+  }
+  to {
+    left: 0px;
+  }
+}
+.transition-left {
+  animation-name: move-left;
+  animation-duration: 5s;
 }
 
 .help {

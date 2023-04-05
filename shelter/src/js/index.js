@@ -1,53 +1,149 @@
 import { pets } from './data.js';
 import { MainPetCard } from './petCard.js';
-// console.log(pets);
-
-const mediaTablet = window.matchMedia('(max-width: 768px)');
-const mediaMobile = window.matchMedia('(max-width: 320px)');
+// const mediaDesktop = window.matchMedia('(min-width: 769px)');
+// const mediaTablet = window.matchMedia('(max-width: 768px)').matches;
+// const mediaMobile = window.matchMedia('(max-width: 320px)').matches;
 const mainCaruselWrapper = document.querySelector('.main .carusel');
 const petsCaruselWrapper = document.querySelector('.our-pets .carusel');
 
-window.onload = function () {
-  if (pets) {
-    // const clearMainCaruselWrapper();
-    if (mainCaruselWrapper) {
-      // mainCaruselWrapper.innerHTML = '';
-      renderMainPetsCards(pets)
-        .slice(0, 3)
-        .map((el) => mainCaruselWrapper.append(el.createMainPetCard()));
-    }
+const BTN_LEFT = document.querySelector('#btn-left');
+const BTN_RIGHT = document.querySelector('#btn-right');
+const CAROUSEL = document.querySelector('#carusel');
+let left;
+let center;
+let right;
 
-    if (petsCaruselWrapper) {
-      // petsCaruselWrapper.innerHTML = '';
-      let number = 8;
-      if (mediaTablet) {
-        number = 6;
-      }
-      if (mediaMobile) {
-        number = 3;
-      }
-      renderMainPetsCards(pets)
-        .slice(0, number)
-        .map((el) => petsCaruselWrapper.append(el.createMainPetCard()));
-    }
+const shuffledArr = (arr) => arr.sort(() => Math.random() - 0.5);
 
-    // addTestimonialsHandler();
+function compare(arr1, arr2) {
+  // console.log('arr1', arr1);
+  // console.log('arr2', arr2);
+
+  for (let i = 0; i < arr1.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      if (arr1[i] === arr2[j]) {
+        return true;
+      }
+    }
   }
-};
-
-// const clearMainCaruselWrapper = function () {
-//   mainCaruselWrapper.innerHTML = '';
-//   petsCaruselWrapper.innerHTML = '';
-//   // return wrapper;
-// };
+  return false;
+}
 
 const renderMainPetsCards = function (data) {
   const mainPetsCards = [];
   data.map((el) => {
     mainPetsCards.push(new MainPetCard(el));
   });
-  // console.log(testimonials);
   return mainPetsCards;
+};
+
+let prevArr = [];
+const renderBlock = (data, num, position) => {
+  let newArr = [];
+  // console.log('prevArr', prevArr);
+  let arr = shuffledArr(data).slice(0, num);
+  // console.log(arr);
+  arr.map((el) => newArr.push(el.id));
+
+  if (!compare(newArr, prevArr)) {
+    let newPets = renderMainPetsCards(arr);
+    newPets.map((el) => position.append(el.createMainPetCard()));
+    prevArr = newArr;
+  } else {
+    renderBlock(data, num, position);
+  }
+};
+
+const moveLeft = () => {
+  CAROUSEL.classList.add('transition-left');
+  BTN_LEFT.removeEventListener('click', moveLeft);
+  BTN_RIGHT.removeEventListener('click', moveRight);
+};
+
+const moveRight = () => {
+  CAROUSEL.classList.add('transition-right');
+  BTN_LEFT.removeEventListener('click', moveLeft);
+  BTN_RIGHT.removeEventListener('click', moveRight);
+};
+
+const caruselHandler = () => {
+  const ITEM_LEFT = document.querySelector('.item-left');
+  const ITEM_RIGHT = document.querySelector('.item-right');
+
+  CAROUSEL.addEventListener('animationend', (animationEvent) => {
+    let changedItem;
+    if (animationEvent.animationName === 'move-left') {
+      CAROUSEL.classList.remove('transition-left');
+      changedItem = ITEM_LEFT;
+
+      document.querySelector('.item-center').innerHTML = ITEM_LEFT.innerHTML;
+    } else {
+      CAROUSEL.classList.remove('transition-right');
+      changedItem = ITEM_RIGHT;
+
+      document.querySelector('.item-center').innerHTML = ITEM_RIGHT.innerHTML;
+    }
+
+    changedItem.innerHTML = '';
+
+    renderBlock(pets, 3, changedItem);
+
+    // !нужно запомнить предыдущую карточку левую и правую
+    // !проверить, если она есть, то применять ее
+
+    // let newPets = renderMainPetsCards(shuffledArr(pets)).slice(0, 3);
+    // newPets.map((el) => changedItem.append(el.createMainPetCard()));
+
+    BTN_LEFT.addEventListener('click', moveLeft);
+    BTN_RIGHT.addEventListener('click', moveRight);
+  });
+};
+
+window.onload = function () {
+  if (pets) {
+    if (mainCaruselWrapper) {
+      // mainCaruselWrapper.innerHTML = '';
+      left = document.createElement('div');
+      left.classList.add('item-left', 'columns');
+      center = document.createElement('div');
+      center.classList.add('item-center', 'columns');
+      right = document.createElement('div');
+      right.classList.add('item-right', 'columns');
+
+      BTN_LEFT.addEventListener('click', moveLeft);
+      BTN_RIGHT.addEventListener('click', moveRight);
+
+      renderBlock(pets, 3, left);
+      renderBlock(pets, 3, center);
+      renderBlock(pets, 3, right);
+      mainCaruselWrapper.append(left);
+      mainCaruselWrapper.append(center);
+      mainCaruselWrapper.append(right);
+      caruselHandler();
+    }
+
+    if (petsCaruselWrapper) {
+      // petsCaruselWrapper.innerHTML = '';
+      const left = document.createElement('div');
+      left.classList.add('item-left', 'columns');
+
+      let number;
+
+      if (document.documentElement.clientWidth <= 320) {
+        number = 3;
+      } else if (document.documentElement.clientWidth <= 768) {
+        number = 6;
+      } else number = 8;
+
+      renderMainPetsCards(pets)
+        .slice(0, number)
+        .map((el) => left.append(el.createMainPetCard()));
+
+      petsCaruselWrapper.append(left);
+    }
+
+    // addTestimonialsHandler();
+  }
 };
 
 // console.log(

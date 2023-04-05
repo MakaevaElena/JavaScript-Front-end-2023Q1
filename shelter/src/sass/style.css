@@ -624,15 +624,15 @@ footer .right {
 }
 
 .main .item-left,
-.item-right,
-.item-center {
+.main .item-right,
+.main .item-center {
   padding-bottom: 6rem;
   column-gap: 9rem;
 }
 @media (max-width: 500px) {
   .main .item-left,
-  .item-right,
-  .item-center {
+  .main .item-right,
+  .main .item-center {
     padding-bottom: 11.8rem;
   }
 }
@@ -896,7 +896,7 @@ footer .right {
   }
 }
 
-.carusel {
+.main .carusel {
   display: flex;
   column-gap: 9rem;
   position: relative;
@@ -913,7 +913,7 @@ footer .right {
 }
 .transition-right {
   animation-name: move-right;
-  animation-duration: 5s;
+  animation-duration: 2s;
 }
 
 @keyframes move-left {
@@ -926,7 +926,15 @@ footer .right {
 }
 .transition-left {
   animation-name: move-left;
-  animation-duration: 5s;
+  animation-duration: 2s;
+}
+
+.hidden {
+  display: none;
+}
+
+.our-pets .carusel {
+  display: flex;
 }
 
 .help {

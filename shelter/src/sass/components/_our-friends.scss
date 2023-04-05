@@ -19,8 +19,8 @@
 // .main .carusel {
 
 .main .item-left,
-.item-right,
-.item-center {
+.main .item-right,
+.main .item-center {
   padding-bottom: 6rem;
   column-gap: 9rem;
   // margin: 0 1rem 0 1rem;
@@ -269,7 +269,7 @@
 
 // ANIMATION
 
-.carusel {
+.main .carusel {
   display: flex;
   // align-items: center;
   column-gap: 9rem;
@@ -297,7 +297,7 @@
 
 .transition-right {
   animation-name: move-right;
-  animation-duration: 5s;
+  animation-duration: 2s;
 }
 
 @keyframes move-left {
@@ -316,5 +316,15 @@
 
 .transition-left {
   animation-name: move-left;
-  animation-duration: 5s;
+  animation-duration: 2s;
+}
+
+// PAGINATION
+
+.hidden {
+  display: none;
+}
+
+.our-pets .carusel {
+  display: flex;
 }

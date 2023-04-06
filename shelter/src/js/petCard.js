@@ -32,7 +32,7 @@ export class MainPetCard {
     // console.log(element);
     element.querySelector('.pet-img img').src = this.img;
     element.querySelector('.pet-name').textContent = this.name;
-
+    element.setAttribute('data-id', this.id);
     return element;
   }
 }

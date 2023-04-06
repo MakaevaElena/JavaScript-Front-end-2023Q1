@@ -1,4 +1,5 @@
 import { pets } from './data.js';
+import { PetModal } from './PetModal.js';
 
 import {
   moveLeft,
@@ -25,6 +26,29 @@ const PAGE = document.querySelector('#number h4');
 let left;
 let center;
 let right;
+
+// MODAL
+
+const addModalHandler = () => {
+  document.querySelector('.carousel-wrapper').addEventListener('click', (evt) => {
+    if (evt.target.closest('.pet-card')) {
+      let clickedId = evt.target.closest('.pet-card').getAttribute('data-id');
+      let clickedCardData = getClickedData(clickedId);
+      // console.log(clickedId);
+      renderModal(clickedCardData);
+    }
+  });
+};
+
+const getClickedData = (id) => {
+  const res = pets.find((el) => el.id === Number(id));
+  return res;
+};
+
+const renderModal = function (card) {
+  let modal = new PetModal('modal', card);
+  modal.renderModal();
+};
 
 window.onload = function () {
   if (pets) {
@@ -120,5 +144,6 @@ window.onload = function () {
       };
       ROW_LEFT.addEventListener('click', onLeft);
     }
+    addModalHandler();
   }
 };

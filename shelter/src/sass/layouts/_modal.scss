@@ -1,0 +1,87 @@
+.overlay_modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background-color: rgba(41, 41, 41, 0.6);
+
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+}
+
+.modal {
+  padding: 5rem;
+  background-color: transparent;
+
+  position: absolute;
+  overflow: auto;
+
+  &__close-icon {
+    width: 4.8rem;
+    height: 4.8rem;
+    border: 0.2rem solid #f1cdb3;
+    border-radius: 10rem;
+    background-image: url('../../src/img/modal/Vector.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    position: absolute;
+    left: 939px;
+    top: 0px;
+    cursor: pointer;
+  }
+
+  // &__content {
+  .modal__pet-card {
+    background-color: white;
+    border-radius: 9px;
+    width: 90rem;
+    display: flex;
+    // justify-content: space-around;
+    // align-items: center;
+  }
+
+  &__image {
+    width: 50rem;
+    height: 50rem;
+    background-image: url('../../src/img/our-friends/pets-jennifer.png');
+    background-size: contain;
+    border-radius: 9px;
+  }
+
+  &__text {
+    width: 39%;
+    margin: 0rem 2rem 0rem 2.9rem;
+
+    .pet-name {
+      padding-top: 5.1rem;
+    }
+
+    .type {
+      padding-top: 1rem;
+    }
+
+    .description {
+      padding-top: 4rem;
+      padding-bottom: 3rem;
+    }
+    span {
+      font-weight: 700;
+    }
+
+    h5 {
+      padding-top: 1.2rem;
+    }
+
+    .list::before {
+      padding-right: 0.8rem;
+      content: '\2022';
+      color: #f1cdb3;
+    }
+  }
+}

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   font-size: 10px;
   scroll-behavior: smooth;
@@ -241,6 +242,78 @@ footer .right {
 .footer__info h4 {
   margin-top: 0.1rem;
   margin-left: 2rem;
+  color: #f1cdb3;
+}
+
+.overlay_modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: rgba(41, 41, 41, 0.6);
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+}
+
+.modal {
+  padding: 5rem;
+  background-color: transparent;
+  position: absolute;
+  overflow: auto;
+}
+.modal__close-icon {
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 0.2rem solid #f1cdb3;
+  border-radius: 10rem;
+  background-image: url("../../src/img/modal/Vector.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  left: 939px;
+  top: 0px;
+  cursor: pointer;
+}
+.modal .modal__pet-card {
+  background-color: white;
+  border-radius: 9px;
+  width: 90rem;
+  display: flex;
+}
+.modal__image {
+  width: 50rem;
+  height: 50rem;
+  background-image: url("../../src/img/our-friends/pets-jennifer.png");
+  background-size: contain;
+  border-radius: 9px;
+}
+.modal__text {
+  width: 39%;
+  margin: 0rem 2rem 0rem 2.9rem;
+}
+.modal__text .pet-name {
+  padding-top: 5.1rem;
+}
+.modal__text .type {
+  padding-top: 1rem;
+}
+.modal__text .description {
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+.modal__text span {
+  font-weight: 700;
+}
+.modal__text h5 {
+  padding-top: 1.2rem;
+}
+.modal__text .list::before {
+  padding-right: 0.8rem;
+  content: "•";
   color: #f1cdb3;
 }
 

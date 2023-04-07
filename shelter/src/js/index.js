@@ -1,5 +1,6 @@
 import { pets } from './data.js';
 import { PetModal } from './PetModal.js';
+// import { crossCheck } from './console.js';
 
 import {
   moveLeft,
@@ -116,9 +117,13 @@ window.onload = function () {
           PAGE.innerHTML = numberPage;
           ROW_LEFT.classList.add('active');
           ROW_LEFT.classList.remove('disabled-link');
+          DOUBLE_ROW_LEFT.classList.add('active');
+          DOUBLE_ROW_LEFT.classList.remove('disabled-link');
         } else {
           ROW_RIGHT.classList.add('disabled-link');
           ROW_RIGHT.classList.remove('active');
+          DOUBLE_ROW_RIGHT.classList.add('disabled-link');
+          DOUBLE_ROW_RIGHT.classList.remove('active');
         }
       };
       ROW_RIGHT.addEventListener('click', onRight);
@@ -127,9 +132,7 @@ window.onload = function () {
         let end = (numberPage - 1) * number;
         let start = end - number;
 
-        if (start <= pets.length && numberPage > 1) {
-          ROW_LEFT.classList.add('active');
-          ROW_LEFT.classList.remove('disabled-link');
+        if (start <= pets.length && numberPage >= 1) {
           let petsOnPage = pets.slice(start, end);
           ITEM_CENTER.innerHTML = '';
 
@@ -137,13 +140,84 @@ window.onload = function () {
 
           numberPage--;
           PAGE.innerHTML = numberPage;
+          ROW_LEFT.classList.add('active');
+          ROW_LEFT.classList.remove('disabled-link');
+          ROW_RIGHT.classList.add('active');
+          ROW_RIGHT.classList.remove('disabled-link');
+          DOUBLE_ROW_RIGHT.classList.add('active');
+          DOUBLE_ROW_RIGHT.classList.remove('disabled-link');
         } else {
           ROW_LEFT.classList.add('disabled-link');
           ROW_LEFT.classList.remove('active');
+          DOUBLE_ROW_LEFT.classList.add('disabled-link');
+          DOUBLE_ROW_LEFT.classList.remove('active');
         }
       };
       ROW_LEFT.addEventListener('click', onLeft);
+
+      const onFirst = () => {
+        if (numberPage > 1) {
+          let petsOnPage = pets.slice(0, number);
+          ITEM_CENTER.innerHTML = '';
+          renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
+
+          numberPage = 1;
+          PAGE.innerHTML = numberPage;
+          DOUBLE_ROW_RIGHT.classList.add('active');
+          DOUBLE_ROW_RIGHT.classList.remove('disabled-link');
+          ROW_RIGHT.classList.add('active');
+          ROW_RIGHT.classList.remove('disabled-link');
+        } else {
+          DOUBLE_ROW_RIGHT.classList.add('disabled-link');
+          DOUBLE_ROW_RIGHT.classList.remove('active');
+        }
+      };
+
+      DOUBLE_ROW_LEFT.addEventListener('click', onFirst);
+
+      const onLast = () => {
+        if (numberPage * number <= pets.length) {
+          let petsOnPage = pets.slice(pets.length - number, pets.length);
+          ITEM_CENTER.innerHTML = '';
+          renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
+
+          numberPage = 1;
+          PAGE.innerHTML = numberPage;
+          DOUBLE_ROW_LEFT.classList.add('disabled-link');
+          DOUBLE_ROW_LEFT.classList.remove('active');
+          ROW_LEFT.classList.add('disabled-link');
+          ROW_LEFT.classList.remove('active');
+        } else {
+          DOUBLE_ROW_LEFT.classList.add('disabled-link');
+          DOUBLE_ROW_LEFT.classList.remove('active');
+        }
+      };
+
+      DOUBLE_ROW_LEFT.addEventListener('click', onLast);
     }
     addModalHandler();
   }
+  // MOBILE-MENU
+  const burger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const links = document.querySelector('.mobile.navigation');
+
+  const toggleMobileMenu = () => {
+    if (burger.classList.contains('opened')) {
+      mobileMenu.style.right = '-350px';
+      burger.classList.remove('opened');
+      burger.style.transform = 'rotate(0deg)';
+    } else {
+      mobileMenu.style.right = '0';
+      burger.classList.add('opened');
+      burger.style.transform = 'rotate(90deg)';
+    }
+  };
+
+  // console.log(checkedBurger);
+  burger.addEventListener('click', toggleMobileMenu);
+
+  links.addEventListener('click', toggleMobileMenu);
 };
+
+// crossCheck();

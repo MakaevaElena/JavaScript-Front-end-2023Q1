@@ -14,7 +14,11 @@ export class Modal {
 
     this.modalContent = this.createDomeNode(this.modalContent, 'div', 'modal__content');
 
-    this.modalCloseBtn = this.createDomeNode(this.modalCloseBtn, 'div', 'modal__close-icon');
+    this.modalCloseBtn = this.createDomeNode(
+      this.modalCloseBtn,
+      'div',
+      'modal__close-icon',
+    );
 
     // this.modalCloseBtn.innerHTML = '';
     this.setContent(content);

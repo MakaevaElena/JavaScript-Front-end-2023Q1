@@ -12,6 +12,8 @@
   width: 90%;
   height: 90%;
   border-radius: 10px;
+  // @include media-tablet {
+  // }
 }
 
 .modal {
@@ -20,6 +22,9 @@
 
   position: absolute;
   overflow: auto;
+
+  @include media-tablet {
+  }
 
   &__close-icon {
     width: 4.8rem;
@@ -31,9 +36,16 @@
     background-position: center center;
 
     position: absolute;
-    left: 939px;
+    right: 8px;
     top: 0px;
     cursor: pointer;
+
+    @include media-tablet {
+      right: 8px;
+    }
+    @include media-mobile {
+      right: 8px;
+    }
   }
 
   // &__content {
@@ -41,25 +53,55 @@
     background-color: white;
     border-radius: 9px;
     width: 90rem;
+    // width: 83%;
     display: flex;
     // justify-content: space-around;
     // align-items: center;
+
+    @include media-tablet {
+      width: 63rem;
+    }
+    @include media-mobile {
+      width: 24rem;
+    }
   }
 
   &__image {
     width: 50rem;
     height: 50rem;
     background-image: url('../../src/img/our-friends/pets-jennifer.png');
+    background-repeat: no-repeat;
     background-size: contain;
     border-radius: 9px;
+
+    @include media-tablet {
+      height: 36rem;
+    }
+    @include media-mobile {
+      display: none;
+    }
   }
 
   &__text {
-    width: 39%;
+    width: 42.5%;
     margin: 0rem 2rem 0rem 2.9rem;
+
+    @include media-tablet {
+      width: 55%;
+      margin: 0rem 3rem 1rem 1rem;
+      @include font(normal, 400, 1.3rem, 1.43rem);
+      letter-spacing: 0.06em;
+    }
+    @include media-mobile {
+      width: 90%;
+      margin: 0rem 1rem 0rem 1rem;
+    }
 
     .pet-name {
       padding-top: 5.1rem;
+      @include media-tablet {
+        padding-top: 1rem;
+      }
     }
 
     .type {
@@ -69,6 +111,10 @@
     .description {
       padding-top: 4rem;
       padding-bottom: 3rem;
+      @include media-tablet {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+      }
     }
     span {
       font-weight: 700;
@@ -76,6 +122,9 @@
 
     h5 {
       padding-top: 1.2rem;
+      @include media-tablet {
+        padding-top: 0.8rem;
+      }
     }
 
     .list::before {

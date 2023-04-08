@@ -18,5 +18,9 @@
   "homepage": "https://github.com/rolling-scopes-school/makaevaelena-JSFE2023Q1#readme",
   "dependencies": {
     "sass": "^1.59.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1"
   }
 }

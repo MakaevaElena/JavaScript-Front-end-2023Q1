@@ -1,4 +1,4 @@
-import { MainPetCard } from './petCard.js';
+import { MainPetCard } from './PetCard.js';
 
 const CAROUSEL = document.querySelector('#carusel');
 

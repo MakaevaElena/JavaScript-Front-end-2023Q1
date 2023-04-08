@@ -1,6 +1,6 @@
 import { pets } from './data.js';
 import { PetModal } from './PetModal.js';
-// import { crossCheck } from './console.js';
+import { crossCheck } from './console.js';
 
 import {
   moveLeft,
@@ -225,4 +225,4 @@ window.onload = function () {
   links.addEventListener('click', toggleMobileMenu);
 };
 
-// crossCheck();
+crossCheck();

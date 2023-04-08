@@ -167,6 +167,10 @@ window.onload = function () {
           DOUBLE_ROW_RIGHT.classList.remove('disabled-link');
           ROW_RIGHT.classList.add('active');
           ROW_RIGHT.classList.remove('disabled-link');
+          ROW_LEFT.classList.add('disabled-link');
+          ROW_LEFT.classList.remove('active');
+          DOUBLE_ROW_LEFT.classList.add('disabled-link');
+          DOUBLE_ROW_LEFT.classList.remove('active');
         } else {
           DOUBLE_ROW_RIGHT.classList.add('disabled-link');
           DOUBLE_ROW_RIGHT.classList.remove('active');
@@ -190,6 +194,10 @@ window.onload = function () {
           ROW_LEFT.classList.remove('disabled-link');
           DOUBLE_ROW_LEFT.classList.add('active');
           DOUBLE_ROW_LEFT.classList.remove('disabled-link');
+          ROW_RIGHT.classList.add('disabled-link');
+          ROW_RIGHT.classList.remove('active');
+          DOUBLE_ROW_RIGHT.classList.add('disabled-link');
+          DOUBLE_ROW_RIGHT.classList.remove('active');
         } else {
           DOUBLE_ROW_LEFT.classList.add('disabled-link');
           DOUBLE_ROW_LEFT.classList.remove('active');

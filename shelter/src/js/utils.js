@@ -1,4 +1,4 @@
-import { MainPetCard } from './PetCard.js';
+import { MainPetCard } from './MainPetCard.js';
 
 const CAROUSEL = document.querySelector('#carusel');
 
@@ -88,8 +88,6 @@ export const caruselHandler = (data, num) => {
 };
 
 // ПАГИНАЦИЯ
-
-
 
 const getDataById = (data, arrId) => {
   return data.map((obj, (i) => filter((el) => data.id === arrId[i])));

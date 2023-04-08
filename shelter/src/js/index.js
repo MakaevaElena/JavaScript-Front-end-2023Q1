@@ -132,7 +132,7 @@ window.onload = function () {
         let end = (numberPage - 1) * number;
         let start = end - number;
 
-        if (start <= pets.length && numberPage >= 1) {
+        if (start <= pets.length && numberPage > 1) {
           let petsOnPage = pets.slice(start, end);
           ITEM_CENTER.innerHTML = '';
 
@@ -186,10 +186,10 @@ window.onload = function () {
 
           numberPage = pets.length / number;
           PAGE.innerHTML = numberPage;
-          DOUBLE_ROW_LEFT.classList.add('disabled-link');
-          DOUBLE_ROW_LEFT.classList.remove('active');
-          ROW_LEFT.classList.add('disabled-link');
-          ROW_LEFT.classList.remove('active');
+          ROW_LEFT.classList.add('active');
+          ROW_LEFT.classList.remove('disabled-link');
+          DOUBLE_ROW_LEFT.classList.add('active');
+          DOUBLE_ROW_LEFT.classList.remove('disabled-link');
         } else {
           DOUBLE_ROW_LEFT.classList.add('disabled-link');
           DOUBLE_ROW_LEFT.classList.remove('active');

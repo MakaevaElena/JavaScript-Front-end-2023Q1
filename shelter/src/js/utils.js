@@ -89,8 +89,6 @@ export const caruselHandler = (data, num) => {
 
 // ПАГИНАЦИЯ
 
-
-
 const getDataById = (data, arrId) => {
   return data.map((obj, (i) => filter((el) => data.id === arrId[i])));
 };

@@ -7,13 +7,17 @@
   border-radius: 2px;
   width: 100%;
   height: 2px;
+  transition: 1.5s;
 }
 
 .hamburger {
+  z-index: 3;
   padding-top: 1.1rem;
   display: none;
   // width: 11%;
   width: 3rem;
+  cursor: pointer;
+  transition: 0.8s;
 
   &__line {
     @extend %hamburger-line;
@@ -30,14 +34,35 @@
   &__line {
     @extend %hamburger-line;
     background: black;
+    transition: 1.5s;
   }
   &:before {
     @extend %hamburger-line;
     background: black;
+    transition: 1.5s;
   }
   &:after {
     @extend %hamburger-line;
     background: black;
+    transition: 1.5s;
+  }
+}
+
+.hamburger.opened {
+  span.hamburger__line {
+    @extend %hamburger-line;
+    background: $color-primary;
+    transition: 1.5s;
+  }
+  &:before {
+    @extend %hamburger-line;
+    background: $color-primary;
+    transition: 1.5s;
+  }
+  &:after {
+    @extend %hamburger-line;
+    background: $color-primary;
+    transition: 1.5s;
   }
 }
 

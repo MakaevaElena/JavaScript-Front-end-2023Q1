@@ -369,7 +369,7 @@ export const pets = [
   {
     id: 28,
     name: 'Katrine',
-    img: 'src/img/our-friends/pets-katrine.png',
+    img: 'src/img/our-friends/pet22.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -382,7 +382,7 @@ export const pets = [
   {
     id: 29,
     name: 'Timmy',
-    img: 'src/img/our-friends/pets-timmy.png',
+    img: 'src/img/our-friends/pet25.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -395,7 +395,7 @@ export const pets = [
   {
     id: 30,
     name: 'Freddie',
-    img: 'src/img/our-friends/pets-freddie.png',
+    img: 'src/img/our-friends/pet26.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -408,7 +408,7 @@ export const pets = [
   {
     id: 31,
     name: 'Charly',
-    img: 'src/img/our-friends/pets-charly.png',
+    img: 'src/img/our-friends/pet27.jpg',
     type: 'Dog',
     breed: 'Jack Russell Terrier',
     description:
@@ -422,7 +422,7 @@ export const pets = [
   {
     id: 32,
     name: 'Jennifer',
-    img: 'src/img/our-friends/pets-jennifer.png',
+    img: 'src/img/our-friends/pet29.jpg',
     type: 'Dog',
     breed: 'Labrador',
     description:
@@ -435,7 +435,7 @@ export const pets = [
   {
     id: 33,
     name: 'Sophia',
-    img: 'src/img/our-friends/pets-sophia.png',
+    img: 'src/img/our-friends/pet31.jpg',
     type: 'Dog',
     breed: 'Shih tzu',
     description:
@@ -448,7 +448,7 @@ export const pets = [
   {
     id: 34,
     name: 'Woody',
-    img: 'src/img/our-friends/pets-woody.png',
+    img: 'src/img/our-friends/pet32.jpg',
     type: 'Dog',
     breed: 'Golden Retriever',
     description:
@@ -461,7 +461,7 @@ export const pets = [
   {
     id: 35,
     name: 'Scarlett',
-    img: 'src/img/our-friends/pets-scarlet.png',
+    img: 'src/img/our-friends/pet35.jpg',
     type: 'Dog',
     breed: 'Jack Russell Terrier',
     description:
@@ -474,7 +474,7 @@ export const pets = [
   {
     id: 36,
     name: 'Katrine',
-    img: 'src/img/our-friends/pets-katrine.png',
+    img: 'src/img/our-friends/pet36.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -487,7 +487,7 @@ export const pets = [
   {
     id: 37,
     name: 'Timmy',
-    img: 'src/img/our-friends/pets-timmy.png',
+    img: 'src/img/our-friends/pet37.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -500,7 +500,7 @@ export const pets = [
   {
     id: 38,
     name: 'Freddie',
-    img: 'src/img/our-friends/pets-freddie.png',
+    img: 'src/img/our-friends/pet39.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -513,7 +513,7 @@ export const pets = [
   {
     id: 39,
     name: 'Charly',
-    img: 'src/img/our-friends/pets-charly.png',
+    img: 'src/img/our-friends/pet40.jpg',
     type: 'Dog',
     breed: 'Jack Russell Terrier',
     description:
@@ -527,7 +527,7 @@ export const pets = [
   {
     id: 40,
     name: 'Jennifer',
-    img: 'src/img/our-friends/pets-jennifer.png',
+    img: 'src/img/our-friends/pet41.jpg',
     type: 'Dog',
     breed: 'Labrador',
     description:
@@ -540,7 +540,7 @@ export const pets = [
   {
     id: 41,
     name: 'Sophia',
-    img: 'src/img/our-friends/pets-sophia.png',
+    img: 'src/img/our-friends/pet42.jpg',
     type: 'Dog',
     breed: 'Shih tzu',
     description:
@@ -553,7 +553,7 @@ export const pets = [
   {
     id: 42,
     name: 'Woody',
-    img: 'src/img/our-friends/pets-woody.png',
+    img: 'src/img/our-friends/pet44.jpg',
     type: 'Dog',
     breed: 'Golden Retriever',
     description:
@@ -566,7 +566,7 @@ export const pets = [
   {
     id: 43,
     name: 'Scarlett',
-    img: 'src/img/our-friends/pets-scarlet.png',
+    img: 'src/img/our-friends/pet45.jpg',
     type: 'Dog',
     breed: 'Jack Russell Terrier',
     description:
@@ -579,7 +579,7 @@ export const pets = [
   {
     id: 44,
     name: 'Katrine',
-    img: 'src/img/our-friends/pets-katrine.png',
+    img: 'src/img/our-friends/pet46.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -592,7 +592,7 @@ export const pets = [
   {
     id: 45,
     name: 'Timmy',
-    img: 'src/img/our-friends/pets-timmy.png',
+    img: 'src/img/our-friends/pet48.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -605,7 +605,7 @@ export const pets = [
   {
     id: 46,
     name: 'Freddie',
-    img: 'src/img/our-friends/pets-freddie.png',
+    img: 'src/img/our-friends/pet50.jpg',
     type: 'Cat',
     breed: 'British Shorthair',
     description:
@@ -618,7 +618,7 @@ export const pets = [
   {
     id: 47,
     name: 'Charly',
-    img: 'src/img/our-friends/pets-charly.png',
+    img: 'src/img/our-friends/pet51.jpg',
     type: 'Dog',
     breed: 'Jack Russell Terrier',
     description:

@@ -14,11 +14,7 @@ export class Modal {
 
     this.modalContent = this.createDomeNode(this.modalContent, 'div', 'modal__content');
 
-    this.modalCloseBtn = this.createDomeNode(
-      this.modalCloseBtn,
-      'div',
-      'modal__close-icon',
-    );
+    this.modalCloseBtn = this.createDomeNode(this.modalCloseBtn, 'div', 'modal__close-icon');
 
     // this.modalCloseBtn.innerHTML = '';
     this.setContent(content);
@@ -54,14 +50,14 @@ export class Modal {
 
   openModal() {
     document.body.append(this.overlay);
-    // document.body.style.position = 'fixed';
+    document.body.style.overflow = 'hidden';
   }
 
   closeModal(evt) {
     let classes = evt.target.classList;
-    // document.body.style.position = 'absolute';
     if (classes.contains('overlay') || classes.contains('modal__close-icon')) {
       document.querySelector('.overlay').remove();
+      document.body.style.overflow = '';
     }
   }
 }

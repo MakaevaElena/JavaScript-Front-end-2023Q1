@@ -176,12 +176,15 @@ window.onload = function () {
       DOUBLE_ROW_LEFT.addEventListener('click', onFirst);
 
       const onLast = () => {
-        if (numberPage * number <= pets.length) {
+        console.log(numberPage);
+        console.log();
+
+        if (numberPage < pets.length / number) {
           let petsOnPage = pets.slice(pets.length - number, pets.length);
           ITEM_CENTER.innerHTML = '';
           renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
 
-          numberPage = 1;
+          numberPage = pets.length / number;
           PAGE.innerHTML = numberPage;
           DOUBLE_ROW_LEFT.classList.add('disabled-link');
           DOUBLE_ROW_LEFT.classList.remove('active');
@@ -193,7 +196,7 @@ window.onload = function () {
         }
       };
 
-      DOUBLE_ROW_LEFT.addEventListener('click', onLast);
+      DOUBLE_ROW_RIGHT.addEventListener('click', onLast);
     }
     addModalHandler();
   }
@@ -207,10 +210,12 @@ window.onload = function () {
       mobileMenu.style.right = '-350px';
       burger.classList.remove('opened');
       burger.style.transform = 'rotate(0deg)';
+      document.body.style.overflow = '';
     } else {
       mobileMenu.style.right = '0';
       burger.classList.add('opened');
       burger.style.transform = 'rotate(90deg)';
+      document.body.style.overflow = 'hidden';
     }
   };
 

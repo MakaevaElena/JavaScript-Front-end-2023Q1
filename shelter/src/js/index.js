@@ -1,6 +1,8 @@
-import { pets } from './data.js';
+import { data } from './data.js';
 import { PetModal } from './PetModal.js';
 import { crossCheck } from './console.js';
+
+// console.log('data', data);
 
 import {
   moveLeft,
@@ -10,6 +12,7 @@ import {
   BTN_RIGHT,
   renderBlock,
   renderMainPetsCards,
+  shuffledArr,
 } from './utils.js';
 // const mediaDesktop = window.matchMedia('(min-width: 769px)');
 // const mediaTablet = window.matchMedia('(max-width: 768px)').matches;
@@ -42,7 +45,7 @@ const addModalHandler = () => {
 };
 
 const getClickedData = (id) => {
-  const res = pets.find((el) => el.id === Number(id));
+  const res = data.find((el) => el.id === Number(id));
   return res;
 };
 
@@ -52,8 +55,10 @@ const renderModal = function (card) {
 };
 
 window.onload = function () {
-  if (pets) {
+  if (data) {
     if (mainCaruselWrapper) {
+      let pets = data.slice();
+
       // mainCaruselWrapper.innerHTML = '';
 
       let mainPets = pets.slice(0, 7);
@@ -84,6 +89,23 @@ window.onload = function () {
     }
 
     if (petsCaruselWrapper) {
+      const pets = data.slice();
+      // console.log('data', data);
+      // console.log('pets', pets);
+
+      let newPetsArr = [];
+
+      for (let i = 1; i < 7; i++) {
+        // console.log(newPetsArr);
+        let newPets = [...shuffledArr(pets.slice())];
+
+        // console.log('newPets', newPets);
+        // console.log('i', i);
+
+        newPetsArr.push(...newPets);
+        // newPetsArr = [...newPetsArr, ...newPets];
+      }
+
       // petsCaruselWrapper.innerHTML = '';
       center = document.createElement('div');
       center.classList.add('item-center', 'columns');
@@ -95,10 +117,11 @@ window.onload = function () {
         number = 6;
       } else number = 8;
 
-      renderBlock(pets, number, center);
+      // renderBlock(newPetsArr, number, center);
+
+      renderMainPetsCards(pets.slice(0, number)).map((el) => center.append(el.createMainPetCard()));
 
       petsCaruselWrapper.append(center);
-
       const ITEM_CENTER = document.querySelector('.item-center');
 
       let numberPage = 1;
@@ -107,8 +130,8 @@ window.onload = function () {
         let start = numberPage * number;
         let end = start + number;
 
-        if (end <= pets.length) {
-          let petsOnPage = pets.slice(start, end);
+        if (end <= newPetsArr.length) {
+          let petsOnPage = newPetsArr.slice(start, end);
           ITEM_CENTER.innerHTML = '';
 
           renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
@@ -132,8 +155,8 @@ window.onload = function () {
         let end = (numberPage - 1) * number;
         let start = end - number;
 
-        if (start <= pets.length && numberPage > 1) {
-          let petsOnPage = pets.slice(start, end);
+        if (start <= newPetsArr.length && numberPage > 1) {
+          let petsOnPage = newPetsArr.slice(start, end);
           ITEM_CENTER.innerHTML = '';
 
           renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
@@ -157,7 +180,7 @@ window.onload = function () {
 
       const onFirst = () => {
         if (numberPage > 1) {
-          let petsOnPage = pets.slice(0, number);
+          let petsOnPage = newPetsArr.slice(0, number);
           ITEM_CENTER.innerHTML = '';
           renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
 
@@ -180,15 +203,12 @@ window.onload = function () {
       DOUBLE_ROW_LEFT.addEventListener('click', onFirst);
 
       const onLast = () => {
-        console.log(numberPage);
-        console.log();
-
-        if (numberPage < pets.length / number) {
-          let petsOnPage = pets.slice(pets.length - number, pets.length);
+        if (numberPage < newPetsArr.length / number) {
+          let petsOnPage = newPetsArr.slice(newPetsArr.length - number, newPetsArr.length);
           ITEM_CENTER.innerHTML = '';
           renderMainPetsCards(petsOnPage).map((el) => ITEM_CENTER.append(el.createMainPetCard()));
 
-          numberPage = pets.length / number;
+          numberPage = newPetsArr.length / number;
           PAGE.innerHTML = numberPage;
           ROW_LEFT.classList.add('active');
           ROW_LEFT.classList.remove('disabled-link');
@@ -212,6 +232,7 @@ window.onload = function () {
   const burger = document.querySelector('.hamburger');
   const mobileMenu = document.querySelector('.mobile-menu');
   const links = document.querySelector('.mobile.navigation');
+  const shadow = document.querySelector('.shadow');
 
   const toggleMobileMenu = () => {
     if (burger.classList.contains('opened')) {
@@ -219,11 +240,13 @@ window.onload = function () {
       burger.classList.remove('opened');
       burger.style.transform = 'rotate(0deg)';
       document.body.style.overflow = '';
+      shadow.classList.add('hidden');
     } else {
       mobileMenu.style.right = '0';
       burger.classList.add('opened');
       burger.style.transform = 'rotate(90deg)';
       document.body.style.overflow = 'hidden';
+      shadow.classList.remove('hidden');
     }
   };
 

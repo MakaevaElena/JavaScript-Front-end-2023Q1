@@ -25,6 +25,10 @@
   column-gap: 9rem;
   // margin: 0 1rem 0 1rem;
 
+  @include media-tablet {
+    column-gap: 4rem;
+  }
+
   @include media-mobile {
     padding-bottom: 11.8rem;
   }
@@ -67,7 +71,7 @@
   overflow: hidden;
   @include media-tablet {
     padding: 0 1.2rem;
-    width: auto;
+    // width: 99rem;
   }
 }
 
@@ -275,6 +279,11 @@
   column-gap: 9rem;
   position: relative;
   left: -108rem;
+
+  @include media-tablet {
+    column-gap: 4rem;
+    left: -91rem;
+  }
 }
 
 @keyframes move-right {
@@ -323,6 +332,7 @@
 
 .hidden {
   display: none;
+  // transition: 0.4s;
 }
 
 .our-pets .carusel {

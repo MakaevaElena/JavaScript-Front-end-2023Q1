@@ -389,7 +389,7 @@ footer .right {
 
 .mobile-menu {
   width: 35rem;
-  height: 81.8rem;
+  height: 100vh;
   background: #292929;
   position: fixed;
   top: 0;
@@ -828,6 +828,13 @@ footer .right {
   padding-bottom: 6rem;
   column-gap: 9rem;
 }
+@media (max-width: 819px) {
+  .main .item-left,
+  .main .item-right,
+  .main .item-center {
+    column-gap: 4rem;
+  }
+}
 @media (max-width: 500px) {
   .main .item-left,
   .main .item-right,
@@ -882,7 +889,6 @@ footer .right {
 @media (max-width: 819px) {
   .carousel-wrapper {
     padding: 0 1.2rem;
-    width: auto;
   }
 }
 
@@ -1100,6 +1106,12 @@ footer .right {
   column-gap: 9rem;
   position: relative;
   left: -108rem;
+}
+@media (max-width: 819px) {
+  .main .carusel {
+    column-gap: 4rem;
+    left: -91rem;
+  }
 }
 
 @keyframes move-right {

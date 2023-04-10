@@ -45,7 +45,7 @@ const addModalHandler = () => {
 };
 
 const getClickedData = (id) => {
-  const res = pets.find((el) => el.id === Number(id));
+  const res = data.find((el) => el.id === Number(id));
   return res;
 };
 
@@ -123,7 +123,6 @@ window.onload = function () {
 
       petsCaruselWrapper.append(center);
       const ITEM_CENTER = document.querySelector('.item-center');
-      console.log(ITEM_CENTER);
 
       let numberPage = 1;
 

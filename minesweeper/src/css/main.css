@@ -1,0 +1,59 @@
+.container {
+  margin: 5% auto;
+}
+
+.container .cell {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(to bottom, grey, lightgrey);
+}
+
+.table {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table .cell {
+  position: relative;
+  border: 1px solid rgb(240, 238, 238);
+  border-radius: 5%;
+}
+
+.container .cell.open {
+  background: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: 24px;
+  border: 1px solid rgb(149, 151, 154);
+  border-radius: 5%;
+}
+
+.container .cell.mine {
+  /* background-color: red; */
+  text-align: center;
+  font-size: 40px;
+  background: url('../img/bomb.png');
+  background-size: cover;
+  border: 1px solid rgb(154, 149, 149);
+  border-radius: 5%;
+}
+
+.container .cell.mark::after {
+  position: absolute;
+  width: 70%;
+  height: 80%;
+  background: url('../img/red-flag.png');
+  background-size: cover;
+  left: 20%;
+  top: 10%;
+  content: '';
+}

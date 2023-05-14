@@ -155,5 +155,19 @@ container.addEventListener('click', (event) => {
   }
 });
 
+const mark = (event) => {
+  const x = event.target.getAttribute('id');
+  const y = event.target.parentNode.getAttribute('id');
+  if (field[x][y].is_open) return;
+  event.target.classList.toggle('mark');
+};
+
+container.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+  if (event.target.matches('.cell')) {
+    mark(event);
+  }
+});
+
 start();
 renderField();

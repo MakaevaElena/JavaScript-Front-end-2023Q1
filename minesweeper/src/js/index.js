@@ -1,3 +1,37 @@
+import { FinishModal } from './modal-finish.js';
+import { timer, stopSecondCounter } from '../js/timer.js';
+let countClicks = 0;
+
+function soundStart() {
+  const audio = new Audio();
+  audio.src = './src/sounds/start.mp3';
+  audio.autoplay = true;
+}
+
+function soundClick() {
+  const audio = new Audio();
+  audio.src = './src/sounds/click.mp3';
+  audio.autoplay = true;
+}
+
+function soundFlag() {
+  const audio = new Audio();
+  audio.src = './src/sounds/tick.mp3';
+  audio.autoplay = true;
+}
+
+function soundBomb() {
+  const audio = new Audio();
+  audio.src = './src/sounds/lose.mp3';
+  audio.autoplay = true;
+}
+
+function soundWin() {
+  const audio = new Audio();
+  audio.src = './src/sounds/win.mp3';
+  audio.autoplay = true;
+}
+
 function Cell() {
   this.is_mine = false;
   this.mine_around = 0;
@@ -64,9 +98,30 @@ const start = () => {
   open_count = 0;
   setField();
   start_mine_counter();
+  // timer();
 };
 
 start();
+
+const renderPopup = (score, time, massage) => {
+  let modal = new FinishModal('popup', { score, time, massage });
+  modal.renderModal();
+};
+
+const renderHeader = () => {
+  const header = document.createElement('header');
+  header.classList.add('header');
+  header.innerHTML += `<output id="clicks">000</output>
+    <button id="start">
+      START
+    </button>
+    <output id="timer">000</output>`;
+  // document.body.appendChild(header);
+  const container = document.querySelector('.container');
+  document.body.insertBefore(header, container);
+};
+
+// renderHeader();
 
 const renderField = () => {
   container.innerHTML = '';
@@ -85,6 +140,7 @@ const renderField = () => {
     table.appendChild(row);
   }
   container.appendChild(table);
+  // container.setAttribute('pointer-events', 'none');
 };
 
 renderField();
@@ -102,7 +158,7 @@ const renderMine = () => {
 };
 renderMine();
 
-const recurse_open = (x, y) => {
+const recurseOpen = (x, y) => {
   const table = container.children[0];
 
   const cell = table.children[y].children[x];
@@ -111,9 +167,11 @@ const recurse_open = (x, y) => {
     cell.classList.add('mine');
     renderMine();
     setTimeout(() => {
-      alert('Game over');
+      soundBomb();
+      renderPopup(countClicks, stopSecondCounter() - 1, `Game over. Try again`);
       start();
       renderField();
+      stopSecondCounter();
     }, 200);
   } else {
     if (field[x][y].mine_around > 0) {
@@ -125,7 +183,15 @@ const recurse_open = (x, y) => {
     open_count++;
     if (width * height - mine_count == open_count) {
       //если ячейка последняя;
-      alert('You Won');
+      stopSecondCounter();
+      renderPopup(
+        countClicks,
+        stopSecondCounter(),
+        `Hooray! You found all mines in ${
+          stopSecondCounter() - 1
+        } seconds and ${countClicks} moves!`,
+      );
+      soundWin();
       start();
       renderField();
     }
@@ -139,7 +205,7 @@ const recurse_open = (x, y) => {
         //пробегаемся по всем
         //соседним ячейкам
         for (let j = y_start; j <= y_end; j++) {
-          recurse_open(i, j);
+          recurseOpen(i, j);
         }
       }
     }
@@ -149,13 +215,22 @@ const recurse_open = (x, y) => {
 const openCell = (event) => {
   const x = event.target.getAttribute('id');
   const y = event.target.parentNode.getAttribute('id');
-  recurse_open(x, y);
+  recurseOpen(x, y);
 };
 
 container.addEventListener('click', (event) => {
+  soundClick();
   if (event.target.matches('.cell') && !event.target.matches('.mark')) {
     openCell(event);
   }
+
+  countClicks++;
+  const clicks = document.querySelector('#clicks');
+
+  if (countClicks < 10) clicks.textContent = '00' + String(countClicks);
+  if (countClicks >= 10 && countClicks < 100) clicks.textContent = '0' + String(countClicks);
+  if (countClicks >= 100) clicks.textContent = String(countClicks);
+  // clicks.innerHTML = countClicks;
 });
 
 const mark = (event) => {
@@ -166,11 +241,34 @@ const mark = (event) => {
 };
 
 container.addEventListener('contextmenu', (event) => {
+  soundFlag();
   event.preventDefault();
   if (event.target.matches('.cell')) {
     mark(event);
   }
 });
 
+const timerElement = document.querySelector('#timer');
+const startNewGame = () => {
+  const startButton = document.querySelector('#start');
+  startButton.addEventListener('click', () => {
+    soundStart();
+    countClicks = 0;
+    start();
+    renderField();
+    stopSecondCounter();
+    timer();
+    startButton.innerHTML =
+      startButton.innerText === 'START'
+        ? (startButton.innerText = 'STOP')
+        : (startButton.innerText = 'START');
+    startButton.classList.toggle('active');
+
+    !startButton.classList.contains('active') ? stopSecondCounter() : start();
+  });
+};
+
 start();
+renderHeader();
 renderField();
+startNewGame();

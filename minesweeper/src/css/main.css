@@ -1,5 +1,6 @@
 .container {
-  margin: 5% auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .container .cell {
@@ -8,8 +9,27 @@
   background: linear-gradient(to bottom, grey, lightgrey);
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+  /* border: 10px solid grey; */
+}
+
+output {
+  font-family: Quartz, monospace;
+  font-size: 26px;
+  padding: 6px 12px;
+  color: red;
+  background-color: #000;
+}
+
 .table {
-  padding: 15px;
+  border: 10px solid grey;
+  padding: 15px 0;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,4 +102,66 @@
   left: 20%;
   top: 10%;
   content: '';
+}
+
+#start {
+  background-color: #0db57a;
+  padding: 10px;
+}
+
+#start.active {
+  background-color: #b50d0d;
+  padding: 10px;
+}
+
+.overlay_modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background-color: rgba(41, 41, 41, 0.6);
+
+  position: fixed;
+  top: 0%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+}
+
+.modal {
+  padding: 5rem;
+  background-color: transparent;
+
+  position: absolute;
+  overflow: auto;
+}
+
+.modal close-icon {
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 0.2rem solid #f1cdb3;
+  border-radius: 10rem;
+  background-image: url('../img/Vector.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  position: absolute;
+  right: 8px;
+  top: 0px;
+  cursor: pointer;
+}
+
+.modal__finish {
+  background-color: white;
+  border-radius: 9px;
+  width: 25rem;
+  display: flex;
+
+  font-family: Quartz, monospace;
+  font-size: 26px;
+  padding: 6px 12px;
+  color: red;
+  background-color: #000;
 }

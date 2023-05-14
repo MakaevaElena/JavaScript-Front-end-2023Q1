@@ -101,3 +101,59 @@ const renderMine = () => {
   }
 };
 renderMine();
+
+const recurse_open = (x, y) => {
+  const table = container.children[0];
+
+  const cell = table.children[y].children[x];
+  if (field[x][y].is_open) return;
+  if (field[x][y].is_mine) {
+    cell.classList.add('mine');
+    renderMine();
+    setTimeout(() => {
+      alert('Game over');
+      start();
+      renderField();
+    }, 200);
+  } else {
+    cell.innerHTML = field[x][y].mine_around;
+    field[x][y].is_open = true;
+    cell.classList.add('open');
+    open_count++;
+    if (width * height - mine_count == open_count) {
+      //если ячейка последняя;
+      alert('You Won');
+      start();
+      renderField();
+    }
+    if (field[x][y].mine_around == 0) {
+      //если рядом мин нет то
+      const x_start = x > 0 ? x - 1 : x;
+      const y_start = y > 0 ? y - 1 : y;
+      const x_end = x + 1 < width ? x + 1 : x;
+      const y_end = y + 1 < height ? y + 1 : y;
+      for (let i = x_start; i <= x_end; i++) {
+        //пробегаемся по всем
+        //соседним ячейкам
+        for (let j = y_start; j <= y_end; j++) {
+          recurse_open(i, j);
+        }
+      }
+    }
+  }
+};
+
+const openCell = (event) => {
+  const x = event.target.getAttribute('id');
+  const y = event.target.parentNode.getAttribute('id');
+  recurse_open(x, y);
+};
+
+container.addEventListener('click', (event) => {
+  if (event.target.matches('.cell') && !event.target.matches('.mark')) {
+    openCell(event);
+  }
+});
+
+start();
+renderField();

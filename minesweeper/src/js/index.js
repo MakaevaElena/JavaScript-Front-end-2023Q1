@@ -116,7 +116,10 @@ const recurse_open = (x, y) => {
       renderField();
     }, 200);
   } else {
-    cell.innerHTML = field[x][y].mine_around;
+    if (field[x][y].mine_around > 0) {
+      cell.innerHTML = field[x][y].mine_around;
+      cell.dataset.count = field[x][y].mine_around;
+    }
     field[x][y].is_open = true;
     cell.classList.add('open');
     open_count++;

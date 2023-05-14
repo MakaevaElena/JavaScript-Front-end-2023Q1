@@ -33,8 +33,34 @@
   text-align: center;
   line-height: 50px;
   font-size: 24px;
+  font-weight: 600;
   border: 1px solid rgb(149, 151, 154);
   border-radius: 5%;
+}
+
+.container .cell.open[data-count='1'] {
+  color: blue;
+}
+.container .cell.open[data-count='2'] {
+  color: green;
+}
+.container .cell.open[data-count='3'] {
+  color: red;
+}
+.container .cell.open[data-count='4'] {
+  color: #00007b;
+}
+.container .cell.open[data-count='5'] {
+  color: #7b0000;
+}
+.container .cell.open[data-count='6'] {
+  color: #007b7b;
+}
+.container .cell.open[data-count='7'] {
+  color: #000;
+}
+.container .cell.open[data-count='8'] {
+  color: #7b7b7b;
 }
 
 .container .cell.mine {

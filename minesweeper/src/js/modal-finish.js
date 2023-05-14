@@ -31,7 +31,5 @@ export class FinishModal extends Modal {
     let content = this.createMainFinishModal();
     // console.log(content);
     super.buildModal(content);
-
-    // document.querySelector('.modal__image').style.backgroundImage = `url(${this.img})`;
   }
 }

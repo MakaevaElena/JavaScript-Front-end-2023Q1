@@ -1,10 +1,18 @@
 import { FinishModal } from './modal-finish.js';
 import { timer, stopSecondCounter } from '../js/timer.js';
+
 let countClicks = 0;
+let isDisabled = true;
 
 function soundStart() {
   const audio = new Audio();
   audio.src = './src/sounds/start.mp3';
+  audio.autoplay = true;
+}
+
+function soundStop() {
+  const audio = new Audio();
+  audio.src = './src/sounds/stop.mp3';
   audio.autoplay = true;
 }
 
@@ -39,7 +47,7 @@ function Cell() {
 }
 
 const container = document.createElement('div');
-container.classList.add('container');
+container.classList.add('container', 'disable');
 document.body.appendChild(container);
 
 //условия игры
@@ -94,14 +102,14 @@ const start_mine_counter = () => {
   }
 };
 
-const start = () => {
+const init = () => {
   open_count = 0;
   setField();
   start_mine_counter();
   // timer();
 };
 
-start();
+init();
 
 const renderPopup = (score, time, massage) => {
   let modal = new FinishModal('popup', { score, time, massage });
@@ -109,16 +117,21 @@ const renderPopup = (score, time, massage) => {
 };
 
 const renderHeader = () => {
-  const header = document.createElement('header');
-  header.classList.add('header');
-  header.innerHTML += `<output id="clicks">000</output>
+  if (document.querySelector('.header')) {
+    const header = document.createElement('header');
+    document.body.removeChild(header);
+  } else {
+    const header = document.createElement('header');
+    header.classList.add('header');
+    header.innerHTML += `<output id="clicks">000</output>
     <button id="start">
       START
     </button>
     <output id="timer">000</output>`;
-  // document.body.appendChild(header);
-  const container = document.querySelector('.container');
-  document.body.insertBefore(header, container);
+    // document.body.appendChild(header);
+    const container = document.querySelector('.container');
+    document.body.insertBefore(header, container);
+  }
 };
 
 // renderHeader();
@@ -168,9 +181,12 @@ const recurseOpen = (x, y) => {
     renderMine();
     setTimeout(() => {
       soundBomb();
+      //!
       renderPopup(countClicks, stopSecondCounter() - 1, `Game over. Try again`);
-      start();
-      renderField();
+      // init();
+      // renderField();
+      container.classList.add('disable');
+      // isDisabled = true;
       stopSecondCounter();
     }, 200);
   } else {
@@ -191,8 +207,9 @@ const recurseOpen = (x, y) => {
           stopSecondCounter() - 1
         } seconds and ${countClicks} moves!`,
       );
+      container.classList.add('disable');
       soundWin();
-      start();
+      init();
       renderField();
     }
     if (field[x][y].mine_around == 0) {
@@ -248,27 +265,41 @@ container.addEventListener('contextmenu', (event) => {
   }
 });
 
-const timerElement = document.querySelector('#timer');
-const startNewGame = () => {
+const startNewGameHandler = () => {
   const startButton = document.querySelector('#start');
-  startButton.addEventListener('click', () => {
-    soundStart();
-    countClicks = 0;
-    start();
-    renderField();
-    stopSecondCounter();
-    timer();
-    startButton.innerHTML =
-      startButton.innerText === 'START'
-        ? (startButton.innerText = 'STOP')
-        : (startButton.innerText = 'START');
-    startButton.classList.toggle('active');
+  init();
+  renderField();
+  if (startButton.classList.contains('active')) soundStop();
+  countClicks = 0;
+  const clicks = document.querySelector('#clicks');
+  clicks.textContent = '000';
+  const timerElement = document.querySelector('#timer');
+  timerElement.textContent = '000';
+  stopSecondCounter();
+  timer();
+  startButton.innerHTML =
+    startButton.innerText === 'START'
+      ? (startButton.innerText = 'STOP')
+      : (startButton.innerText = 'START');
+  startButton.classList.toggle('active');
 
-    !startButton.classList.contains('active') ? stopSecondCounter() : start();
-  });
+  !startButton.classList.contains('active') ? stopSecondCounter() : init();
+
+  if (startButton.classList.contains('active')) {
+    soundStart();
+    container.classList.remove('disable');
+  }
 };
 
-start();
+const timerElement = document.querySelector('#timer');
+
+const startNewGame = () => {
+  const startButton = document.querySelector('#start');
+  startButton.addEventListener('click', () => startNewGameHandler());
+};
+
+init();
 renderHeader();
 renderField();
+
 startNewGame();

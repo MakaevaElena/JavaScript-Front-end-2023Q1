@@ -1,11 +1,14 @@
 .container {
-  /* width: 50%; */
+  /* width: 100%; */
   margin: 0 auto;
 }
 
 .container .cell {
-  width: 35px;
-  height: 35px;
+  width: 22px;
+  height: 22px;
+
+  /* width: 3vw;
+  height: 3vw; */
   background: linear-gradient(to bottom, grey, lightgrey);
 }
 
@@ -14,8 +17,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 30%;
-  margin: 15px auto;
+  width: 50%;
+  margin: 12px auto;
   border: 5px solid grey;
 }
 
@@ -24,19 +27,27 @@ output,
 #submit,
 .difficulty {
   font-family: Quartz, monospace;
-  font-size: 22px;
-  padding: 6px 12px;
+  font-size: 20px;
+  padding: 4px 10px;
   color: red;
   background-color: #000;
   outline: 3px solid grey;
   text-align: center;
   width: 30%;
-  margin: 10px;
+  margin: 8px;
   cursor: pointer;
+}
+
+.grade {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 12px auto;
 }
 
 .table {
   width: min-content;
+  /* width: 925px; */
   border: 5px solid grey;
   padding: 15px;
   margin-top: 10px;
@@ -188,13 +199,41 @@ output,
   cursor: none;
 }
 
-/* label .difficulty {
+input {
+  margin-right: 15px;
+}
 
-} */
+@media screen and (max-width: 1250px) {
+}
 
-.grade {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 15px auto;
+@media screen and (max-width: 800px) {
+  .header,
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 5px auto;
+    border: 3px solid grey;
+  }
+
+  output,
+  #start,
+  #submit,
+  .difficulty {
+    font-size: 18px;
+    padding: 3px 6px;
+    outline: 1px solid grey;
+    margin: 5px;
+  }
+
+  .grade {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+  }
+  .container .cell {
+    width: 3vw;
+    height: 3vw;
+  }
 }

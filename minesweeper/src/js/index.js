@@ -22,8 +22,7 @@ let field = [];
 let mine_count = 10;
 let open_count = 0;
 
-const getGrade = () => {
-  // const cells = document.querySelectorAll('.container .cell');
+export const getGrade = () => {
   let grade = 10;
   const inputs = document.querySelectorAll('input[type="radio"]');
   inputs.forEach((el) => {
@@ -35,32 +34,20 @@ const getGrade = () => {
       width = 10;
       height = 10;
       mine_count = 10;
-      // cells.forEach((cell) => {
-      //   cell.style.width = '35px';
-      //   cell.style.height = '35px';
-      // });
-
       break;
     case 15:
       width = 15;
       height = 15;
       mine_count = 40;
-      // cells.forEach((cell) => {
-      //   cell.style.width = '30px';
-      //   cell.style.height = '30px';
-      // });
       break;
     case 25:
       width = 25;
       height = 25;
       mine_count = 99;
-      // cells.forEach((cell) => {
-      //   cell.style.width = '25px';
-      //   cell.style.height = '25px';
-      // });
       break;
   }
 };
+
 
 const setField = () => {
   field = [];
@@ -109,7 +96,6 @@ const start_mine_counter = () => {
 
 const init = () => {
   let open_count = 0;
-  open_count = 0;
   setField();
   start_mine_counter();
 };
@@ -141,7 +127,7 @@ const renderHeader = () => {
 
 // renderHeader();
 
-const renderField = () => {
+export const renderField = () => {
   container.innerHTML = '';
   const table = document.createElement('div');
   table.classList.add('table');
@@ -174,7 +160,6 @@ const renderMine = () => {
     }
   }
 };
-// renderMine();
 
 const recurseOpen = (x, y) => {
   const table = container.children[0];

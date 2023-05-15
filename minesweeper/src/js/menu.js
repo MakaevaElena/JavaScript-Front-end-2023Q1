@@ -1,3 +1,5 @@
+import { renderField, getGrade } from '../js/index.js';
+
 export const menu = () => {
   const menu = document.createElement('div');
   const container = document.querySelector('.header');
@@ -8,4 +10,10 @@ export const menu = () => {
   <div><label class="difficulty"><input id="hard" type="radio" name="difficulty" value="25">Hard</label></div>
   </div>`;
   document.body.insertBefore(menu, container);
+
+  const grade = document.querySelector('.grade');
+  grade.addEventListener('click', () => {
+    getGrade();
+    renderField();
+  });
 };

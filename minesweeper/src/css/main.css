@@ -4,37 +4,40 @@
 }
 
 .container .cell {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   background: linear-gradient(to bottom, grey, lightgrey);
 }
 
-.header {
+.header,
+.menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 30%;
   margin: 15px auto;
-  border: 10px solid grey;
+  border: 5px solid grey;
 }
 
 output,
-#start {
+#start,
+#submit,
+.difficulty {
   font-family: Quartz, monospace;
-  font-size: 26px;
+  font-size: 22px;
   padding: 6px 12px;
   color: red;
   background-color: #000;
   outline: 3px solid grey;
   text-align: center;
-  width: 20%;
+  width: 30%;
   margin: 10px;
   cursor: pointer;
 }
 
 .table {
   width: min-content;
-  border: 10px solid grey;
+  border: 5px solid grey;
   padding: 15px;
   margin-top: 10px;
   margin: 0 auto;
@@ -58,10 +61,14 @@ output,
 }
 
 .container .cell.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: white;
   text-align: center;
   line-height: 50px;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   border: 1px solid rgb(149, 151, 154);
   border-radius: 5%;
@@ -179,4 +186,15 @@ output,
 .disable {
   pointer-events: none;
   cursor: none;
+}
+
+/* label .difficulty {
+
+} */
+
+.grade {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px auto;
 }

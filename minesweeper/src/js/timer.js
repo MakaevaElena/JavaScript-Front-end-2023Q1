@@ -6,9 +6,9 @@ export const timer = () => {
 
   timerId = setInterval(() => {
     if (timer.textContent == '999') clearInterval(timerId);
-    if (seconds < 10) timerElement.textContent = '00' + String(seconds);
-    if (seconds >= 10 && seconds < 100) timerElement.textContent = '0' + String(seconds);
-    if (seconds >= 100) timerElement.textContent = String(seconds);
+    if (seconds < 10) timerElement.textContent = '00' + String(seconds) + ' sec';
+    if (seconds >= 10 && seconds < 100) timerElement.textContent = '0' + String(seconds) + ' sec';
+    if (seconds >= 100) timerElement.textContent = String(seconds) + ' sec';
     seconds++;
     totalSeconds = seconds;
   }, 1000);

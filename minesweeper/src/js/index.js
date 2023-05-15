@@ -1,44 +1,9 @@
 import { FinishModal } from './modal-finish.js';
 import { timer, stopSecondCounter } from '../js/timer.js';
+import { menu } from '../js/menu.js';
+import { soundStart, soundStop, soundClick, soundFlag, soundBomb, soundWin } from '../js/audio.js';
 
 let countClicks = 0;
-let isDisabled = true;
-
-function soundStart() {
-  const audio = new Audio();
-  audio.src = './src/sounds/start.mp3';
-  audio.autoplay = true;
-}
-
-function soundStop() {
-  const audio = new Audio();
-  audio.src = './src/sounds/stop.mp3';
-  audio.autoplay = true;
-}
-
-function soundClick() {
-  const audio = new Audio();
-  audio.src = './src/sounds/click.mp3';
-  audio.autoplay = true;
-}
-
-function soundFlag() {
-  const audio = new Audio();
-  audio.src = './src/sounds/tick.mp3';
-  audio.autoplay = true;
-}
-
-function soundBomb() {
-  const audio = new Audio();
-  audio.src = './src/sounds/lose.mp3';
-  audio.autoplay = true;
-}
-
-function soundWin() {
-  const audio = new Audio();
-  audio.src = './src/sounds/win.mp3';
-  audio.autoplay = true;
-}
 
 function Cell() {
   this.is_mine = false;
@@ -51,11 +16,37 @@ container.classList.add('container', 'disable');
 document.body.appendChild(container);
 
 //условия игры
-const width = 10;
-const height = 10;
+let width = 10;
+let height = 10;
 let field = [];
-const mine_count = 10;
+let mine_count = 10;
 let open_count = 0;
+
+const getGrade = () => {
+  let grade = 10;
+  const inputs = document.querySelectorAll('input[type="radio"]');
+  inputs.forEach((el) => {
+    if (el.checked) grade = +el.value;
+  });
+
+  switch (grade) {
+    case 10:
+      width = 10;
+      height = 10;
+      mine_count = 10;
+      break;
+    case 15:
+      width = 15;
+      height = 15;
+      mine_count = 40;
+      break;
+    case 25:
+      width = 25;
+      height = 25;
+      mine_count = 99;
+      break;
+  }
+};
 
 const setField = () => {
   field = [];
@@ -103,10 +94,10 @@ const start_mine_counter = () => {
 };
 
 const init = () => {
+  let open_count = 0;
   open_count = 0;
   setField();
   start_mine_counter();
-  // timer();
 };
 
 init();
@@ -156,7 +147,7 @@ const renderField = () => {
   // container.setAttribute('pointer-events', 'none');
 };
 
-renderField();
+// renderField();
 
 const renderMine = () => {
   const table = container.children[0];
@@ -169,7 +160,7 @@ const renderMine = () => {
     }
   }
 };
-renderMine();
+// renderMine();
 
 const recurseOpen = (x, y) => {
   const table = container.children[0];
@@ -181,8 +172,9 @@ const recurseOpen = (x, y) => {
     renderMine();
     setTimeout(() => {
       soundBomb();
-      //!
       renderPopup(countClicks, stopSecondCounter() - 1, `Game over. Try again`);
+      const startButton = document.querySelector('#start');
+      startButton.innerText = 'New GAME';
       // init();
       // renderField();
       container.classList.add('disable');
@@ -213,14 +205,11 @@ const recurseOpen = (x, y) => {
       renderField();
     }
     if (field[x][y].mine_around == 0) {
-      //если рядом мин нет то
       const x_start = x > 0 ? x - 1 : x;
       const y_start = y > 0 ? y - 1 : y;
       const x_end = x + 1 < width ? x + 1 : x;
       const y_end = y + 1 < height ? y + 1 : y;
       for (let i = x_start; i <= x_end; i++) {
-        //пробегаемся по всем
-        //соседним ячейкам
         for (let j = y_start; j <= y_end; j++) {
           recurseOpen(i, j);
         }
@@ -247,7 +236,6 @@ container.addEventListener('click', (event) => {
   if (countClicks < 10) clicks.textContent = '00' + String(countClicks);
   if (countClicks >= 10 && countClicks < 100) clicks.textContent = '0' + String(countClicks);
   if (countClicks >= 100) clicks.textContent = String(countClicks);
-  // clicks.innerHTML = countClicks;
 });
 
 const mark = (event) => {
@@ -265,8 +253,11 @@ container.addEventListener('contextmenu', (event) => {
   }
 });
 
+//!
 const startNewGameHandler = () => {
   const startButton = document.querySelector('#start');
+  getGrade();
+  // console.log(width);
   init();
   renderField();
   if (startButton.classList.contains('active')) soundStop();
@@ -300,6 +291,7 @@ const startNewGame = () => {
 
 init();
 renderHeader();
-renderField();
+menu();
+// renderField();
 
 startNewGame();

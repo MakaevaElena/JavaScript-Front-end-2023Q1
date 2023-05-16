@@ -4,6 +4,8 @@ import { menu } from '../js/menu.js';
 import { soundStart, soundStop, soundClick, soundFlag, soundBomb, soundWin } from '../js/audio.js';
 
 let countClicks = 0;
+let targetX = null;
+let targetY = null;
 
 function Cell() {
   this.is_mine = false;
@@ -24,7 +26,7 @@ let open_count = 0;
 
 export const getGrade = () => {
   let grade = 10;
-  const inputs = document.querySelectorAll('input[type="radio"]');
+  const inputs = document.querySelectorAll('.grade input[type="radio"]');
   inputs.forEach((el) => {
     if (el.checked) grade = +el.value;
   });
@@ -48,6 +50,18 @@ export const getGrade = () => {
   }
 };
 
+//разбросать мины
+const strewMines = (targetX, targetY) => {
+  for (let i = 0; i < mine_count; ) {
+    const x = Math.floor(Math.random() * width);
+    const y = Math.floor(Math.random() * height);
+    if (field[x][y].is_mine == false && targetX !== x && targetY !== y) {
+      // if (field[x][y].is_mine == false) {
+      field[x][y].is_mine = true;
+      i++;
+    }
+  }
+};
 
 const setField = () => {
   field = [];
@@ -58,16 +72,7 @@ const setField = () => {
     }
     field.push(column);
   }
-
-  //разбросать мины
-  for (let i = 0; i < mine_count; ) {
-    const x = Math.floor(Math.random() * width);
-    const y = Math.floor(Math.random() * height);
-    if (field[x][y].is_mine == false) {
-      field[x][y].is_mine = true;
-      i++;
-    }
-  }
+  strewMines();
 };
 
 //мины вокруг одной ячейки - в середине поля и скраю
@@ -95,7 +100,7 @@ const start_mine_counter = () => {
 };
 
 const init = () => {
-  let open_count = 0;
+  open_count = 0;
   setField();
   start_mine_counter();
 };
@@ -174,7 +179,6 @@ const recurseOpen = (x, y) => {
       renderPopup(countClicks, stopSecondCounter() - 1, `Game over. Try again`);
       const startButton = document.querySelector('#start');
       startButton.innerText = 'New GAME';
-      // init();
       // renderField();
       container.classList.add('disable');
       // isDisabled = true;
@@ -217,13 +221,18 @@ const recurseOpen = (x, y) => {
   }
 };
 
+//!
 const openCell = (event) => {
   const x = event.target.getAttribute('id');
   const y = event.target.parentNode.getAttribute('id');
   recurseOpen(x, y);
 };
 
+//!
 container.addEventListener('click', (event) => {
+  targetX = event.target.x;
+  targetY = event.target.y;
+  // console.log(event.target);
   soundClick();
   if (event.target.matches('.cell') && !event.target.matches('.mark')) {
     openCell(event);
@@ -292,11 +301,11 @@ const startNewGame = () => {
 //   const grade = document.querySelectorAll('.difficulty');
 //   grade.forEach((el) => el.addEventListener('click', () => renderField()));
 // };
-
 init();
 renderHeader();
 menu();
 // renderField();
 
 startNewGame();
+
 // gradeHandler();

@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(220, 220, 220);
+}
+
 .container {
   /* width: 100%; */
   margin: 0 auto;
@@ -6,7 +10,6 @@
 .container .cell {
   width: 22px;
   height: 22px;
-
   /* width: 3vw;
   height: 3vw; */
   background: linear-gradient(to bottom, grey, lightgrey);
@@ -15,9 +18,9 @@
 .header,
 .menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 520px;
   margin: 12px auto;
   border: 5px solid grey;
 }
@@ -25,7 +28,8 @@
 output,
 #start,
 #submit,
-.difficulty {
+.difficulty,
+.theme {
   font-family: Quartz, monospace;
   font-size: 20px;
   padding: 4px 10px;
@@ -41,7 +45,7 @@ output,
 .grade {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 12px auto;
 }
 
@@ -139,7 +143,7 @@ output,
 #start.active {
   /* background-color: #b50d0d; */
   /* color: black; */
-  outline: 3px solid #b50d0d;
+  outline: 1px solid #b50d0d;
 }
 
 .overlay_modal {
@@ -204,15 +208,12 @@ input {
 }
 
 @media screen and (max-width: 1250px) {
-}
-
-@media screen and (max-width: 800px) {
   .header,
   .menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    width: 80%;
+    width: 520px;
     margin: 5px auto;
     border: 3px solid grey;
   }
@@ -220,20 +221,60 @@ input {
   output,
   #start,
   #submit,
-  .difficulty {
+  .difficulty,
+  .theme {
     font-size: 18px;
-    padding: 3px 6px;
+    padding: 4px 4px;
     outline: 1px solid grey;
     margin: 5px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .header,
+  .menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    margin: 5px auto;
+    border: 3px solid grey;
+  }
+
+  output,
+  #start,
+  #submit,
+  .difficulty,
+  .theme {
+    font-size: 16px;
+    padding: 4px 4px;
+    outline: 1px solid grey;
+    margin: 4px;
   }
 
   .grade {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 10px auto;
   }
   .container .cell {
     width: 3vw;
     height: 3vw;
+  }
+
+  input {
+    margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header,
+  .menu {
+    /* display: flex;
+    justify-content: space-around;
+    align-items: center; */
+    width: 80%;
+    /* margin: 5px auto;
+    border: 3px solid grey; */
   }
 }

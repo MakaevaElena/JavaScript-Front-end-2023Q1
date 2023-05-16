@@ -1,0 +1,280 @@
+body {
+  background-color: rgb(220, 220, 220);
+}
+
+.container {
+  /* width: 100%; */
+  margin: 0 auto;
+}
+
+.container .cell {
+  width: 22px;
+  height: 22px;
+  /* width: 3vw;
+  height: 3vw; */
+  background: linear-gradient(to bottom, grey, lightgrey);
+}
+
+.header,
+.menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 520px;
+  margin: 12px auto;
+  border: 5px solid grey;
+}
+
+output,
+#start,
+#submit,
+.difficulty,
+.theme {
+  font-family: Quartz, monospace;
+  font-size: 20px;
+  padding: 4px 10px;
+  color: red;
+  background-color: #000;
+  outline: 3px solid grey;
+  text-align: center;
+  width: 30%;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.grade {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 12px auto;
+}
+
+.table {
+  width: min-content;
+  /* width: 925px; */
+  border: 5px solid grey;
+  padding: 15px;
+  margin-top: 10px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table .cell {
+  position: relative;
+  border: 1px solid rgb(240, 238, 238);
+  border-radius: 5%;
+  cursor: pointer;
+}
+
+.container .cell.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid rgb(149, 151, 154);
+  border-radius: 5%;
+}
+
+.container .cell.open[data-count='1'] {
+  color: blue;
+}
+.container .cell.open[data-count='2'] {
+  color: green;
+}
+.container .cell.open[data-count='3'] {
+  color: red;
+}
+.container .cell.open[data-count='4'] {
+  color: #00007b;
+}
+.container .cell.open[data-count='5'] {
+  color: #7b0000;
+}
+.container .cell.open[data-count='6'] {
+  color: #007b7b;
+}
+.container .cell.open[data-count='7'] {
+  color: #000;
+}
+.container .cell.open[data-count='8'] {
+  color: #7b7b7b;
+}
+
+.container .cell.mine {
+  /* background-color: red; */
+  text-align: center;
+  font-size: 40px;
+  background: url('../img/bomb.png');
+  background-size: cover;
+  border: 1px solid rgb(154, 149, 149);
+  border-radius: 5%;
+}
+
+.container .cell.mark::after {
+  position: absolute;
+  width: 70%;
+  height: 80%;
+  background: url('../img/red-flag.png');
+  background-size: cover;
+  left: 20%;
+  top: 10%;
+  content: '';
+}
+
+/* #start {
+  background-color: #0db57a;
+  padding: 10px;
+} */
+
+#start.active {
+  /* background-color: #b50d0d; */
+  /* color: black; */
+  outline: 1px solid #b50d0d;
+}
+
+.overlay_modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background-color: rgba(41, 41, 41, 0.6);
+
+  position: fixed;
+  top: -10%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+}
+
+.modal {
+  padding: 5rem;
+  background-color: transparent;
+
+  position: absolute;
+  overflow: auto;
+}
+
+.modal__close-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.2rem solid #b50d0d;
+  background-image: url('../img/Vector.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #7b000034;
+
+  position: absolute;
+  right: 8px;
+  top: 40%;
+  cursor: pointer;
+}
+
+.modal__finish {
+  background-color: white;
+  border-radius: 9px;
+  width: 25rem;
+  display: flex;
+
+  font-family: Quartz, monospace;
+  font-size: 26px;
+  padding: 6px 12px;
+  color: red;
+  background-color: #000;
+}
+
+.disable {
+  pointer-events: none;
+  cursor: none;
+}
+
+input {
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 1250px) {
+  .header,
+  .menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 520px;
+    margin: 5px auto;
+    border: 3px solid grey;
+  }
+
+  output,
+  #start,
+  #submit,
+  .difficulty,
+  .theme {
+    font-size: 18px;
+    padding: 4px 4px;
+    outline: 1px solid grey;
+    margin: 5px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .header,
+  .menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    margin: 5px auto;
+    border: 3px solid grey;
+  }
+
+  output,
+  #start,
+  #submit,
+  .difficulty,
+  .theme {
+    font-size: 16px;
+    padding: 4px 4px;
+    outline: 1px solid grey;
+    margin: 4px;
+  }
+
+  .grade {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px auto;
+  }
+  .container .cell {
+    width: 3vw;
+    height: 3vw;
+  }
+
+  input {
+    margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header,
+  .menu {
+    /* display: flex;
+    justify-content: space-around;
+    align-items: center; */
+    width: 80%;
+    /* margin: 5px auto;
+    border: 3px solid grey; */
+  }
+}

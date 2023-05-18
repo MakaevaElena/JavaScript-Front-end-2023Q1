@@ -1,5 +1,6 @@
 import { renderField, getGrade } from '../js/index.js';
 import { changeTheme } from '../js/theme.js';
+import { soundClick } from '../js/audio.js';
 
 export const menu = () => {
   const menu = document.createElement('div');
@@ -18,12 +19,14 @@ export const menu = () => {
 
   const grade = document.querySelector('.grade');
   grade.addEventListener('click', () => {
+    soundClick();
     getGrade();
     renderField();
   });
 
   const theme = document.querySelector('.theme');
   theme.addEventListener('change', () => {
+    soundClick();
     changeTheme();
   });
 };

@@ -2,6 +2,7 @@ import { FinishModal } from './modal-finish.js';
 import { timer, stopSecondCounter } from '../js/timer.js';
 import { menu } from '../js/menu.js';
 import { soundStart, soundStop, soundClick, soundFlag, soundBomb, soundWin } from '../js/audio.js';
+import { saveResults } from '../js/save.js';
 
 let countClicks = 0;
 let targetX = null;
@@ -128,6 +129,7 @@ const renderHeader = () => {
     const container = document.querySelector('.container');
     document.body.insertBefore(header, container);
   }
+  // renderResults();
 };
 
 // renderHeader();
@@ -176,12 +178,13 @@ const recurseOpen = (x, y) => {
     renderMine();
     setTimeout(() => {
       soundBomb();
-      renderPopup(countClicks, stopSecondCounter() - 1, `Game over. Try again`);
+
+      renderPopup(countClicks, Math.ceil(stopSecondCounter()), `Game over. Try again`);
       const startButton = document.querySelector('#start');
       startButton.innerText = 'New GAME';
-      // renderField();
+
+      saveResults('LOSE', countClicks, Math.ceil(stopSecondCounter()));
       container.classList.add('disable');
-      // isDisabled = true;
       stopSecondCounter();
     }, 200);
   } else {
@@ -198,10 +201,13 @@ const recurseOpen = (x, y) => {
       renderPopup(
         countClicks,
         stopSecondCounter(),
-        `Hooray! You found all mines in ${
-          stopSecondCounter() - 1
-        } seconds and ${countClicks} moves!`,
+        `Hooray! You found all mines in ${Math.ceil(
+          stopSecondCounter(),
+        )} seconds and ${countClicks} moves!`,
       );
+      const startButton = document.querySelector('#start');
+      startButton.innerText = 'New GAME';
+      saveResults('WIN', countClicks, Math.ceil(stopSecondCounter()));
       container.classList.add('disable');
       soundWin();
       init();
@@ -276,6 +282,7 @@ const startNewGameHandler = () => {
   timerElement.textContent = '000';
   stopSecondCounter();
   timer();
+
   startButton.innerHTML =
     startButton.innerText === 'START'
       ? (startButton.innerText = 'STOP')
@@ -284,7 +291,9 @@ const startNewGameHandler = () => {
 
   !startButton.classList.contains('active') ? stopSecondCounter() : init();
 
+  //!
   if (startButton.classList.contains('active')) {
+    // if (startButton.innerText === 'STOP') {
     soundStart();
     container.classList.remove('disable');
   }
@@ -297,15 +306,11 @@ const startNewGame = () => {
   startButton.addEventListener('click', () => startNewGameHandler());
 };
 
-// const gradeHandler = () => {
-//   const grade = document.querySelectorAll('.difficulty');
-//   grade.forEach((el) => el.addEventListener('click', () => renderField()));
-// };
+// document.addEventListener('load', () => renderResults());
+
 init();
 renderHeader();
 menu();
-// renderField();
 
 startNewGame();
-
-// gradeHandler();
+saveResults();

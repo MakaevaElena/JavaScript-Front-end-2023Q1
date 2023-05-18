@@ -10,12 +10,12 @@ export const changeTheme = () => {
     case 'white':
       document.body.style.backgroundColor = '#dcdcdc';
       containerCellOpen = document.querySelector('.container .cell.open');
-      containerCellOpen.style.background = '#dcdcdc';
+      // containerCellOpen.style.background = '#dcdcdc';
       break;
     case 'black':
       document.body.style.backgroundColor = '#1c1c1c';
       containerCellOpen = document.querySelector('.container .cell.open');
-      containerCellOpen.style.background = '#1c1c1c';
+      // containerCellOpen.style.background = '#1c1c1c';
       break;
   }
 };

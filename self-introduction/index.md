@@ -1,4 +1,4 @@
-<code>[self-introduction](https://youtu.be/zLgGyaEA33k)
+<code>https://youtu.be/zLgGyaEA33k
 </code>
 
 Hi! My name is Helen.

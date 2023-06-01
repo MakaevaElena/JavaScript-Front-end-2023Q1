@@ -27,3 +27,8 @@ export interface request {
     pageSize: number;
     page: number;
 }
+
+export type DataType = {
+    articles: Article[];
+    sources: Source[];
+};

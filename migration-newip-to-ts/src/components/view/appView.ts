@@ -1,11 +1,6 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { Article, Source } from '../../types/index';
-
-type DataType = {
-    articles: Article[];
-    sources: Source[];
-};
+import { DataType } from '../../types/index';
 
 // type AppViewType = {
 //     news: {

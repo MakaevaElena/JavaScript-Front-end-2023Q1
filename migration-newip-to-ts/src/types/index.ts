@@ -18,3 +18,12 @@ export interface Article {
     publishedAt: string;
     content: string;
 }
+
+export interface request {
+    country: string;
+    category: string;
+    sources: string;
+    q: string;
+    pageSize: number;
+    page: number;
+}

@@ -3,13 +3,17 @@ import { DataType } from '../../types/index';
 type Options = { [key: string]: string };
 
 class Loader {
-    baseLink: string;
-    options: Options;
+    // валидно
+    // public baseLink: string;
+    // public options: Options;
 
-    constructor(baseLink: string, options: Options) {
-        this.baseLink = baseLink;
-        this.options = options;
-    }
+    // constructor(baseLink: string, options: Options) {
+    //     this.baseLink = baseLink;
+    //     this.options = options;
+    // }
+
+    // краткая запись
+    constructor(public baseLink: string, public options: Options) {}
 
     getResp(
         { endpoint = '', options = {} },

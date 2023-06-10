@@ -1,3 +1,15 @@
+.news {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 21.25rem;
+    left: 0;
+    /* margin-top: 390px; */
+    overflow: auto;
+    width: 100vw;
+    height: calc(100vh - 6.25rem - 21.25rem);
+}
+
 .news__item {
     display: flex;
     flex-direction: column;
@@ -17,7 +29,8 @@
 
 .news__item .news__meta {
     position: relative;
-    height: 200px;
+    height: 12.5rem;
+    /* height: 200px; */
 }
 
 .news__item .news__meta-photo {

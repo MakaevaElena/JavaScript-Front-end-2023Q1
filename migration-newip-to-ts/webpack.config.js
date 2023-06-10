@@ -15,6 +15,13 @@ const baseConfig = {
                 use: ['style-loader', 'css-loader'],
             },
             { test: /\.ts$/i, use: 'ts-loader' }, //чтобы Wepback обрабатывал .ts-файлы
+            {
+                test: /\.svg$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: path.join('img', '[name].[contenthash][ext]'),
+                },
+            },
         ],
     },
     resolve: {

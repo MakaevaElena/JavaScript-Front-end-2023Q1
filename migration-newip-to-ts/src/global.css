@@ -10,6 +10,9 @@ body {
 }
 
 header {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
     padding: 0.625rem 1.875rem;
 
     position: fixed;
@@ -55,13 +58,14 @@ footer .copyright:before {
     margin-left: 1.25rem;
 }
 
-.rsschool-logo {
+.rsschool-logo a {
+    display: block;
     width: 60px;
     height: 40px;
-    background-image: url(../src/img/rs_school_js.svg);
+    background-image: url(./img/rs_school_js.svg);
     /* mask-image: url(../src/img/rs_school_js.svg); */
-    background-repeat: none;
     background-size: cover;
+    cursor: pointer;
 }
 
 .github a {
@@ -69,6 +73,35 @@ footer .copyright:before {
     color: white;
     font-size: 1.125rem;
     font-weight: 700;
+}
+
+/* search */
+.search {
+    margin-left: 5rem;
+}
+
+.icon {
+    width: 22px;
+    height: 22px;
+    opacity: 0.3;
+    position: absolute;
+    left: 14px;
+    top: 12px;
+}
+
+input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px 20px;
+    padding-left: 42px;
+    width: 300px;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.15s ease-in-out;
+
+    &:focus {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        width: 450px;
+    }
 }
 
 @media screen and (max-width: 1200px) {

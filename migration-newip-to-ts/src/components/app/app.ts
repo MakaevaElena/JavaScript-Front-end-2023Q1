@@ -14,7 +14,20 @@ class App {
         (document.querySelector('.sources') as HTMLElement).addEventListener('click', (e) =>
             this.controller.getNews(e, (data) => this.view.drawNews(data))
         );
-        this.controller.getSources((data) => this.view.drawSources(data));
+
+        (document.querySelector('.search-input') as HTMLElement).addEventListener('input', (e: Event) => {
+            if (e) {
+                this.controller.getSources((data) => {
+                    // this.view.drawSources(data);
+                    this.view.searchSources(e, data);
+                });
+            }
+        });
+
+        // this.controller.getSources((data) => {
+        //     // this.view.drawSources(data);
+        //     this.view.searchSources(data);
+        // });
     }
 }
 

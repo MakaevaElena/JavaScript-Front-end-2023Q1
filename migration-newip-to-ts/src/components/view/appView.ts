@@ -30,6 +30,18 @@ export class AppView {
         const values = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }
+
+    searchSources(e: Event, data?: DataType) {
+        // console.log(data);
+        // (document.querySelector('.search-input') as HTMLElement).addEventListener('input', (e: Event) => {
+        //     if (e) {
+        const values = data?.sources
+            ? data?.sources.filter((el) => el.name?.includes((e.target as HTMLInputElement).value))
+            : [];
+        this.sources.draw(values);
+        // }
+        // });
+    }
 }
 
 export default AppView;

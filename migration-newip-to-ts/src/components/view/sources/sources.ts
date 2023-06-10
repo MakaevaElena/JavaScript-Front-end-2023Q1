@@ -3,7 +3,10 @@ import { Source } from '../../../types/index';
 
 class Sources {
     draw(data: Array<Source>) {
-        const fragment = document.createDocumentFragment();
+        // console.log('drow');
+        const sourseList = document.querySelector('.sources.buttons');
+        if (sourseList !== null) sourseList.innerHTML = '';
+        const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp: HTMLTemplateElement | null = document.querySelector('#sourceItemTemp');
 
         data.forEach((item: Source) => {

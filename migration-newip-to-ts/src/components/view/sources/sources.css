@@ -41,3 +41,10 @@
     font-weight: 400;
     white-space: nowrap;
 }
+
+@media (max-width: 780px) {
+    .sources {
+        top: 11rem;
+        height: 8.5rem;
+    }
+}

@@ -32,15 +32,18 @@ export class AppView {
     }
 
     searchSources(e: Event, data?: DataType) {
-        // console.log(data);
-        // (document.querySelector('.search-input') as HTMLElement).addEventListener('input', (e: Event) => {
-        //     if (e) {
-        const values = data?.sources
-            ? data?.sources.filter((el) => el.name?.includes((e.target as HTMLInputElement).value))
-            : [];
-        this.sources.draw(values);
-        // }
-        // });
+        // const values = data?.sources
+        //     ? data?.sources.filter((el) => el.name?.includes((e.target as HTMLInputElement).value))
+        //     : [];
+        // this.sources.draw(values);
+
+        if (data?.sources) {
+            const filtered = data?.sources.filter((el) =>
+                el.name?.toLowerCase().includes((e.target as HTMLInputElement).value.toLowerCase())
+            );
+            const values = filtered ? filtered : data?.sources;
+            this.sources.draw(values);
+        }
     }
 }
 

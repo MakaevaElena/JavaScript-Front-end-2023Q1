@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-// import { DataType } from '../../types/index';
+import { DataType } from '../../types/index';
 
 class App {
     public controller: AppController;
@@ -12,16 +12,16 @@ class App {
 
     start() {
         (document.querySelector('.sources') as HTMLElement).addEventListener('click', (e) =>
-            this.controller.getNews(e, (data) => this.view.drawNews(data))
+            this.controller.getNews(e, (data: DataType | undefined): void => this.view.drawNews(data))
         );
 
-        this.controller.getSources((data) => {
+        this.controller.getSources((data: DataType | undefined): void => {
             this.view.drawSources(data);
         });
 
         (document.querySelector('.search-input') as HTMLElement).addEventListener('input', (e: Event) => {
             if (e) {
-                this.controller.getSources((data) => {
+                this.controller.getSources((data: DataType | undefined): void => {
                     // this.view.drawSources(data);
                     this.view.searchSources(e, data);
                 });

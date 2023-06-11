@@ -4,12 +4,12 @@ import { Source } from '../../../types/index';
 class Sources {
     draw(data: Array<Source>) {
         // console.log('drow');
-        const sourseList = document.querySelector('.sources.buttons');
+        const sourseList: Element | null = document.querySelector('.sources.buttons');
         if (sourseList !== null) sourseList.innerHTML = '';
         const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp: HTMLTemplateElement | null = document.querySelector('#sourceItemTemp');
 
-        data.forEach((item: Source) => {
+        data.forEach((item: Source): void => {
             if (!sourceItemTemp) throw new Error('error');
             const sourceClone = <HTMLElement>sourceItemTemp.content.cloneNode(true);
 

@@ -5,9 +5,9 @@ import { Article } from '../../../types/index';
 
 class News {
     draw(data: Array<Article>) {
-        const news = data.length >= 10 ? data.filter((_item: Article, idx: number) => idx < 10) : data;
+        const news: Article[] = data.length >= 10 ? data.filter((_item: Article, idx: number) => idx < 10) : data;
 
-        const fragment = document.createDocumentFragment();
+        const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement | null = document.querySelector('#newsItemTemp');
 
         news.forEach((item: Article, idx: number) => {

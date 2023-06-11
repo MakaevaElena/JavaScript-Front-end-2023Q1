@@ -1,6 +1,6 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { DataType } from '../../types/index';
+import { Article, DataType, Source } from '../../types/index';
 
 // type AppViewType = {
 //     news: {
@@ -22,12 +22,12 @@ export class AppView {
     }
 
     drawNews(data?: DataType) {
-        const values = data?.articles ? data?.articles : [];
+        const values: Article[] = data?.articles ? data?.articles : [];
         this.news.draw(values);
     }
 
     drawSources(data?: DataType) {
-        const values = data?.sources ? data?.sources : [];
+        const values: Source[] = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }
 

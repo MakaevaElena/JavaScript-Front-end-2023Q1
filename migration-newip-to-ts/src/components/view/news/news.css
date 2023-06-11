@@ -177,3 +177,10 @@
         padding-left: 25px;
     }
 }
+
+@media (max-width: 570px) {
+    /* .news__item {
+        margin-left: 8px;
+        margin-right: 8px;
+    } */
+}

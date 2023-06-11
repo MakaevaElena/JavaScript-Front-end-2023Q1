@@ -1,4 +1,4 @@
-import { DataType } from '../../types/index';
+import { DataType, StatusCode } from '../../types/index';
 
 type Options = { [key: string]: string };
 // type Options = Record<string, string>;
@@ -27,7 +27,7 @@ class Loader {
 
     errorHandler(res: Response): Response {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === StatusCode.Unauthorized || res.status === StatusCode.PageNotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }

@@ -1,7 +1,7 @@
 import { DataType, StatusCode } from '../../types/index';
 
-type Options = { [key: string]: string };
-// type Options = Record<string, string>;
+// type Options = { [key: string]: string };
+type Options = Record<string, string>;
 
 class Loader {
     // валидно

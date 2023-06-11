@@ -74,36 +74,36 @@ export type Language = 'ar' | 'de' | 'en' | 'es' | 'fr' | 'he' | 'it' | 'nl' | '
 export type Category = 'business' | 'entertainment' | 'general' | 'health' | 'science' | 'sports' | 'technology';
 
 export interface Source {
-    id: string;
-    name: string;
-    description?: string;
-    url?: string;
-    category?: Category;
-    language?: Language;
-    country?: Country;
+    readonly id: string;
+    readonly name: string;
+    readonly description?: string;
+    readonly url?: string;
+    readonly category?: Category;
+    readonly language?: Language;
+    readonly country?: Country;
 }
 
 export interface Article {
-    source: Source;
-    author: string;
-    title: string;
-    description: string;
-    url: string;
-    urlToImage: string;
-    publishedAt: string;
-    content: string;
+    readonly source: Source;
+    readonly author: string;
+    readonly title: string;
+    readonly description: string;
+    readonly url: string;
+    readonly urlToImage: string;
+    readonly publishedAt: string;
+    readonly content: string;
 }
 
 export interface request {
-    country: string;
-    category: string;
-    sources: string;
-    q: string;
+    readonly country: string;
+    readonly category: string;
+    readonly sources: string;
+    readonly q: string;
     pageSize: number;
     page: number;
 }
 
 export type DataType = {
-    articles: Article[];
-    sources: Source[];
+    readonly articles: Article[];
+    readonly sources: Source[];
 };

@@ -3,8 +3,8 @@ import { AppView } from '../view/appView';
 // import { DataType } from '../../types/index';
 
 class App {
-    controller: AppController;
-    view: AppView;
+    public controller: AppController;
+    public view: AppView;
     constructor() {
         this.controller = new AppController();
         this.view = new AppView();

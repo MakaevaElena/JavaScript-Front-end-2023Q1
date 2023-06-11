@@ -60,7 +60,7 @@ footer .copyright:before {
 
 .rsschool-logo a {
     display: block;
-    width: 60px;
+    width: 100px;
     height: 40px;
     background-image: url(./img/rs_school_js.svg);
     /* mask-image: url(../src/img/rs_school_js.svg); */

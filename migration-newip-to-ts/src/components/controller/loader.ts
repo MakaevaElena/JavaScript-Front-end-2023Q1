@@ -1,6 +1,7 @@
 import { DataType } from '../../types/index';
 
 type Options = { [key: string]: string };
+// type Options = Record<string, string>;
 
 class Loader {
     // валидно
@@ -24,7 +25,7 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res: Response) {
+    errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);

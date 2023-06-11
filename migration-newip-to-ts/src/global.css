@@ -126,7 +126,7 @@ input {
     } */
 }
 
-@media screen and (max-width: 368) {
+@media (max-width: 368px) {
     /* html {
         font-size: 14px;
     } */

@@ -1,6 +1,7 @@
 html {
     font-size: 16px;
-    /* height: 100%; */
+    scrollbar-color: #6973dd #e0e0e0;
+    scrollbar-width: thin;
 }
 
 body {
@@ -60,12 +61,13 @@ footer .copyright:before {
 
 .rsschool-logo a {
     display: block;
-    width: 100px;
+    width: 80px;
     height: 40px;
     background-image: url(./img/rs_school_js.svg);
     /* mask-image: url(../src/img/rs_school_js.svg); */
     background-size: cover;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .github a {

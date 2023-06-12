@@ -14,8 +14,8 @@ class App {
     start() {
         const sources: HTMLElement | null = document.querySelector('.sources');
         if (sources instanceof HTMLElement) {
-            sources.addEventListener('click', (e) =>
-                this.controller.getNews(e, (data: DataType | undefined): void => this.view.drawNews(data))
+            sources.addEventListener('click', (event) =>
+                this.controller.getNews(event, (data: DataType | undefined): void => this.view.drawNews(data))
             );
         }
 
@@ -25,11 +25,11 @@ class App {
 
         const searchInput: HTMLInputElement | null = document.querySelector('.search-input');
         if (searchInput instanceof HTMLInputElement) {
-            searchInput.addEventListener('input', (e: Event) => {
-                if (e) {
+            searchInput.addEventListener('input', (event: Event) => {
+                if (event) {
                     this.controller.getSources((data: DataType | undefined): void => {
                         // this.view.drawSources(data);
-                        this.view.searchSources(e, data);
+                        this.view.searchSources(event, data);
                     });
                 }
             });

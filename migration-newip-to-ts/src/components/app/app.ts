@@ -1,6 +1,7 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import { DataType } from '../../types/index';
+import { SOURSES, SEARCH_INPUT } from '../../constants';
 
 class App {
     public controller: AppController;
@@ -11,7 +12,7 @@ class App {
     }
 
     start() {
-        const sources: HTMLElement | null = document.querySelector('.sources');
+        const sources: HTMLElement | null = document.querySelector(SOURSES);
         if (sources instanceof HTMLElement) {
             sources.addEventListener('click', (event) =>
                 this.controller.getNews(event, (data: DataType | undefined): void => this.view.drawNews(data))
@@ -22,7 +23,7 @@ class App {
             this.view.drawSources(data);
         });
 
-        const searchInput: HTMLInputElement | null = document.querySelector('.search-input');
+        const searchInput: HTMLInputElement | null = document.querySelector(SEARCH_INPUT);
         if (searchInput instanceof HTMLInputElement) {
             searchInput.addEventListener('input', (event: Event) => {
                 if (event) {

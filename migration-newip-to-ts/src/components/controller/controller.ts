@@ -1,11 +1,6 @@
 import AppLoader from './appLoader';
 import { DataType, Endpoints } from '../../types/index';
 
-// type EventType = {
-//     target: HTMLElement;
-//     currentTarget: HTMLElement;
-// };
-
 class AppController extends AppLoader {
     getSources(callback: (data?: DataType) => void) {
         super.getResp(

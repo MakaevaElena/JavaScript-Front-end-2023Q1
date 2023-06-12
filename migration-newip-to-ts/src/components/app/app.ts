@@ -10,7 +10,6 @@ class App {
         this.view = new AppView();
     }
 
-    // querySelector<T extends keyof HTMLElement>(selector: T): HTMLElement[T] | null;
     start() {
         const sources: HTMLElement | null = document.querySelector('.sources');
         if (sources instanceof HTMLElement) {
@@ -28,7 +27,6 @@ class App {
             searchInput.addEventListener('input', (event: Event) => {
                 if (event) {
                     this.controller.getSources((data: DataType | undefined): void => {
-                        // this.view.drawSources(data);
                         this.view.searchSources(event, data);
                     });
                 }

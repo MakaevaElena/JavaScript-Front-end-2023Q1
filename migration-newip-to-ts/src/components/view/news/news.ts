@@ -1,8 +1,6 @@
 import './news.css';
 import { Article } from '../../../types/index';
 
-// type newsItemTempType = {};
-
 class News {
     draw(data: Array<Article>) {
         const news: Article[] = data.length >= 10 ? data.filter((_item: Article, idx: number) => idx < 10) : data;
@@ -13,7 +11,7 @@ class News {
         news.forEach((item: Article, idx: number) => {
             if (!newsItemTemp) throw new Error('error');
             const newsClone = <HTMLElement>newsItemTemp.content.cloneNode(true);
-            // if (!newsClone || newsClone instanceof DocumentFragment) throw TypeError('TypeError');
+
             if (idx % 2) newsClone.querySelector('.news__item')?.classList.add('alt');
 
             const newsMetaPhoto: HTMLDivElement | null = newsClone.querySelector('.news__meta-photo');

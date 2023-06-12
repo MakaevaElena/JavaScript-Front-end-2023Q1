@@ -1,19 +1,8 @@
 import { DataType, StatusCode } from '../../types/index';
 
-// type Options = { [key: string]: string };
 type Options = Record<string, string>;
 
 class Loader {
-    // валидно
-    // public baseLink: string;
-    // public options: Options;
-
-    // constructor(baseLink: string, options: Options) {
-    //     this.baseLink = baseLink;
-    //     this.options = options;
-    // }
-
-    // краткая запись
     constructor(public baseLink: string, public options: Options) {}
 
     getResp(

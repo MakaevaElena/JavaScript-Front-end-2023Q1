@@ -5,7 +5,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const EslingPlugin = require('eslint-webpack-plugin'); //чтобы eslint работал во время работы Webpack
 
 const baseConfig = {
-    // entry: path.resolve(__dirname, './src/index.js'),
     entry: path.resolve(__dirname, './src/index'), //чтобы при замене .js на .ts он его тоже подхватил
     mode: 'development',
     module: {
@@ -15,13 +14,6 @@ const baseConfig = {
                 use: ['style-loader', 'css-loader'],
             },
             { test: /\.ts$/i, use: 'ts-loader' }, //чтобы Wepback обрабатывал .ts-файлы
-            // {
-            //     test: /\.svg$/,
-            //     type: 'asset/resource',
-            //     generator: {
-            //         filename: path.join('img', '[name].[contenthash][ext]'),
-            //     },
-            // },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/i,
                 type: 'asset/resource',

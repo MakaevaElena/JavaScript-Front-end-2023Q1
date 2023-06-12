@@ -2,16 +2,6 @@ import News from './news/news';
 import Sources from './sources/sources';
 import { Article, DataType, Source } from '../../types/index';
 
-// type AppViewType = {
-//     news: {
-//         draw: (data: Array<Article>) => void;
-//     };
-
-//     sources: {
-//         draw: (data: Array<Source>) => void;
-//     };
-// };
-
 export class AppView {
     public news: News;
     public sources: Sources;

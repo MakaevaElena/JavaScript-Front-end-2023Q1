@@ -1,5 +1,6 @@
 import AppLoader from './appLoader';
-import { DataType, Endpoints } from '../../types/index';
+import { DataType } from '../../types/types';
+import { Endpoints } from '../../types/enums';
 
 class AppController extends AppLoader {
     getSources(callback: (data: DataType) => void) {

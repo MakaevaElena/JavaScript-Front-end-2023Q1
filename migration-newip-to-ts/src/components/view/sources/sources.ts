@@ -1,5 +1,5 @@
 import './sources.css';
-import { ISource } from '../../../types/index';
+import { ISource } from '../../../types/interfaces';
 import { SOURCES_BUTTONS, SOURCE_ITEM_NAME, SOURCE_ITEM_TEMP, SOURCE_ITEM, SOURCES } from '../../../constants';
 
 class Sources {

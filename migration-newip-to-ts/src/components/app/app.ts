@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { DataType } from '../../types/index';
+import { DataType } from '../../types/types';
 import { SOURSES, SEARCH_INPUT } from '../../constants';
 
 class App {

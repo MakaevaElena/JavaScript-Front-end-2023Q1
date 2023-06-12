@@ -1,5 +1,5 @@
 import './news.css';
-import { IArticle } from '../../../types/index';
+import { IArticle } from '../../../types/interfaces';
 import {
     NEWS_ITEM,
     NEWS_META_PHOTO,

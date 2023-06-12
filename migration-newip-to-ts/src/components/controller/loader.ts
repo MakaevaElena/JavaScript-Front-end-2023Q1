@@ -1,4 +1,5 @@
-import { DataType, StatusCode, RequestMethod, Endpoints } from '../../types/index';
+import { DataType } from '../../types/types';
+import { StatusCode, RequestMethod, Endpoints } from '../../types/enums';
 
 type Options = Record<string, string>;
 

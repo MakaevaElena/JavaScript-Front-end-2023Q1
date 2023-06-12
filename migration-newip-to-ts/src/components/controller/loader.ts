@@ -1,4 +1,4 @@
-import { DataType, StatusCode } from '../../types/index';
+import { DataType, StatusCode, RequestMethod, Endpoints } from '../../types/index';
 
 type Options = Record<string, string>;
 
@@ -6,12 +6,12 @@ class Loader {
     constructor(public baseLink: string, public options: Options) {}
 
     getResp(
-        { endpoint = '', options = {} },
+        { endpoint, options = {} }: { endpoint: Endpoints; options: Options },
         callback = () => {
-            console.error('No callback for GET response');
+            throw new Error('No callback for GET response');
         }
     ) {
-        this.load('GET', endpoint, callback, options);
+        this.load(RequestMethod.GET, endpoint, callback, options);
     }
 
     errorHandler(res: Response): Response {
@@ -24,7 +24,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: Options, endpoint: string) {
+    makeUrl(options: Options, endpoint: Endpoints) {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -35,7 +35,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: (data: DataType) => void, options = {}) {
+    load(method: string, endpoint: Endpoints, callback: (data: DataType) => void, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

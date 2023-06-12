@@ -1,3 +1,11 @@
+export enum RequestMethod {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    PUTCH = 'PUTCH',
+    DELETE = 'DELETE',
+}
+
 export enum Endpoints {
     Everything = 'everything',
     TopHeadlines = 'top-headlines',

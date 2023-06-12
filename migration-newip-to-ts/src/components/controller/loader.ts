@@ -6,8 +6,8 @@ class Loader {
     constructor(public baseLink: string, public options: Options) {}
 
     getResp(
-        { endpoint, options = {} }: { endpoint: Endpoints; options: Options },
-        callback = () => {
+        { endpoint, options = {} }: { endpoint: Endpoints; options?: Options },
+        callback: (data: DataType) => void = () => {
             throw new Error('No callback for GET response');
         }
     ) {
@@ -35,7 +35,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: Endpoints, callback: (data: DataType) => void, options = {}) {
+    public load(method: string, endpoint: Endpoints, callback: (data: DataType) => void, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { DataType, Endpoints } from '../../types/index';
 
 class AppController extends AppLoader {
-    getSources(callback: (data?: DataType) => void) {
+    getSources(callback: (data: DataType) => void) {
         super.getResp(
             {
                 endpoint: Endpoints.Sources,

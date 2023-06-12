@@ -18,7 +18,7 @@ class App {
             );
         }
 
-        this.controller.getSources((data: DataType | undefined): void => {
+        this.controller.getSources((data: DataType): void => {
             this.view.drawSources(data);
         });
 

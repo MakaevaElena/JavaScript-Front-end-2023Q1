@@ -11,10 +11,10 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: Event, callback: (data?: DataType) => void) {
-        if (e.target instanceof HTMLElement) {
-            let target: HTMLElement | ParentNode | null = e.target;
-            const newsContainer: EventTarget | null = e.currentTarget;
+    getNews(event: Event, callback: (data: DataType) => void) {
+        if (event.target instanceof HTMLElement) {
+            let target: HTMLElement | ParentNode | null = event.target;
+            const newsContainer: EventTarget | null = event.currentTarget;
 
             while (target !== newsContainer) {
                 if (target instanceof HTMLElement) {

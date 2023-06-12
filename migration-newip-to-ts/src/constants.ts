@@ -18,6 +18,9 @@ const SOURCE_ITEM_TEMP = '#sourceItemTemp';
 const SOURCE_ITEM = '.source__item';
 const SOURCES = '.sources';
 
+const PLACEHOLDER_URL = '../../../img/news_placeholder.jpg';
+const NEWS_QUANTITY = 10;
+
 export {
     SOURSES,
     SEARCH_INPUT,
@@ -36,4 +39,6 @@ export {
     SOURCE_ITEM,
     SOURCES,
     NEWS_ITEM_TEMP,
+    PLACEHOLDER_URL,
+    NEWS_QUANTITY,
 };

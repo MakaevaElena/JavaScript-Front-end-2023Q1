@@ -11,11 +11,14 @@ import {
     NEWS_READ_MORE_LINK,
     NEWS,
     NEWS_ITEM_TEMP,
+    PLACEHOLDER_URL,
+    NEWS_QUANTITY,
 } from '../../../constants';
 
 class News {
     draw(data: Array<IArticle>) {
-        const news: IArticle[] = data.length >= 10 ? data.filter((_item: IArticle, idx: number) => idx < 10) : data;
+        const news: IArticle[] =
+            data.length >= NEWS_QUANTITY ? data.filter((_item: IArticle, idx: number) => idx < NEWS_QUANTITY) : data;
 
         const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement | null = document.querySelector(NEWS_ITEM_TEMP);
@@ -28,7 +31,7 @@ class News {
 
             const newsMetaPhoto: HTMLDivElement | null = newsClone.querySelector(NEWS_META_PHOTO);
             if (newsMetaPhoto instanceof HTMLDivElement) {
-                newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || '../../../img/news_placeholder.jpg'})`;
+                newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || PLACEHOLDER_URL})`;
             }
 
             const newsMetaAuthor: HTMLLIElement | null = newsClone.querySelector(NEWS_META_AUTHOR);
@@ -38,7 +41,7 @@ class News {
 
             const newsMetaDate: HTMLLIElement | null = newsClone.querySelector(NEWS_META_DATE);
             if (newsMetaDate instanceof HTMLLIElement) {
-                newsMetaDate.textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');
+                newsMetaDate.textContent = item.publishedAt.slice(0, NEWS_QUANTITY).split('-').reverse().join('-');
             }
 
             const newsDescriptionTitle: HTMLElement | null = newsClone.querySelector(NEWS_DESCRIPTION_TITLE);

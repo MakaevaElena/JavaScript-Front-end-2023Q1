@@ -15,7 +15,7 @@ class App {
         const sources: HTMLElement | null = document.querySelector(SOURSES);
         if (sources instanceof HTMLElement) {
             sources.addEventListener('click', (event) =>
-                this.controller.getNews(event, (data: DataType | undefined): void => this.view.drawNews(data))
+                this.controller.getNews(event, (data: DataType): void => this.view.drawNews(data))
             );
         }
 
@@ -27,7 +27,7 @@ class App {
         if (searchInput instanceof HTMLInputElement) {
             searchInput.addEventListener('input', (event: Event) => {
                 if (event) {
-                    this.controller.getSources((data: DataType | undefined): void => {
+                    this.controller.getSources((data: DataType): void => {
                         this.view.searchSources(event, data);
                     });
                 }

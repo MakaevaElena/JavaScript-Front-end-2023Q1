@@ -32,17 +32,15 @@ export class AppView {
     }
 
     searchSources(e: Event, data?: DataType) {
-        // const values = data?.sources
-        //     ? data?.sources.filter((el) => el.name?.includes((e.target as HTMLInputElement).value))
-        //     : [];
-        // this.sources.draw(values);
-
-        if (data?.sources) {
-            const filtered = data?.sources.filter((el) =>
-                el.name?.toLowerCase().includes((e.target as HTMLInputElement).value.toLowerCase())
-            );
-            const values = filtered ? filtered : data?.sources;
-            this.sources.draw(values);
+        const target: EventTarget | null = e.target;
+        if (target instanceof HTMLInputElement) {
+            if (data?.sources) {
+                const filtered = data?.sources.filter((el) =>
+                    el.name?.toLowerCase().includes(target.value.toLowerCase())
+                );
+                const values = filtered ? filtered : data?.sources;
+                this.sources.draw(values);
+            }
         }
     }
 }

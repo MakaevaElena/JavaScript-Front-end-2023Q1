@@ -10,23 +10,30 @@ class App {
         this.view = new AppView();
     }
 
+    // querySelector<T extends keyof HTMLElement>(selector: T): HTMLElement[T] | null;
     start() {
-        (document.querySelector('.sources') as HTMLElement).addEventListener('click', (e) =>
-            this.controller.getNews(e, (data: DataType | undefined): void => this.view.drawNews(data))
-        );
+        const sources: HTMLElement | null = document.querySelector('.sources');
+        if (sources instanceof HTMLElement) {
+            sources.addEventListener('click', (e) =>
+                this.controller.getNews(e, (data: DataType | undefined): void => this.view.drawNews(data))
+            );
+        }
 
         this.controller.getSources((data: DataType | undefined): void => {
             this.view.drawSources(data);
         });
 
-        (document.querySelector('.search-input') as HTMLElement).addEventListener('input', (e: Event) => {
-            if (e) {
-                this.controller.getSources((data: DataType | undefined): void => {
-                    // this.view.drawSources(data);
-                    this.view.searchSources(e, data);
-                });
-            }
-        });
+        const searchInput: HTMLInputElement | null = document.querySelector('.search-input');
+        if (searchInput instanceof HTMLInputElement) {
+            searchInput.addEventListener('input', (e: Event) => {
+                if (e) {
+                    this.controller.getSources((data: DataType | undefined): void => {
+                        // this.view.drawSources(data);
+                        this.view.searchSources(e, data);
+                    });
+                }
+            });
+        }
     }
 }
 

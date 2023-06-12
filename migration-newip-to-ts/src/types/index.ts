@@ -81,7 +81,7 @@ export type Language = 'ar' | 'de' | 'en' | 'es' | 'fr' | 'he' | 'it' | 'nl' | '
 
 export type Category = 'business' | 'entertainment' | 'general' | 'health' | 'science' | 'sports' | 'technology';
 
-export interface Source {
+export interface ISource {
     readonly id: string;
     readonly name: string;
     readonly description?: string;
@@ -91,8 +91,8 @@ export interface Source {
     readonly country?: Country;
 }
 
-export interface Article {
-    readonly source: Source;
+export interface IArticle {
+    readonly source: ISource;
     readonly author: string;
     readonly title: string;
     readonly description: string;
@@ -102,7 +102,7 @@ export interface Article {
     readonly content: string;
 }
 
-export interface request {
+export interface IRequest {
     readonly country: string;
     readonly category: string;
     readonly sources: string;
@@ -112,6 +112,6 @@ export interface request {
 }
 
 export type DataType = {
-    readonly articles: Article[];
-    readonly sources: Source[];
+    readonly articles: IArticle[];
+    readonly sources: ISource[];
 };

@@ -1,14 +1,14 @@
 import './news.css';
-import { Article } from '../../../types/index';
+import { IArticle } from '../../../types/index';
 
 class News {
-    draw(data: Array<Article>) {
-        const news: Article[] = data.length >= 10 ? data.filter((_item: Article, idx: number) => idx < 10) : data;
+    draw(data: Array<IArticle>) {
+        const news: IArticle[] = data.length >= 10 ? data.filter((_item: IArticle, idx: number) => idx < 10) : data;
 
         const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement | null = document.querySelector('#newsItemTemp');
 
-        news.forEach((item: Article, idx: number) => {
+        news.forEach((item: IArticle, idx: number) => {
             if (!newsItemTemp) throw new Error('error');
             const newsClone = <HTMLElement>newsItemTemp.content.cloneNode(true);
 

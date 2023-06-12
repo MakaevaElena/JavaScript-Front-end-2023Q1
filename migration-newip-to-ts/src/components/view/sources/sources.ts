@@ -1,14 +1,14 @@
 import './sources.css';
-import { Source } from '../../../types/index';
+import { ISource } from '../../../types/index';
 
 class Sources {
-    draw(data: Array<Source>) {
+    draw(data: Array<ISource>) {
         const sourseList: Element | null = document.querySelector('.sources.buttons');
         if (sourseList !== null) sourseList.innerHTML = '';
         const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp: HTMLTemplateElement | null = document.querySelector('#sourceItemTemp');
 
-        data.forEach((item: Source): void => {
+        data.forEach((item: ISource): void => {
             if (!sourceItemTemp) throw new Error('error');
             const sourceClone = <HTMLElement>sourceItemTemp.content.cloneNode(true);
 

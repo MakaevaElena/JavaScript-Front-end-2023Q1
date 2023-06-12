@@ -10,20 +10,24 @@ class Sources {
         const sourceItemTemp: HTMLTemplateElement | null = document.querySelector(SOURCE_ITEM_TEMP);
 
         data.forEach((item: ISource): void => {
-            if (!sourceItemTemp) throw new Error('error');
-            const sourceClone = <HTMLElement>sourceItemTemp.content.cloneNode(true);
+            if (sourceItemTemp instanceof HTMLTemplateElement) {
+                const sourceClone: HTMLElement | Node | null = sourceItemTemp.content.cloneNode(true);
 
-            const sourceItemName: HTMLSpanElement | null = sourceClone.querySelector(SOURCE_ITEM_NAME);
-            if (sourceItemName instanceof HTMLSpanElement) {
-                sourceItemName.textContent = item.name;
+                if (sourceClone instanceof DocumentFragment) {
+                    const sourceItemName: HTMLSpanElement | null = sourceClone.querySelector(SOURCE_ITEM_NAME);
+
+                    if (sourceItemName instanceof HTMLSpanElement) {
+                        sourceItemName.textContent = item.name;
+                    }
+
+                    const sourceIt: HTMLDivElement | null = sourceClone.querySelector(SOURCE_ITEM);
+                    if (sourceIt instanceof HTMLDivElement) {
+                        sourceIt.setAttribute('data-source-id', item.id);
+                    }
+
+                    fragment.append(sourceClone);
+                }
             }
-
-            const sourceIt: HTMLDivElement | null = sourceClone.querySelector(SOURCE_ITEM);
-            if (sourceIt instanceof HTMLDivElement) {
-                sourceIt.setAttribute('data-source-id', item.id);
-            }
-
-            fragment.append(sourceClone);
         });
 
         document.querySelector(SOURCES)?.append(fragment);

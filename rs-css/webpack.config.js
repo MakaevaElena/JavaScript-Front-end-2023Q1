@@ -1,175 +1,48 @@
-// https://github.com/Net-zen/webpack-boilerplate/blob/master/webpack.config.js
+// https://github.com/Jeneko/News-api-migration-walkthrough/blob/main/README.md
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { merge } = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const EslingPlugin = require('eslint-webpack-plugin'); //чтобы eslint работал во время работы Webpack
 
-const ENV = process.env.npm_lifecycle_event;
-const isDev = ENV === 'dev';
-const isProd = ENV === 'build';
-
-function setDevTool() {
-  if (isDev) {
-    return 'cheap-module-eval-source-map';
-  } else {
-    return 'none';
-  }
-}
-
-function setDMode() {
-  if (isProd) {
-    return 'production';
-  } else {
-    return 'development';
-  }
-}
-
-const config = {
-  target: 'web',
-  entry: { index: './src/js/index.js' },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-  },
-  mode: setDMode(),
-  devtool: setDevTool(),
+const baseConfig = {
+  entry: path.resolve(__dirname, './src/index'), //чтобы при замене .js на .ts он его тоже подхватил
+  mode: 'development',
   module: {
     rules: [
       {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: {
-              minimize: false,
-            },
-          },
-        ],
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
+      { test: /\.ts$/i, use: 'ts-loader' }, //чтобы Wepback обрабатывал .ts-файлы
       {
-        test: /\.js$/,
-        use: ['babel-loader' /* , 'eslint-loader' */],
-        exclude: [/node_modules/],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: './postcss.config.js' } },
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: './postcss.config.js' } },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(jpe?g|png|svg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'img',
-              name: '[name].[ext]',
-            },
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              bypassOnDebug: true,
-              mozjpeg: {
-                progressive: true,
-                quality: 75,
-              },
-              // optipng.enabled: false will disable optipng
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.65, 0.9],
-                speed: 4,
-              },
-              gifsicle: {
-                interlaced: false,
-                optimizationLevel: 1,
-              },
-              // the webp option will enable WEBP
-              webp: {
-                quality: 75,
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(woff|woff2|ttf|otf|eot)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'fonts',
-            },
-          },
-        ],
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        type: 'asset/resource',
       },
     ],
   },
-
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
-    }),
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
-    new CopyWebpackPlugin([
-      // {from: './src/static', to: './'},
-      // {from: './src/img', to: './img/'},
-    ]),
-  ],
-
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 3000,
-    overlay: true,
-    stats: 'errors-only',
-    clientLogLevel: 'none',
+  resolve: {
+    extensions: ['.ts', '.js'], //это определяет порядок поиска файлов в импортах
   },
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, '../dist'),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, './src/index.html'),
+      filename: 'index.html',
+    }),
+    new CleanWebpackPlugin(),
+    new EslingPlugin({ extensions: 'ts' }), //в настройках указываем тип файлов .ts
+  ],
 };
 
-if (isProd) {
-  config.plugins.push(new UglifyJSPlugin());
-}
+module.exports = ({ mode }) => {
+  const isProductionMode = mode === 'prod';
+  const envConfig = isProductionMode
+    ? require('./webpack.prod.config')
+    : require('./webpack.dev.config');
 
-module.exports = config;
+  return merge(baseConfig, envConfig);
+};

@@ -1,4 +1,12 @@
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .main {
+  font-family: menlo, monospace;
+  font-size: 14px;
+
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: 10vh;
@@ -13,4 +21,24 @@
 
 .selected {
   background: gray;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
 }
+
+.label {
+  padding: 1rem;
+}
+
+.fileName {
+  padding: 1rem;
+}
+
+.line-numbers {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* .line-number {
+  margin: 0.2rem;
+} */

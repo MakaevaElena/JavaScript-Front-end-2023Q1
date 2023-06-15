@@ -7,7 +7,7 @@ import Observer from "../../observer/observer";
 import DefaultView from "../default-view";
 
 export default class HtmlViewerView extends DefaultView implements INotify {
-  private readonly HEADER_TEXT = "HtmlViewerView";
+  private readonly HEADER_TEXT = "HTML Viewer";
 
   constructor(observer: Observer | null) {
     super();
@@ -43,10 +43,26 @@ export default class HtmlViewerView extends DefaultView implements INotify {
   }
 
   private configureHtml() {
-    const label = document.createElement(TagNames.SECTION_HEADER);
-    label.textContent = this.HEADER_TEXT;
+    const htmlViewerHeader = document.createElement("div");
+    htmlViewerHeader.classList.add("html-viewer-header");
+    this.htmlElement.append(htmlViewerHeader);
 
-    this.htmlElement.append(label);
+    const fileName = document.createElement("div");
+    fileName.classList.add("fileName");
+    fileName.innerText = "table.html";
+    htmlViewerHeader.append(fileName);
+
+    const label = document.createElement(TagNames.SECTION_HEADER);
+    label.classList.add("label");
+    label.textContent = this.HEADER_TEXT;
+    htmlViewerHeader.append(label);
+
+    const numberLinesBlock = document.createElement("div");
+    numberLinesBlock.classList.add("number-lines");
+    this.htmlElement.append(numberLinesBlock);
+
+    const numberLines = this.createLineNumber();
+    numberLinesBlock.append(numberLines);
   }
 
   protected createHtml(): HTMLElement {

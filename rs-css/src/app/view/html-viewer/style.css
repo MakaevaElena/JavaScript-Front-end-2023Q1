@@ -1,11 +1,33 @@
 .html-viewer {
   grid-column-start: 3;
   grid-column-end: 6;
-  grid-row-start: 5;
+  grid-row-start: 4;
   grid-row-end: 10;
 
   margin: 5px;
   padding: 5px;
 
   border: 1px solid;
+
+  display: grid;
+  grid-template-columns: 5% 95%;
+  grid-template-rows: 10% 90%;
+}
+
+.html-viewer-header {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  border: 1px solid grey;
+  background-color: rgb(187, 185, 185);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.number-lines {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  border: 1px solid grey;
+  background-color: rgb(187, 185, 185);
 }

@@ -11,4 +11,6 @@ export enum CssClasses {
   HTML_VIEWER = "html-viewer",
 
   SELECTED = "selected",
+
+  FOOTER_VIEWER = "footer",
 }

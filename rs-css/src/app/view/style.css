@@ -1,0 +1,16 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 10vh;
+
+  height: 90vh;
+
+  margin: 5px;
+  padding: 5px;
+
+  border: 1px solid;
+}
+
+.selected {
+  background: gray;
+}

@@ -1,0 +1,14 @@
+.table__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 50%;
+  width: 150px;
+
+  padding: 5px;
+  margin: 5px;
+
+  border: 1px solid;
+}

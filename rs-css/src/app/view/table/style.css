@@ -1,0 +1,44 @@
+.table {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 5;
+
+  margin: 5px;
+  padding: 5px;
+
+  border: 1px solid;
+}
+
+.mat {
+  background-image: url("../../../img/mat_orange_2.png");
+  background-size: 30% 30%;
+  background-repeat: no-repeat;
+  background-position: 50% 70%;
+}
+
+.cat-orange {
+  background-image: url("../../../img/cat_orange_2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cat-black {
+  background-image: url("../../../img/cat_black_2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cat-gray {
+  background-image: url("../../../img/cat_gray_2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

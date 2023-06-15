@@ -1,0 +1,11 @@
+.level {
+  grid-column-start: 6;
+  grid-column-end: 8;
+  grid-row-start: 1;
+  grid-row-end: 10;
+
+  margin: 5px;
+  padding: 5px;
+
+  border: 1px solid;
+}

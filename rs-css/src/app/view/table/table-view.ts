@@ -1,19 +1,20 @@
 import "./style.css";
 import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
-import Observer from "../../observer/observer";
+// import Observer from "../../observer/observer";
 import DefaultView from "../default-view";
 import TagItemView from "./tag-item/tag-item-view";
+import ObserverMethod from "../../observer/observer-method";
 
 export default class TableView extends DefaultView {
-  constructor(observer: Observer) {
+  constructor(observer: ObserverMethod) {
     super();
     this.htmlElement = this.createHtml(observer);
   }
 
   protected createHtml<T>(param: T): HTMLElement {
-    let observer: Observer | null = null;
-    if (param instanceof Observer) {
+    let observer: ObserverMethod | null = null;
+    if (param instanceof ObserverMethod) {
       observer = param;
     }
     const element = document.createElement(TagNames.SECTION);

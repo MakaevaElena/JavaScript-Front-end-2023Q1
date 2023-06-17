@@ -1,4 +1,4 @@
-import { EventName } from "../../enums/events/event-names";
+import { EventName } from "../enums/events/event-names";
 
 export default class ObserverMethod {
   private listeners = new Map<EventName, Array<<T>(param?: T) => void>>();

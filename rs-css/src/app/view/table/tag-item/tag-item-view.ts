@@ -1,22 +1,33 @@
 import "./style.css";
 import { EventName } from "../../../enums/events/event-names";
-import INotify from "../../../observer/interfaces/i-notify";
-import Observer from "../../../observer/observer";
+// import INotify from "../../../observer/interfaces/i-notify";
+// import Observer from "../../../observer/observer";
 import DefaultView from "../../default-view";
 import { CssClasses } from "../../../enums/view/css-classes";
 import { TagNames } from "../../../enums/view/tag-names";
+import ObserverMethod from "../../../observer/observer-method";
 
-export default class TagItemView extends DefaultView implements INotify {
+// export default class TagItemView extends DefaultView implements INotify {
+export default class TagItemView extends DefaultView {
   private currentTag = "0";
 
-  constructor(observer: Observer | null) {
+  constructor(observer: ObserverMethod | null) {
     super();
 
-    observer?.subscribe(EventName.HTML_SELECTED, this);
-    observer?.subscribe(EventName.HTML_UNSELECTED, this);
+    observer?.subscribe(EventName.HTML_SELECTED, this.selectHandler.bind(this));
+    observer?.subscribe(
+      EventName.HTML_UNSELECTED,
+      this.unselectHandler.bind(this)
+    );
 
-    observer?.subscribe(EventName.LEVEL_SELECTED, this);
-    observer?.subscribe(EventName.LEVEL_UNSELECTED, this);
+    observer?.subscribe(
+      EventName.LEVEL_SELECTED,
+      this.selectHandler.bind(this)
+    );
+    observer?.subscribe(
+      EventName.LEVEL_UNSELECTED,
+      this.unselectHandler.bind(this)
+    );
 
     this.htmlElement.addEventListener("mouseenter", () =>
       observer?.notify(EventName.TAG_SELECTED)
@@ -26,20 +37,31 @@ export default class TagItemView extends DefaultView implements INotify {
     );
   }
 
-  notify(nameEvent: EventName): void {
-    switch (nameEvent) {
-      case EventName.HTML_SELECTED:
-      case EventName.LEVEL_SELECTED: {
-        this.htmlElement.classList.add(CssClasses.SELECTED);
-        break;
-      }
-      case EventName.HTML_UNSELECTED:
-      case EventName.LEVEL_UNSELECTED: {
-        this.htmlElement.classList.remove(CssClasses.SELECTED);
-        break;
-      }
+  private selectHandler<T>(param: T) {
+    this.htmlElement.classList.add(CssClasses.SELECTED);
+    if (typeof param === "string") {
+      this.htmlElement.textContent = param;
     }
   }
+  private unselectHandler() {
+    this.htmlElement.classList.remove(CssClasses.SELECTED);
+    // this.htmlElement.textContent = "";
+  }
+
+  // notify(nameEvent: EventName): void {
+  //   switch (nameEvent) {
+  //     case EventName.HTML_SELECTED:
+  //     case EventName.LEVEL_SELECTED: {
+  //       this.htmlElement.classList.add(CssClasses.SELECTED);
+  //       break;
+  //     }
+  //     case EventName.HTML_UNSELECTED:
+  //     case EventName.LEVEL_UNSELECTED: {
+  //       this.htmlElement.classList.remove(CssClasses.SELECTED);
+  //       break;
+  //     }
+  //   }
+  // }
 
   public configureHtml(...classes: string[]) {
     this.htmlElement.classList.add(...classes);

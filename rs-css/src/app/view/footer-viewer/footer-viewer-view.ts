@@ -4,7 +4,7 @@ import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
 
 export default class FooterViewerView extends DefaultView {
-  private readonly FOOTER_TEXT = "FOOTER";
+  private readonly FOOTER_TEXT = "";
 
   constructor() {
     super();
@@ -12,9 +12,33 @@ export default class FooterViewerView extends DefaultView {
   }
 
   private configureHtml() {
-    const headerTitle = document.createElement("h2");
-    headerTitle.innerText = this.FOOTER_TEXT;
+    // const headerTitle = document.createElement("h2");
+    // headerTitle.innerText = this.FOOTER_TEXT;
+    // this.htmlElement.append(headerTitle);
+
+    const headerTitle = this.createTagElement(
+      "h2",
+      ["header-title"],
+      this.FOOTER_TEXT
+    );
+    const github = this.createTagElement("div", ["github"], "GitHub");
+    const linckToGit = this.createTagElement("a", [], "");
+    linckToGit.setAttribute("href", "https://github.com/MakaevaElena");
+    linckToGit.setAttribute("target", "_blank");
+
+    const year = this.createTagElement("h3", ["year"], "2023");
+
+    const rs = this.createTagElement("div", ["rsschool-logo"], "");
+    const rsLinck = this.createTagElement("a", [], "");
+    rsLinck.setAttribute("href", "https://rs.school/js/");
+    rsLinck.setAttribute("target", "_blank");
+
+    this.htmlElement.append(year);
     this.htmlElement.append(headerTitle);
+    this.htmlElement.append(github);
+    github.append(linckToGit);
+    this.htmlElement.append(rs);
+    rs.append(rsLinck);
   }
 
   protected createHtml(): HTMLElement {

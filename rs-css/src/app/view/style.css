@@ -4,6 +4,7 @@ p {
 }
 
 .main {
+  position: relative;
   font-family: menlo, monospace;
   font-size: 14px;
 
@@ -17,6 +18,20 @@ p {
   padding: 5px;
 
   border: 1px solid;
+}
+
+.main::after {
+  content: "";
+  background-image: url("../../assets/img/bgrd-wave.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .selected {

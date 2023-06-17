@@ -7,7 +7,6 @@ import DefaultView from "./default-view";
 import HtmlViewerView from "./html-viewer/html-viewer-view";
 import LevelView from "./level/level-view";
 import TableView from "./table/table-view";
-import FooterViewerView from "./footer-viewer/footer-viewer-view";
 
 export default class MainView extends DefaultView {
   constructor() {
@@ -19,7 +18,6 @@ export default class MainView extends DefaultView {
     const tableView = new TableView(observer);
     const htmlViewerView = new HtmlViewerView(observer);
     const cssViewerView = new CssViewerView();
-    const footerViewerView = new FooterViewerView();
 
     this.htmlElement.append(
       tableView.getHtmlElement(),
@@ -27,8 +25,6 @@ export default class MainView extends DefaultView {
       htmlViewerView.getHtmlElement(),
       cssViewerView.getHtmlElement()
     );
-
-    this.htmlElement.after(footerViewerView.getHtmlElement());
   }
 
   protected createHtml(): HTMLElement {

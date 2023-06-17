@@ -9,6 +9,17 @@ export default abstract class DefaultView {
     return this.htmlElement;
   }
 
+  createTagElement = (
+    tagName: string,
+    className: string[],
+    text: string
+  ): HTMLElement => {
+    const element = document.createElement(tagName);
+    element.classList.add(...className);
+    element.innerHTML = text || "";
+    return element;
+  };
+
   createLineNumber = (): HTMLDivElement => {
     const lineNumbers = document.createElement("div");
     lineNumbers.classList.add("line-numbers");

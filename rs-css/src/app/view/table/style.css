@@ -17,7 +17,7 @@
 }
 
 .mat {
-  background-image: url("../../../img/mat_orange_2.png");
+  background-image: url("../../../assets/img/mat_orange_2.png");
   background-size: 30% 30%;
   background-repeat: no-repeat;
   background-position: 50% 70%;
@@ -27,7 +27,7 @@
   position: absolute;
   bottom: 25%;
   left: 38%;
-  background-image: url("../../../img/cat_orange_2.png");
+  background-image: url("../../../assets/img/cat_orange_2.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -37,7 +37,7 @@
   position: absolute;
   bottom: 25%;
   left: 47%;
-  background-image: url("../../../img/cat_black_2.png");
+  background-image: url("../../../assets/img/cat_black_2.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -45,9 +45,9 @@
 
 .cat-gray {
   position: absolute;
-  bottom: 25%;
+  bottom: 23%;
   left: 55%;
-  background-image: url("../../../img/cat_gray_2.png");
+  background-image: url("../../../assets/img/cat_gray_2.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

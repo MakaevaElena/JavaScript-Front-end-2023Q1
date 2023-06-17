@@ -21,7 +21,7 @@ export default class TableView extends DefaultView {
     element.classList.add("mat");
 
     let tagItemItem = new TagItemView(observer);
-    tagItemItem.configureHtml("cat-orange", "animated-tag-item");
+    tagItemItem.configureHtml("cat-orange");
     element.append(tagItemItem.getHtmlElement());
     tagItemItem = new TagItemView(observer);
     tagItemItem.configureHtml("cat-black");

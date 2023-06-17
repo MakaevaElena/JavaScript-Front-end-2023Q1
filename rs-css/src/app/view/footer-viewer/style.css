@@ -7,3 +7,27 @@
   justify-content: center;
   align-items: center;
 }
+
+.year,
+.github,
+.rsschool-link {
+  margin-left: 1.25rem;
+}
+
+.rsschool-logo a {
+  display: block;
+  width: 6.69rem;
+  height: 2rem;
+  background-image: url("../../../assets/img/rs_school_js_svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.github a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+}

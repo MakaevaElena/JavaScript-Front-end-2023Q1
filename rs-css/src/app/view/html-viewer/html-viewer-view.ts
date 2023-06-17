@@ -41,7 +41,7 @@ export default class HtmlViewerView extends DefaultView {
   private selectHandler<T>(param: T) {
     this.htmlElement.classList.add(CssClasses.SELECTED);
     if (typeof param === "string") {
-      this.htmlElement.textContent = param;
+      // this.htmlElement.textContent = param;
     }
   }
   private unselectHandler() {

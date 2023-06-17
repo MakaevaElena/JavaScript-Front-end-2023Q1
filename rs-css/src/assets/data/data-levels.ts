@@ -1,4 +1,4 @@
-const levels = [
+export const levels = [
   {
     level: "1",
     levelTitle: "Select elements by their type",
@@ -11,7 +11,7 @@ const levels = [
       "<strong>div</strong> selects all <tag>div</tag> elements.",
       "<strong>p</strong> selects all <tag>p</tag> elements.",
     ],
-    boardMarkup: `
+    html: `
        <cat></cat>
        <cat></cat>
     `,
@@ -28,7 +28,7 @@ const levels = [
       "<strong>div</strong> selects all <tag>div</tag> elements.",
       "<strong>p</strong> selects all <tag>p</tag> elements.",
     ],
-    boardMarkup: `
+    html: `
     <cat></cat>
     <hat></hat>
     <dog></dog>
@@ -46,7 +46,7 @@ const levels = [
       '<strong>#cool</strong> selects any element with <strong>id="cool"</strong>',
       '<strong>ul#long</strong> selects <tag>ul id="long"</tag>',
     ],
-    boardMarkup: `
+    html: `
       <cat></cat>
       <cat id="orange"></cat>
       <dog></dog>
@@ -64,7 +64,7 @@ const levels = [
       "<strong>p&nbsp;&nbsp;strong</strong> selects all <tag>strong</tag> elements that are inside of any <tag>p</tag>",
       '<strong>#fancy&nbsp;&nbsp;span</strong> selects any <tag>span</tag> elements that are inside of the element with <strong>id="fancy"</strong>',
     ],
-    boardMarkup: `
+    html: `
     <dog></dog>
     <cat></cat>
     <cat><hat></hat></cat>
@@ -81,7 +81,7 @@ const levels = [
     examples: [
       '<strong>#cool&nbsp;span</strong> selects all <tag>span</tag> elements that are inside of elements with <strong>id="cool"</strong>',
     ],
-    boardMarkup: `
+    html: `
       <cat><hat></hat></cat>
       <cat id="orange"><hat></hat></cat>
       <dog><hat></hat></dog>
@@ -98,7 +98,7 @@ const levels = [
     examples: [
       '<strong>.neato</strong> selects all elements with <strong>class="neato"</strong>',
     ],
-    boardMarkup: `
+    html: `
     <hat class="blue"></hat>
     <cat><hat class="blue"></hat></cat>
     <hat></hat>
@@ -115,7 +115,7 @@ const levels = [
       '<strong>ul.important</strong> selects all <tag>ul</tag> elements that have <strong>class="important"</strong>',
       '<strong>#big.wide</strong> selects all elements with <strong>id="big"</strong> that also have <strong>class="wide"</strong>',
     ],
-    boardMarkup: `
+    html: `
       <cat id="black"><hat class="blue"></hat></cat>
       <dog><hat></hat></dog>
       <hat></hat>`,
@@ -127,7 +127,7 @@ const levels = [
     syntax: "Put your back into it!",
     levelTitle: "You can do it...",
     help: "Combine what you learned in the last few levels to solve this one!",
-    boardMarkup: `
+    html: `
       <cat id="rip"><hat class="blue"></hat></cat>
       <dog><hat></hat></dog>
       <cat id="black"><hat class="blue"></hat></cat>
@@ -145,7 +145,7 @@ const levels = [
       '<strong>p, .fun</strong> selects all <tag>p</tag> elements as well as all elements with <strong>class="fun"</strong>',
       "<strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements",
     ],
-    boardMarkup: `
+    html: `
       <dog></dog>
       <cat id="black"><bow class="blue"></bow></cat>
       <cat><hat></hat></cat>
@@ -162,7 +162,7 @@ const levels = [
     examples: [
       "<strong>p *</strong> selects any element inside all <tag>p</tag> elements.",
     ],
-    boardMarkup: `
+    html: `
   <humster></humster>
   <cat></cat>
   <hat></hat>
@@ -180,7 +180,7 @@ const levels = [
       "<strong>p *</strong> selects every element inside all <tag>p</tag> elements.",
       '<strong>ul.fancy *</strong> selects every element inside all <tag>ul class="fancy"</tag> elements.',
     ],
-    boardMarkup: `
+    html: `
       <cat id="rip"><hat class="blue"></hat></cat>
       <cat><hat></hat></cat>
       <cat id="black"><bow class="blue"></bow></cat>
@@ -198,7 +198,7 @@ const levels = [
       '<strong>p + .intro</strong> selects every element with <strong>class="intro"</strong> that directly follows a <tag>p</tag>',
       "<strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>",
     ],
-    boardMarkup: `
+    html: `
       <dog><bow class="blue"></bow></dog>
       <cat></cat>
       <humster></humster>
@@ -217,7 +217,7 @@ const levels = [
     examples: [
       "<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>",
     ],
-    boardMarkup: `
+    html: `
     <mat><dog></dog></mat>
     <cat></cat>
     <cat class="small"></cat>
@@ -236,7 +236,7 @@ const levels = [
     examples: [
       "<strong>A > B</strong> selects all <strong>B</strong> that are a direct children <strong>A</strong>",
     ],
-    boardMarkup: `
+    html: `
     <cat><hat><bow></bow></hat></cat>
     <hat></hat>
     <bow class="blue"></bow>
@@ -257,7 +257,7 @@ const levels = [
       "<strong>p:first-child</strong> selects all first child <tag>p</tag> elements.",
       "<strong>div p:first-child</strong> selects all first child <tag>p</tag> elements that are in a <tag>div</tag>.",
     ],
-    boardMarkup: `
+    html: `
       <dog></dog>
       <cat>
         <hat class="blue"></hat>
@@ -281,7 +281,7 @@ const levels = [
       "<strong>span:only-child</strong> selects the <tag>span</tag> elements that are the only child of some other element.",
       "<strong>ul li:only-child</strong> selects the only <tag>li</tag> element that are in a <tag>ul</tag>.",
     ],
-    boardMarkup: `
+    html: `
     <cat>
       <bow />
     </cat>
@@ -311,7 +311,7 @@ const levels = [
       "<strong>span:last-child</strong> selects all last-child <tag>span</tag> elements.",
       "<strong>ul li:last-child</strong> selects the last <tag>li</tag> elements inside of any <tag>ul</tag>.",
     ],
-    boardMarkup: `
+    html: `
     <mat>
       <cat class="orange"></cat>
       <cat class="brown"></cat>
@@ -331,7 +331,7 @@ const levels = [
       "<strong>:nth-child(8)</strong> selects every element that is the 8th child of another element.",
       "<strong>div p:nth-child(2)</strong> selects the second <strong>p</strong> in every <strong>div</strong>",
     ],
-    boardMarkup: `
+    html: `
     <cat class="yellow"></cat>
     <mat>
       <cat class="smile"></cat>
@@ -343,5 +343,3 @@ const levels = [
   `,
   },
 ];
-
-export default levels;

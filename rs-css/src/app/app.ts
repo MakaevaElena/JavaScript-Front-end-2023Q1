@@ -3,7 +3,7 @@ import FooterViewerView from "./view/footer-viewer/footer-viewer-view";
 
 export default class App {
   constructor() {
-    this.createViews;
+    this.createViews();
   }
 
   createViews() {

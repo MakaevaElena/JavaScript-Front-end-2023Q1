@@ -73,7 +73,7 @@ export const levels = [
   },
   {
     level: "5",
-    doThis: "Select the bat on the rip tombstone",
+    doThis: "Select the hat on the orange cat",
     selector: "#orange hat",
     selectorName: "",
     levelTitle: "Combine the Descendant & ID Selectors",
@@ -130,8 +130,9 @@ export const levels = [
     syntax: "Put your back into it!",
     levelTitle: "You can do it...",
     help: "Combine what you learned in the last few levels to solve this one!",
+    examples: [],
     html: `
-      <cat id="rip"><hat class="blue"></hat></cat>
+      <cat id="orange"><hat class="blue"></hat></cat>
       <dog><hat></hat></dog>
       <cat id="black"><hat class="blue"></hat></cat>
       <hat class="blue"></hat>`,
@@ -185,7 +186,7 @@ export const levels = [
       '<strong>ul.fancy *</strong> selects every element inside all <tag>ul class="fancy"</tag> elements.',
     ],
     html: `
-      <cat id="rip"><hat class="blue"></hat></cat>
+      <cat id="orange"><hat class="blue"></hat></cat>
       <cat><hat></hat></cat>
       <cat id="black"><bow class="blue"></bow></cat>
    `,

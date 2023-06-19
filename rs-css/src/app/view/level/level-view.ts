@@ -6,7 +6,7 @@ import { EventName } from "../../enums/events/event-names";
 // import Observer from "../../observer/observer";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../../assets/data/data-levels";
-// import HtmlViewerView from "../../view/html-viewer/html-viewer-view";
+import HtmlViewerView from "../../view/html-viewer/html-viewer-view";
 
 export default class LevelView extends DefaultView {
   private readonly TEXT = "LevelView";
@@ -14,7 +14,9 @@ export default class LevelView extends DefaultView {
   levels = levels;
   level = levels[0];
   levelNum = +this.level.level;
-  // levelNum = +localStorage.getItem(savedLevel);
+  // levelNum = localStorage.getItem("savedLevel") || null;
+  observerMethod = new ObserverMethod();
+  private htmlViewerView = new HtmlViewerView(this.observerMethod);
 
   htmlBlock = this.createTagElement("div", ["html-block"], "");
   levelBlock!: HTMLElement | null;
@@ -41,6 +43,7 @@ export default class LevelView extends DefaultView {
     if (this.levelBlock) {
       this.levelBlock.innerHTML = "";
     }
+
     const levelHeader = this.createTagElement("div", ["level-header"], "");
     const levelNumBlock = this.createTagElement("div", ["level-number"], "");
     levelNumBlock.textContent = `Level ${this.levelNum} of ${
@@ -62,7 +65,6 @@ export default class LevelView extends DefaultView {
     }
 
     this.renderLevelDescription();
-    this.renderHTMLCodeView();
   }
 
   private renderLevelDescription() {
@@ -93,29 +95,16 @@ export default class LevelView extends DefaultView {
     this.levelNum += 1;
     this.level = levels[this.levelNum];
     this.configureHtml();
-    this.renderHTMLCodeView();
+    this.htmlViewerView.renderHTMLCodeView(this.level);
+    this.saveLevelNumber(this.levelNum);
   }
 
   private goToPrevLevel() {
     this.levelNum -= 1;
     this.level = levels[this.levelNum];
     this.configureHtml();
-    this.renderHTMLCodeView();
-  }
-
-  private renderHTMLCodeView() {
-    this.htmlBlock.innerHTML = "";
-    const htmlViewer = document.querySelector(".html-viewer");
-
-    this.level.html.split("\n").map((node) => {
-      const row = this.createTagElement("div", ["row-code"], "");
-      const pre = document.createElement("pre");
-      pre.innerText = node;
-      row.append(pre);
-      this.htmlBlock.append(row);
-    });
-
-    htmlViewer?.append(this.htmlBlock);
+    this.htmlViewerView.renderHTMLCodeView(this.level);
+    this.saveLevelNumber(this.levelNum);
   }
 
   // private changeQuotes(str: string) {
@@ -125,7 +114,7 @@ export default class LevelView extends DefaultView {
   // }
 
   saveLevelNumber = (levelNum: number) => {
-    const savedLevel = ++levelNum;
+    const savedLevel = +levelNum;
     localStorage.setItem("savedLevel", JSON.stringify(savedLevel));
   };
 }

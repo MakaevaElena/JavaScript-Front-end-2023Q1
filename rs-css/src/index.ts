@@ -1,4 +1,5 @@
 import App from "./app/app";
 
-const app = new App();
-app.createViews();
+new App();
+// const app = new App();
+// app.createViews();

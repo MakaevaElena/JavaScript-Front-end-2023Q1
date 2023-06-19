@@ -1,8 +1,6 @@
 .level {
-  grid-column-start: 6;
-  grid-column-end: 8;
-  grid-row-start: 1;
-  grid-row-end: 10;
+  grid-column: 7/9;
+  grid-row: 1/10;
 
   margin: 5px;
   padding: 5px;
@@ -47,11 +45,4 @@
   rotate: 180deg;
 }
 
-.html-block {
-  grid-column: 2/3;
-  grid-row: 2/3;
-  height: 30px;
-  width: 200px;
-  color: black;
-  font-size: 1rem;
-}
+

@@ -1,8 +1,6 @@
 .css-viewer {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 4;
-  grid-row-end: 10;
+  grid-column: 1/4;
+  grid-row: 4/10;
 
   margin: 5px;
   padding: 5px;

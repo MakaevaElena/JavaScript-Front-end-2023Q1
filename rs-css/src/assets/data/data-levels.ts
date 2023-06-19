@@ -75,6 +75,7 @@ export const levels = [
     level: "5",
     doThis: "Select the bat on the rip tombstone",
     selector: "#orange hat",
+    selectorName: "",
     levelTitle: "Combine the Descendant & ID Selectors",
     syntax: "#id&nbsp;&nbsp;A",
     help: "You can combine any selector with the descendent selector.",
@@ -107,6 +108,7 @@ export const levels = [
   {
     level: "7",
     doThis: "Select the blue hat",
+    selectorName: "",
     selector: "hat.blue",
     levelTitle: "Combine the Class Selector",
     syntax: "A.className",
@@ -123,6 +125,7 @@ export const levels = [
   {
     level: "8",
     doThis: "Select the blue hat on the cat",
+    selectorName: "",
     selector: "cat hat.blue",
     syntax: "Put your back into it!",
     levelTitle: "You can do it...",
@@ -175,6 +178,7 @@ export const levels = [
     selector: "cat *",
     syntax: "A&nbsp;&nbsp;*",
     levelTitle: "Combine the Universal Selector",
+    selectorName: "",
     help: "This selects all elements inside of <strong>A</strong>.",
     examples: [
       "<strong>p *</strong> selects every element inside all <tag>p</tag> elements.",
@@ -190,7 +194,7 @@ export const levels = [
     level: "12",
     doThis: "Select every cat that's next to a dog",
     selector: "dog + cat",
-    helpTitle: "Select an element that directly follows another element",
+    levelTitle: "Select an element that directly follows another element",
     selectorName: "Adjacent Sibling Selector",
     syntax: "A + B",
     help: "This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. Elements that follow one another are called siblings. They're on the same level, or depth. ",
@@ -209,7 +213,7 @@ export const levels = [
   {
     level: "13",
     selectorName: "General Sibling Selector",
-    helpTitle: "Select elements that follows another element",
+    levelTitle: "Select elements that follows another element",
     syntax: "A ~ B",
     doThis: "Select the cats beside the mat",
     selector: "mat ~ cat",
@@ -231,7 +235,7 @@ export const levels = [
     syntax: "A > B&nbsp;",
     doThis: "Select the bow directly on a cat",
     selector: "cat > hat",
-    helpTitle: "Select direct children of an element",
+    levelTitle: "Select direct children of an element",
     help: "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. <br><br>Elements that are nested deeper than that are called descendant elements.",
     examples: [
       "<strong>A > B</strong> selects all <strong>B</strong> that are a direct children <strong>A</strong>",
@@ -246,7 +250,7 @@ export const levels = [
   {
     level: "15",
     selectorName: "First Child Pseudo-selector",
-    helpTitle: "Select a first child element inside of another element",
+    levelTitle: "Select a first child element inside of another element",
     doThis: "Select the first skull on earth",
     selector: "cat :first-child",
     syntax: ":first-child",
@@ -271,7 +275,7 @@ export const levels = [
   {
     level: "16",
     selectorName: "Only Child Pseudo-selector",
-    helpTitle:
+    levelTitle:
       "Select an element that are the only element inside of another one.",
     doThis: "Select the bow and the hat on the cat",
     selector: "cat :only-child",
@@ -301,7 +305,7 @@ export const levels = [
   {
     level: "17",
     selectorName: "Last Child Pseudo-selector",
-    helpTitle: "Select the last element inside of another element",
+    levelTitle: "Select the last element inside of another element",
     doThis: "Select the last cat on mat",
     selector: "mat :last-child",
     syntax: ":last-child",
@@ -322,7 +326,7 @@ export const levels = [
   {
     level: "18",
     selectorName: "Nth Child Pseudo-selector",
-    helpTitle: "Select an element by its order in another element",
+    levelTitle: "Select an element by its order in another element",
     doThis: "Select the second cat on the mat",
     selector: "mat :nth-child(2)",
     syntax: ":nth-child(A)",

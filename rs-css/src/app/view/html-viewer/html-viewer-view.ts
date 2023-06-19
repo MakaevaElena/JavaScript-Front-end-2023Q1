@@ -7,9 +7,23 @@ import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
 
+// type Level = {
+//   level: string;
+//   levelTitle: string;
+//   selectorName: string;
+//   doThis: string;
+//   selector: string;
+//   syntax: string;
+//   help: string;
+//   examples: string[];
+//   html: string;
+// };
+
 // export default class HtmlViewerView extends DefaultView implements INotify {
 export default class HtmlViewerView extends DefaultView {
   private readonly HEADER_TEXT = "HTML Viewer";
+  htmlBlock = this.createTagElement("div", ["html-block"], "");
+  // levelNum = +localStorage.getItem(savedLevel);
 
   constructor(observer: ObserverMethod | null) {
     super();
@@ -93,4 +107,22 @@ export default class HtmlViewerView extends DefaultView {
 
     return element;
   }
+
+  // public renderHTMLCodeView(level: Level) {
+  //   this.htmlBlock.innerHTML = "";
+  //   const htmlViewer = document.querySelector(".html-viewer");
+
+  //   level.html.split("\n").map((node) => {
+  //     const row = this.createTagElement("div", ["row-code"], "");
+  //     const pre = document.createElement("pre");
+  //     pre.innerText = node;
+  //     row.append(pre);
+  //     this.htmlBlock.append(row);
+  //   });
+
+  //   // htmlBlock.innerText = this.changeQuotes(this.level.html);
+  //   // this.htmlBlock.innerText = this.level.html;
+
+  //   htmlViewer?.append(this.htmlBlock);
+  // }
 }

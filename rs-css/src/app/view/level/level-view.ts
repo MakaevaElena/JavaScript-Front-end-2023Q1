@@ -5,17 +5,19 @@ import DefaultView from "../default-view";
 import { EventName } from "../../enums/events/event-names";
 // import Observer from "../../observer/observer";
 import ObserverMethod from "../../observer/observer-method";
-import { levels } from "../../../assets/data/data-levels";
+import { levels } from "../../data/data-levels";
 import HtmlViewerView from "../../view/html-viewer/html-viewer-view";
 
 export default class LevelView extends DefaultView {
   private readonly TEXT = "LevelView";
 
-  levels = levels;
-  level = levels[0];
-  levelNum = +this.level.level;
-  // levelNum = localStorage.getItem("savedLevel") || null;
-  observerMethod = new ObserverMethod();
+  private levels = levels;
+  // private level = levels[0];
+  // private levelNum = +this.level.level;
+
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private level = levels[this.levelNum];
+  private observerMethod = new ObserverMethod();
   private htmlViewerView = new HtmlViewerView(this.observerMethod);
 
   htmlBlock = this.createTagElement("div", ["html-block"], "");
@@ -78,7 +80,7 @@ export default class LevelView extends DefaultView {
       this.createTagElement("h2", ["selector-name"], this.level.selectorName),
       this.createTagElement("h3", ["title"], this.level.levelTitle),
       this.createTagElement("h2", ["syntax"], this.level.syntax),
-      this.createTagElement("p", ["description"], this.level.help)
+      this.createTagElement("p", ["description"], this.level.description)
     );
     if (this.level.examples) {
       descriptionBlock.append(

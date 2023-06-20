@@ -9,7 +9,7 @@ export default abstract class DefaultView {
     return this.htmlElement;
   }
 
-  createTagElement = (
+  protected createTagElement = (
     tagName: string,
     className: string[],
     text: string
@@ -20,7 +20,7 @@ export default abstract class DefaultView {
     return element;
   };
 
-  createLineNumber = (): HTMLDivElement => {
+  protected createLineNumber = (): HTMLDivElement => {
     const lineNumbers = document.createElement("div");
     lineNumbers.classList.add("line-numbers");
     for (let i = 0; i < 20; i += 1) {

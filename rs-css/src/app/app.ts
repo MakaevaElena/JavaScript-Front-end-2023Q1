@@ -6,7 +6,7 @@ export default class App {
     this.createViews();
   }
 
-  createViews() {
+  private createViews() {
     const mainView = new MainView();
     document.body.append(mainView.getHtmlElement());
     const footerViewerView = new FooterViewerView();

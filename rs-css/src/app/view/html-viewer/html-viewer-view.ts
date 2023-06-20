@@ -6,26 +6,26 @@ import { TagNames } from "../../enums/view/tag-names";
 // import Observer from "../../observer/observer";
 import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
-import { levels } from "../../../assets/data/data-levels";
+import { levels } from "../../data/data-levels";
 
 type Level = {
   level: string;
-  levelTitle: string;
   selectorName: string;
-  doThis: string;
-  selector: string;
+  levelTitle: string;
   syntax: string;
-  help: string;
+  description: string;
   examples: string[];
   html: string;
+  task: string;
+  selector: string;
 };
 
 // export default class HtmlViewerView extends DefaultView implements INotify {
 export default class HtmlViewerView extends DefaultView {
   private readonly HEADER_TEXT = "HTML Viewer";
-  htmlBlock = this.createTagElement("div", ["html-block"], "");
+  private htmlBlock = this.createTagElement("div", ["html-block"], "");
 
-  levelNum = localStorage.getItem("savedLevel") || null;
+  private levelNum = localStorage.getItem("savedLevel") || null;
 
   constructor(observer: ObserverMethod | null) {
     super();
@@ -81,7 +81,7 @@ export default class HtmlViewerView extends DefaultView {
     htmlViewerHeader.append(label);
 
     const numberLinesBlock = document.createElement("div");
-    numberLinesBlock.classList.add("number-lines");
+    numberLinesBlock.classList.add("html-number-lines");
     this.htmlElement.append(numberLinesBlock);
 
     const numberLines = this.createLineNumber();

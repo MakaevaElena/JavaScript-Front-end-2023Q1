@@ -79,7 +79,7 @@
   }
 }
 
-.submit-editor {
+.submit-button {
   border: lightslategray;
   margin: 0.5rem;
   height: 2rem;
@@ -87,6 +87,10 @@
   background-color: grey;
   border-radius: 5%;
   cursor: pointer;
+}
+
+.submit-button:active {
+  background-color: rgb(101, 101, 101);
 }
 
 .button-help {
@@ -102,4 +106,24 @@
   grid-column: 2/10;
   grid-row: 3/10;
   color: grey;
+}
+
+@keyframes wrong-shake {
+  0% {
+    transform: translate(1px, 5px) rotate(-1deg);
+  }
+  33% {
+    transform: translate(1px, 6px) rotate(-2deg);
+  }
+  66% {
+    transform: translate(3px, 6px) rotate(-1deg);
+  }
+  100% {
+    transform: translate(3px, 5px) rotate(-2deg);
+  }
+}
+
+.shake {
+  animation: wrong-shake 0.16s;
+  animation-iteration-count: 1;
 }

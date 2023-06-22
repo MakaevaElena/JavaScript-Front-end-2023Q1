@@ -44,6 +44,14 @@ export default class BoardView extends DefaultView {
     const table = document.querySelector(".table");
     const block = table ? table : this.table;
     block.innerHTML = levels[levelNum - 1].html;
+
+    const animated = block.querySelectorAll(
+      `.table ${levels[levelNum - 1].selector}`
+    );
+    if (animated !== null) {
+      animated.forEach((el) => el.classList.add("animated-tag-item"));
+    }
+
     // levels[this.levelNum].html.forEach((el: HTMLElement) =>
     //   hljs.highlightBlock(el)
     // );

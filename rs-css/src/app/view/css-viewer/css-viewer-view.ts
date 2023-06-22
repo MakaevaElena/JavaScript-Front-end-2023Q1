@@ -6,7 +6,7 @@ import { levels } from "../../data/data-levels";
 
 export default class CssViewerView extends DefaultView {
   private readonly HEADER_TEXT = "CSS Editor";
-  // private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
   private inputCssEditor: HTMLElement | null = this.createTagElement(
     "textarea",
     ["input-css-editor", "blink"],
@@ -24,9 +24,9 @@ export default class CssViewerView extends DefaultView {
     ""
   );
 
-  private submitEditor: HTMLElement | null = this.createTagElement(
+  private submitButton: HTMLElement | null = this.createTagElement(
     "button",
-    ["submit-editor"],
+    ["submit-button"],
     "Enter"
   );
 
@@ -74,7 +74,6 @@ export default class CssViewerView extends DefaultView {
     );
 
     this.htmlElement.append(comments);
-    this.createHelpButton();
   }
 
   protected createHtml(): HTMLElement {
@@ -85,24 +84,38 @@ export default class CssViewerView extends DefaultView {
   }
 
   private renderCssEditor() {
+    this.createSubmitButton();
+    this.createHelpButton();
     if (
       this.cssEditor instanceof HTMLElement &&
       this.inputCssEditor instanceof HTMLTextAreaElement &&
-      this.submitEditor instanceof Node &&
+      this.submitButton instanceof Node &&
       this.buttonHelp instanceof Node
     ) {
       this.inputCssEditor.placeholder = "Type in a CSS selector";
 
       this.cssEditor.append(
         this.inputCssEditor,
-        this.submitEditor,
+        this.submitButton,
         this.buttonHelp
       );
       this.htmlElement.append(this.cssEditor);
     }
+  }
 
-    if (this.submitEditor instanceof HTMLButtonElement) {
-      this.submitEditor.type = "submit";
+  //TODO проверка ответа
+  private createSubmitButton() {
+    if (this.submitButton instanceof HTMLButtonElement) {
+      this.submitButton.type = "submit";
+      this.submitButton.addEventListener("click", () => {
+        if (
+          this.inputCssEditor?.innerHTML === levels[this.levelNum - 1].selector
+        ) {
+          console.log("right");
+        } else
+          console.log("wrong, answer: ", levels[this.levelNum - 1].selector);
+        this.inputCssEditor?.classList.add("shake");
+      });
     }
   }
 

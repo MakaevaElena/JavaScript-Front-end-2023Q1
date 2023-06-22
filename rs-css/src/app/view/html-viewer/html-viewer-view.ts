@@ -79,7 +79,6 @@ export default class HtmlViewerView extends DefaultView {
     const numberLines = this.createLineNumber();
     numberLinesBlock.append(numberLines);
 
-    // localStorage работает
     if (this.levelNum !== null) {
       this.renderHTMLCodeView(levels[+this.levelNum - 1]);
       this.htmlElement.append(this.htmlBlock);

@@ -245,7 +245,7 @@ export const levels = [
     selectorName: "Child Selector",
     syntax: "A > B&nbsp;",
     task: "Select the bow directly on a cat",
-    selector: "cat > hat",
+    selector: "cat > bow",
     levelTitle: "Select direct children of an element",
     description:
       "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. <br><br>Elements that are nested deeper than that are called descendant elements.",

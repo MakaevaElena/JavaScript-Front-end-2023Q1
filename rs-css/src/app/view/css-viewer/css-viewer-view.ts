@@ -6,7 +6,30 @@ import { levels } from "../../data/data-levels";
 
 export default class CssViewerView extends DefaultView {
   private readonly HEADER_TEXT = "CSS Editor";
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  // private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private inputCssEditor: HTMLElement | null = this.createTagElement(
+    "textarea",
+    ["input-css-editor", "blink"],
+    ""
+  );
+  private cssEditor: HTMLElement | null = this.createTagElement(
+    "div",
+    ["css-editor"],
+    ""
+  );
+
+  private buttonHelp: HTMLElement | null = this.createTagElement(
+    "button",
+    ["button-help"],
+    ""
+  );
+
+  private submitEditor: HTMLElement | null = this.createTagElement(
+    "button",
+    ["submit-editor"],
+    "Enter"
+  );
+
   constructor() {
     super();
     this.configureHtml();
@@ -34,7 +57,7 @@ export default class CssViewerView extends DefaultView {
     const numberLines = this.createLineNumber();
     numberLinesBlock.append(numberLines);
 
-    this.renderCssEditor(this.levelNum - 1);
+    this.renderCssEditor();
 
     const comments = this.createTagElement(
       "div",
@@ -51,6 +74,7 @@ export default class CssViewerView extends DefaultView {
     );
 
     this.htmlElement.append(comments);
+    this.createHelpButton();
   }
 
   protected createHtml(): HTMLElement {
@@ -60,55 +84,59 @@ export default class CssViewerView extends DefaultView {
     return element;
   }
 
-  private renderCssEditor(level: number) {
-    const cssEditor = this.createTagElement("form", ["css-editor"], "");
-    const inputText: HTMLElement | null = this.createTagElement(
-      "textarea",
-      ["input-css-editor", "blink"],
-      ""
-    );
-    if (inputText instanceof HTMLTextAreaElement) {
-      inputText.placeholder = "Type in a CSS selector";
+  private renderCssEditor() {
+    if (
+      this.cssEditor instanceof HTMLElement &&
+      this.inputCssEditor instanceof HTMLTextAreaElement &&
+      this.submitEditor instanceof Node &&
+      this.buttonHelp instanceof Node
+    ) {
+      this.inputCssEditor.placeholder = "Type in a CSS selector";
+
+      this.cssEditor.append(
+        this.inputCssEditor,
+        this.submitEditor,
+        this.buttonHelp
+      );
+      this.htmlElement.append(this.cssEditor);
     }
 
-    const buttonEditor: HTMLElement | null = this.createTagElement(
-      "button",
-      ["button-editor"],
-      "Enter"
-    );
-    if (buttonEditor instanceof HTMLButtonElement) {
-      buttonEditor.type = "submit";
+    if (this.submitEditor instanceof HTMLButtonElement) {
+      this.submitEditor.type = "submit";
     }
-
-    const helpButton: HTMLElement | null = this.createTagElement(
-      "button",
-      ["button-help"],
-      ""
-    );
-    if (helpButton instanceof HTMLButtonElement) {
-      helpButton.innerText = "?";
-      helpButton.addEventListener("click", (evt) => {
-        inputText.classList.remove("blink");
-        this.showAnswer(evt, level);
-      });
-    }
-
-    cssEditor.append(inputText, buttonEditor, helpButton);
-    this.htmlElement.append(cssEditor);
   }
 
-  private showAnswer(event: Event, level: number) {
-    event.preventDefault();
-    const answer = levels[level].selector;
-    // console.log(answer);
-    this.printLetters(answer);
+  public createHelpButton() {
+    const inputCssEditor = document.querySelector(".input-css-editor");
+    const block = inputCssEditor ? inputCssEditor : this.inputCssEditor;
+    if (block instanceof HTMLTextAreaElement) {
+      block.innerHTML = "";
+    }
+    if (this.buttonHelp instanceof HTMLButtonElement) {
+      this.buttonHelp.innerText = "?";
+
+      this.buttonHelp.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const level = Number(localStorage.getItem("savedLevel")) || 0;
+        const answer = levels[level - 1].selector;
+
+        if (this.inputCssEditor instanceof HTMLTextAreaElement) {
+          this.inputCssEditor.innerHTML = "";
+          this.inputCssEditor.classList.remove("blink");
+        }
+        this.printLetters(answer);
+      });
+    }
   }
 
   private printLetters(str: string) {
-    const textarea = document.querySelector(".input-css-editor");
-    if (textarea instanceof HTMLTextAreaElement) {
+    const inputCssEditor = document.querySelector(".input-css-editor");
+    const blockInput = inputCssEditor ? inputCssEditor : this.inputCssEditor;
+
+    if (blockInput instanceof HTMLTextAreaElement) {
       if (str.length > 0) {
-        textarea.innerHTML += str[0];
+        blockInput.innerHTML += str[0];
         setTimeout(() => this.printLetters(str.slice(1)), 500);
       }
     }

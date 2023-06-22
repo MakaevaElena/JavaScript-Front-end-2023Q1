@@ -1,7 +1,7 @@
 export enum CssClasses {
   MAIN = "main",
 
-  TABLE = "table",
+  BOARD = "board",
   TABLE_ITEM = "table__item",
 
   LEVEL = "level",

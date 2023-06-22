@@ -7,18 +7,10 @@ import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
-
-type Level = {
-  level: string;
-  selectorName: string;
-  levelTitle: string;
-  syntax: string;
-  description: string;
-  examples: string[];
-  html: string;
-  task: string;
-  selector: string;
-};
+import { Level } from "../../types/interfaces";
+// import hljs from "highlight.js";
+// import hljs from "highlight.js/lib/core";
+// hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 
 // export default class HtmlViewerView extends DefaultView implements INotify {
 export default class HtmlViewerView extends DefaultView {
@@ -89,7 +81,7 @@ export default class HtmlViewerView extends DefaultView {
 
     // localStorage работает
     if (this.levelNum !== null) {
-      this.renderHTMLCodeView(levels[+this.levelNum]);
+      this.renderHTMLCodeView(levels[+this.levelNum - 1]);
       this.htmlElement.append(this.htmlBlock);
     }
   }
@@ -109,8 +101,13 @@ export default class HtmlViewerView extends DefaultView {
     level.html.split("\n").map((node) => {
       const row = this.createTagElement("div", ["row-code"], "");
       const pre = document.createElement("pre");
+
+      // const highlightedCode = hljs.highlight(node);
+      // pre.innerText = highlightedCode;
+
       pre.innerText = node;
       row.append(pre);
+
       block.append(row);
     });
   }

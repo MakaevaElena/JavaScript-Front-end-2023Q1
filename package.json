@@ -31,9 +31,11 @@
   },
   "homepage": "https://github.com/rolling-scopes-school/makaevaelena-JSFE2023Q1#readme",
   "dependencies": {
+    "@types/highlight.js": "^10.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.8.1",
     "eslint": "^8.42.0",
+    "highlight.js": "^11.8.0",
     "html-webpack-plugin": "^5.5.3",
     "style-loader": "^3.3.3"
   }

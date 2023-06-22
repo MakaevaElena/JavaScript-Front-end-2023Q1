@@ -263,7 +263,7 @@ export const levels = [
     level: "15",
     selectorName: "First Child Pseudo-selector",
     levelTitle: "Select a first child element inside of another element",
-    task: "Select the first skull on earth",
+    task: "Select the first hat on cat",
     selector: "cat :first-child",
     syntax: ":first-child",
 

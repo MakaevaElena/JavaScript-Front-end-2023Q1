@@ -34,7 +34,7 @@ export default class CssViewerView extends DefaultView {
     const numberLines = this.createLineNumber();
     numberLinesBlock.append(numberLines);
 
-    this.renderCssEditor(this.levelNum);
+    this.renderCssEditor(this.levelNum - 1);
 
     const comments = this.createTagElement(
       "div",

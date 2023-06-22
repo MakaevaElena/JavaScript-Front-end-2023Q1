@@ -7,6 +7,7 @@ import { EventName } from "../../enums/events/event-names";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
 import HtmlViewerView from "../../view/html-viewer/html-viewer-view";
+import BoardView from "../../view/table/board-view";
 
 export default class LevelView extends DefaultView {
   private readonly TEXT = "LevelView";
@@ -16,9 +17,10 @@ export default class LevelView extends DefaultView {
   // private levelNum = +this.level.level;
 
   private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
-  private level = levels[this.levelNum];
+  private level = levels[this.levelNum - 1];
   private observerMethod = new ObserverMethod();
   private htmlViewerView = new HtmlViewerView(this.observerMethod);
+  private boardView = new BoardView();
 
   htmlBlock = this.createTagElement("div", ["html-block"], "");
   levelBlock!: HTMLElement | null;
@@ -95,25 +97,23 @@ export default class LevelView extends DefaultView {
 
   private goToNextLevel() {
     this.levelNum += 1;
-    this.level = levels[this.levelNum];
+    this.level = levels[this.levelNum - 1];
     this.configureHtml();
     this.htmlViewerView.renderHTMLCodeView(this.level);
+    this.boardView.createTitleTask(this.levelNum);
+    this.boardView.createTable(this.levelNum);
     this.saveLevelNumber(this.levelNum);
   }
 
   private goToPrevLevel() {
     this.levelNum -= 1;
-    this.level = levels[this.levelNum];
+    this.level = levels[this.levelNum - 1];
     this.configureHtml();
     this.htmlViewerView.renderHTMLCodeView(this.level);
+    this.boardView.createTitleTask(this.levelNum);
+    this.boardView.createTable(this.levelNum);
     this.saveLevelNumber(this.levelNum);
   }
-
-  // private changeQuotes(str: string) {
-  //   str.replace("<", "&lt");
-  //   str.replace(">", "&gt");
-  //   return str;
-  // }
 
   saveLevelNumber = (levelNum: number) => {
     const savedLevel = +levelNum;

@@ -1,8 +1,8 @@
-.table {
+.board {
   position: relative;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 
   grid-column: 1/7;
@@ -12,43 +12,24 @@
   padding: 5px;
 
   border: 1px solid;
+  padding-top: 2rem;
 }
 
-.mat {
-  background-image: url("../../../assets/img/mat_orange_2.png");
-  background-size: 30% 30%;
+.table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  /* background-image: url("../../../assets/img/mat_orange_2.png"); */
+  background-size: 50% 30%;
   background-repeat: no-repeat;
-  background-position: 50% 70%;
+  background-position: 50% 100%;
 }
 
-.cat-orange {
-  position: absolute;
-  bottom: 25%;
-  left: 38%;
-  background-image: url("../../../assets/img/cat_orange_2.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.cat-black {
-  position: absolute;
-  bottom: 25%;
-  left: 47%;
-  background-image: url("../../../assets/img/cat_black_2.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.cat-gray {
-  position: absolute;
-  bottom: 23%;
-  left: 55%;
-  background-image: url("../../../assets/img/cat_gray_2.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.title-task {
+  font-size: 2rem;
 }
 
 .animated-tag-item {
@@ -93,4 +74,115 @@
     transform: rotate(0deg);
     background-size: 100% 100%;
   }
+}
+
+cat {
+  position: relative;
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../assets/img/cat_black_3.png");
+}
+
+cat#orange {
+  position: relative;
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../assets/img/cat_orange_2.png");
+}
+
+dog {
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../assets/img/dog_gray.png");
+}
+
+hat {
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../assets/img/hat.png");
+}
+
+humster {
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../assets/img/humster.png");
+}
+
+bow {
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-image: url("../../../assets/img/bow_blue.png");
+}
+
+hat.blue {
+  display: block;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../assets/img/hat_blue.png");
+}
+
+.table cat#orange > * {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -20%;
+  left: 25%;
+  rotate: -20deg;
+}
+
+.table cat > *,
+.table dog > * {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -25%;
+  left: 15%;
+  rotate: -5deg;
+}
+
+.cat-orange {
+  background-image: url("../../../assets/img/cat_orange_2.png");
+}
+
+.cat-black {
+  background-image: url("../../../assets/img/cat_black_2.png");
+}
+
+.cat-gray {
+  background-image: url("../../../assets/img/cat_gray_2.png");
+}
+
+.hat-blue {
+  background-image: url("../../../assets/img/hat_blue.png");
+}
+
+.dog-gray {
+  background-image: url("../../../assets/img/dog_gray.png");
 }

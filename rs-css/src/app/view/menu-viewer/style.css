@@ -52,5 +52,12 @@ span.done::after {
 .level-line:hover {
   padding: 1rem;
   color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px #0000004d;
+  border-radius: 5%;
+}
+
+.level-line:active {
+  cursor: pointer;
+  background-color: #7a7979;
+  /* background-color: #6b6b6b; */
 }

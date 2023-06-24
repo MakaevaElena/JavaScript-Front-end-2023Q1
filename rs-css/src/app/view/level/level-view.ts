@@ -49,6 +49,7 @@ export default class LevelView extends DefaultView {
   }
 
   private configureHtml() {
+    this.changeLevel();
     if (this.levelBlock) {
       this.levelBlock.innerHTML = "";
     }
@@ -112,6 +113,7 @@ export default class LevelView extends DefaultView {
     this.boardView.createTitleTask(this.levelNum);
     this.boardView.createTable(this.levelNum);
     this.cssViewerView.createHelpButton();
+    this.menuView.configureHtml(this.levelNum);
   }
 
   private goToPrevLevel() {
@@ -123,6 +125,7 @@ export default class LevelView extends DefaultView {
     this.boardView.createTitleTask(this.levelNum);
     this.boardView.createTable(this.levelNum);
     this.cssViewerView.createHelpButton();
+    this.menuView.configureHtml(this.levelNum);
   }
 
   //TODO в css-view добавить переход через submit/Enter
@@ -137,18 +140,22 @@ export default class LevelView extends DefaultView {
     this.cssViewerView.createHelpButton();
   }
 
-  // private changeLevel() {
-  //   const levelLines = document.querySelectorAll(".level-line");
-  //   if (levelLines instanceof HTMLElement) {
-  //     levelLines.forEach((levelLine) =>
-  //       levelLine.addEventListener("click", () =>
-  //         this.goToLevel(Number(levelLine.dataset.id))
-  //       )
-  //     );
-  //   }
-  // }
+  //! переход на уровень в листе
+  private changeLevel() {
+    const levelLines = document.querySelectorAll(".level-line");
+    // console.log(levelLines);
+    if (levelLines instanceof HTMLElement) {
+      levelLines.forEach((levelLine) =>
+        levelLine.addEventListener("click", () => {
+          if (levelLine instanceof HTMLElement) {
+            this.goToLevel(Number(levelLine.dataset.id));
+          }
+        })
+      );
+    }
+  }
 
-  saveLevelNumber = (levelNum: number) => {
+  public saveLevelNumber = (levelNum: number) => {
     const savedLevel = +levelNum;
     localStorage.setItem("savedLevel", JSON.stringify(savedLevel));
   };

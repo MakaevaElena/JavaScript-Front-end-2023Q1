@@ -108,11 +108,11 @@ export default class CssViewerView extends DefaultView {
     }
   }
 
-  //TODO проверка ответа, старый ответ при листании уровней.
   public createSubmitButton() {
     if (this.submitButton instanceof HTMLButtonElement) {
       this.submitButton.type = "submit";
-      this.submitButton.addEventListener("click", () => {
+
+      const submit = () => {
         const level = Number(localStorage.getItem("savedLevel")) || 0;
         if (this.inputCssEditor instanceof HTMLInputElement) {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
@@ -122,16 +122,25 @@ export default class CssViewerView extends DefaultView {
               this.checkIconMenu instanceof HTMLElement &&
               this.checkIconLevel instanceof HTMLElement
             ) {
+              //! галочки не красятся  в зеленый
               this.checkIconMenu.style.color = "green";
               this.checkIconLevel.style.color = "green";
             }
           } else {
-            console.log("wrong, answer: ", levels[level - 1].selector);
-            console.log("level: ", level - 1);
             this.inputCssEditor?.classList.add("shake");
           }
         }
-      });
+      };
+      this.submitButton.addEventListener("click", () => submit());
+
+      // this.submitButton.addEventListener("keydown", (event) => {
+      //   //! не срабатывает Enter
+      //   console.log("enter");
+      //   if (event.keyCode === 13 || event.key === "Enter") {
+      //     event.preventDefault();
+      //     submit();
+      //   }
+      // });
     }
   }
 

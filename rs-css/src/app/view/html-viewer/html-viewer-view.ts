@@ -8,11 +8,13 @@ import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
 import { Level } from "../../types/interfaces";
+
 import "highlight.js/styles/github.css";
 // import "@types/highlight.js";
-// import hljs from "highlight.js";
-// import hljs from "highlight.js/lib/core";
-// hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
+// import "./paraiso-dark.min.css";
+import hljs from "highlight.js/lib/core";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 
 // export default class HtmlViewerView extends DefaultView implements INotify {
 export default class HtmlViewerView extends DefaultView {
@@ -103,10 +105,11 @@ export default class HtmlViewerView extends DefaultView {
       const row = this.createTagElement("div", ["row-code"], "");
       const pre = document.createElement("pre");
 
-      // const highlightedCode = hljs.highlight(node);
+      const highlightedCode = hljs.highlight(node, { language: "xml" });
       // pre.innerText = highlightedCode;
 
-      pre.innerText = node;
+      pre.innerHTML = highlightedCode.value;
+      // hljs.highlightElement(row);
       row.append(pre);
 
       block.append(row);

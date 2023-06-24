@@ -3,22 +3,20 @@ import DefaultView from "../default-view";
 import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
 import { levels } from "../../data/data-levels";
-// import LevelView from "../level/level-view";
-// import ObserverMethod from "../../observer/observer-method";
 
 export default class MenuView extends DefaultView {
-  // private observerMethod = new ObserverMethod();
-  // private levelView = new LevelView(this.observerMethod);
-
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private links = this.createTagElement("ul", ["level-list"], "");
   constructor() {
     super();
-    this.configureHtml();
+    this.configureHtml(this.levelNum);
   }
 
-  private configureHtml() {
-    const links = this.createTagElement("ul", ["level-list"], "");
-
+  public configureHtml(level: number) {
+    // const links = this.createTagElement("ul", ["level-list"], "");
+    this.links.innerHTML = "";
     for (let i = 0; i < levels.length; i += 1) {
+      // const levelNum = Number(localStorage.getItem("savedLevel")) || 0;
       const levelLine = this.createTagElement(
         "li",
         ["level-line"],
@@ -26,18 +24,21 @@ export default class MenuView extends DefaultView {
           levels[i].level
         }. ${levels[i].syntax}`
       );
-      //! бесконечный вызов
-      // levelLine.addEventListener("click", (evt: Event) =>
-      //   this.levelView.goToLevel(i + 1)
-      // );
-      links.append(levelLine);
+      this.links.append(levelLine);
+      // console.log(i);
+      // console.log(this.levelNum);
+      if (i === level - 1) {
+        levelLine.style.boxShadow = "0 0 10px #0000004d";
+        levelLine.style.backgroundColor = "#6b6b6b";
+      }
     }
+    //! бесконечный вызов
     // links.addEventListener("click", (evt: Event) => {
     //   if (evt.target instanceof HTMLElement) {
     //     this.levelView.goToLevel(Number(evt.target.dataset.id));
     //   }
     // });
-    this.htmlElement.append(links);
+    this.htmlElement.append(this.links);
   }
 
   protected createHtml(): HTMLElement {

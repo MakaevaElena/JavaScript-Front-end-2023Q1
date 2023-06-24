@@ -1,0 +1,56 @@
+/*  */
+
+.menu ul,
+.menu .level-list li {
+  padding: 0;
+  margin: 0;
+}
+
+.menu {
+  /* grid-column: 7/9;
+  grid-row: 2/10; */
+  width: 85%;
+
+  /* position: fixed; */
+  position: absolute;
+  top: 67px;
+  /* right: 0; */
+  /* left: 0; */
+  /* transition: left 1s; */
+  transition: opacity 1s;
+  z-index: 2;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* overflow: hidden; */
+  border: 1px solid transparent;
+
+  background: gray;
+  padding: 1.5rem;
+}
+
+span.done::after {
+  content: "\2713";
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.level-list {
+  /* position: absolute;
+  top: 0;
+  right: 0; */
+  /* height: 100%; */
+  /* width: 90%; */
+  background-color: gray;
+  list-style-type: none;
+}
+
+.level-line {
+  cursor: pointer;
+}
+
+.level-line:hover {
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

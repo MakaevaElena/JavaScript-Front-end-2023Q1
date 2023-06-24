@@ -1,4 +1,5 @@
 .level {
+  position: relative;
   grid-column: 7/9;
   grid-row: 1/10;
 
@@ -14,15 +15,23 @@
   align-items: center;
   background-color: lightblue;
   border: 1px solid gray;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
-.ready-button {
+/* .ready-button {
   background-image: url("../../../assets/img/tick-black.png");
   background-size: contain;
   background-repeat: no-repeat;
   height: 1.8rem;
   width: 1.8rem;
+} */
+
+.ready-button::after {
+  content: "\2713";
+  font-weight: 900;
+  font-size: 2rem;
+  color: white;
 }
 
 .prev-row {
@@ -45,4 +54,38 @@
   rotate: 180deg;
 }
 
+.hamburger {
+  z-index: 3;
+  /* display: none; */
+  width: 2rem;
+  cursor: pointer;
+  transition: 0.8s;
+}
 
+.hamburger-line,
+.hamburger::before,
+.hamburger::after {
+  position: relative;
+  content: "";
+  display: block;
+  margin: 8px 0;
+  background: black;
+  border-radius: 2px;
+  width: 100%;
+  height: 0.2rem;
+  transition: 1.5s;
+}
+
+.hamburger.opened span.hamburger-line,
+.hamburger.opened .hamburger-line::before,
+.hamburger.opened .hamburger-line::after {
+  position: relative;
+  content: "";
+  display: block;
+  margin: 8px 0;
+  background: black;
+  border-radius: 2px;
+  width: 100%;
+  height: 0.2rem;
+  transition: 1.5s;
+}

@@ -13,4 +13,6 @@ export enum CssClasses {
   SELECTED = "selected",
 
   FOOTER_VIEWER = "footer",
+
+  MENU = "menu",
 }

@@ -6,9 +6,11 @@ import { levels } from "../../data/data-levels";
 
 export default class CssViewerView extends DefaultView {
   private readonly HEADER_TEXT = "CSS Editor";
+  private checkIconMenu = document.querySelector("span.ready-button::after");
+  private checkIconLevel = document.querySelector("span.done::after");
   private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
   private inputCssEditor: HTMLElement | null = this.createTagElement(
-    "textarea",
+    "input",
     ["input-css-editor", "blink"],
     ""
   );
@@ -84,11 +86,10 @@ export default class CssViewerView extends DefaultView {
   }
 
   private renderCssEditor() {
-    this.createSubmitButton();
     this.createHelpButton();
     if (
       this.cssEditor instanceof HTMLElement &&
-      this.inputCssEditor instanceof HTMLTextAreaElement &&
+      this.inputCssEditor instanceof HTMLInputElement &&
       this.submitButton instanceof Node &&
       this.buttonHelp instanceof Node
     ) {
@@ -100,21 +101,36 @@ export default class CssViewerView extends DefaultView {
         this.buttonHelp
       );
       this.htmlElement.append(this.cssEditor);
+      this.createSubmitButton();
+      this.inputCssEditor.addEventListener("input", () => {
+        this.inputCssEditor?.classList.remove("css-right");
+      });
     }
   }
 
-  //TODO проверка ответа
-  private createSubmitButton() {
+  //TODO проверка ответа, старый ответ при листании уровней.
+  public createSubmitButton() {
     if (this.submitButton instanceof HTMLButtonElement) {
       this.submitButton.type = "submit";
       this.submitButton.addEventListener("click", () => {
-        if (
-          this.inputCssEditor?.innerHTML === levels[this.levelNum - 1].selector
-        ) {
-          console.log("right");
-        } else
-          console.log("wrong, answer: ", levels[this.levelNum - 1].selector);
-        this.inputCssEditor?.classList.add("shake");
+        const level = Number(localStorage.getItem("savedLevel")) || 0;
+        if (this.inputCssEditor instanceof HTMLInputElement) {
+          if (this.inputCssEditor?.value === levels[level - 1].selector) {
+            console.log("right");
+            this.inputCssEditor.classList.add("css-right-blink", "css-right");
+            if (
+              this.checkIconMenu instanceof HTMLElement &&
+              this.checkIconLevel instanceof HTMLElement
+            ) {
+              this.checkIconMenu.style.color = "green";
+              this.checkIconLevel.style.color = "green";
+            }
+          } else {
+            console.log("wrong, answer: ", levels[level - 1].selector);
+            console.log("level: ", level - 1);
+            this.inputCssEditor?.classList.add("shake");
+          }
+        }
       });
     }
   }
@@ -122,7 +138,7 @@ export default class CssViewerView extends DefaultView {
   public createHelpButton() {
     const inputCssEditor = document.querySelector(".input-css-editor");
     const block = inputCssEditor ? inputCssEditor : this.inputCssEditor;
-    if (block instanceof HTMLTextAreaElement) {
+    if (block instanceof HTMLInputElement) {
       block.innerHTML = "";
     }
     if (this.buttonHelp instanceof HTMLButtonElement) {
@@ -134,8 +150,8 @@ export default class CssViewerView extends DefaultView {
         const level = Number(localStorage.getItem("savedLevel")) || 0;
         const answer = levels[level - 1].selector;
 
-        if (this.inputCssEditor instanceof HTMLTextAreaElement) {
-          this.inputCssEditor.innerHTML = "";
+        if (this.inputCssEditor instanceof HTMLInputElement) {
+          this.inputCssEditor.value = "";
           this.inputCssEditor.classList.remove("blink");
         }
         this.printLetters(answer);
@@ -147,10 +163,10 @@ export default class CssViewerView extends DefaultView {
     const inputCssEditor = document.querySelector(".input-css-editor");
     const blockInput = inputCssEditor ? inputCssEditor : this.inputCssEditor;
 
-    if (blockInput instanceof HTMLTextAreaElement) {
+    if (blockInput instanceof HTMLInputElement) {
       if (str.length > 0) {
-        blockInput.innerHTML += str[0];
-        setTimeout(() => this.printLetters(str.slice(1)), 500);
+        blockInput.value += str[0];
+        setTimeout(() => this.printLetters(str.slice(1)), 300);
       }
     }
   }

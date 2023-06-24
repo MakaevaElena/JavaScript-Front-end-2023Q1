@@ -9,6 +9,7 @@ import { levels } from "../../data/data-levels";
 import HtmlViewerView from "../../view/html-viewer/html-viewer-view";
 import BoardView from "../../view/table/board-view";
 import CssViewerView from "../../view/css-viewer/css-viewer-view";
+import MenuView from "../../view/menu-viewer/menu-view";
 
 export default class LevelView extends DefaultView {
   private readonly TEXT = "LevelView";
@@ -16,13 +17,15 @@ export default class LevelView extends DefaultView {
   private levels = levels;
   // private level = levels[0];
   // private levelNum = +this.level.level;
-
+  private levelHeader = this.createTagElement("div", ["level-header"], "");
   private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
   private level = levels[this.levelNum - 1];
   private observerMethod = new ObserverMethod();
   private htmlViewerView = new HtmlViewerView(this.observerMethod);
   private boardView = new BoardView();
   private cssViewerView = new CssViewerView();
+  private menuView = new MenuView();
+  private menuViewElement = this.menuView.getHtmlElement();
 
   htmlBlock = this.createTagElement("div", ["html-block"], "");
   levelBlock!: HTMLElement | null;
@@ -50,19 +53,21 @@ export default class LevelView extends DefaultView {
       this.levelBlock.innerHTML = "";
     }
 
-    const levelHeader = this.createTagElement("div", ["level-header"], "");
+    const levelHeader = document.querySelector(".level-header");
+    const levelHeaderBlock = levelHeader ? levelHeader : this.levelHeader;
+    levelHeaderBlock.innerHTML = "";
     const levelNumBlock = this.createTagElement("div", ["level-number"], "");
     levelNumBlock.textContent = `Level ${this.levelNum} of ${
       this.levels.length - 1
     }`;
-    levelHeader.append(levelNumBlock);
+    levelHeaderBlock.append(levelNumBlock);
 
-    const readyButton = this.createTagElement("button", ["ready-button"], "");
+    const readyButton = this.createTagElement("span", ["ready-button"], "");
     const prevRow = this.createTagElement("button", ["prev-row"], "");
     const nextRow = this.createTagElement("button", ["next-row"], "");
 
-    levelHeader.append(readyButton, prevRow, nextRow);
-    this.htmlElement.append(levelHeader);
+    levelHeaderBlock.append(readyButton, prevRow, nextRow);
+    this.htmlElement.append(levelHeaderBlock);
     if (this.levelNum < levels.length - 1) {
       nextRow.addEventListener("click", () => this.goToNextLevel());
     }
@@ -70,6 +75,7 @@ export default class LevelView extends DefaultView {
       prevRow.addEventListener("click", () => this.goToPrevLevel());
     }
 
+    this.createBurger();
     this.renderLevelDescription();
   }
 
@@ -94,7 +100,7 @@ export default class LevelView extends DefaultView {
         descriptionBlock.append(this.createTagElement("div", ["example"], el))
       );
     }
-    this.htmlElement.append(descriptionBlock);
+    this.htmlElement.append(descriptionBlock, this.menuViewElement);
   }
 
   private goToNextLevel() {
@@ -119,8 +125,58 @@ export default class LevelView extends DefaultView {
     this.cssViewerView.createHelpButton();
   }
 
+  //TODO в css-view добавить переход через submit/Enter
+  public goToLevel(newLevel: number) {
+    this.levelNum = newLevel;
+    this.saveLevelNumber(this.levelNum);
+    this.level = levels[this.levelNum - 1];
+    this.configureHtml();
+    this.htmlViewerView.renderHTMLCodeView(this.level);
+    this.boardView.createTitleTask(this.levelNum);
+    this.boardView.createTable(this.levelNum);
+    this.cssViewerView.createHelpButton();
+  }
+
+  // private changeLevel() {
+  //   const levelLines = document.querySelectorAll(".level-line");
+  //   if (levelLines instanceof HTMLElement) {
+  //     levelLines.forEach((levelLine) =>
+  //       levelLine.addEventListener("click", () =>
+  //         this.goToLevel(Number(levelLine.dataset.id))
+  //       )
+  //     );
+  //   }
+  // }
+
   saveLevelNumber = (levelNum: number) => {
     const savedLevel = +levelNum;
     localStorage.setItem("savedLevel", JSON.stringify(savedLevel));
   };
+
+  private createBurger() {
+    const burger = this.createTagElement("div", ["hamburger"], "");
+    const hamburgerLine = this.createTagElement("div", ["hamburger-line"], "");
+    burger.append(hamburgerLine);
+
+    const toggleMenu = () => {
+      if (burger.classList.contains("opened")) {
+        // this.menuViewElement.style.left = "100%";
+        this.menuViewElement.style.opacity = "100%";
+        burger.classList.remove("opened");
+        burger.style.transform = "rotate(0deg)";
+        document.body.style.overflow = "";
+      } else {
+        // this.menuViewElement.style.left = "0";
+        this.menuViewElement.style.opacity = "0";
+        burger.classList.add("opened");
+        burger.style.transform = "rotate(90deg)";
+        document.body.style.overflow = "hidden";
+      }
+    };
+
+    burger.addEventListener("click", toggleMenu);
+    // links.addEventListener("click", toggleMenu);
+    this.levelHeader.append(burger);
+    // this.htmlElement.append(this.menuViewElement);
+  }
 }

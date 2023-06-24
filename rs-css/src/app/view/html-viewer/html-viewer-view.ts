@@ -8,6 +8,8 @@ import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
 import { Level } from "../../types/interfaces";
+import "highlight.js/styles/github.css";
+// import "@types/highlight.js";
 // import hljs from "highlight.js";
 // import hljs from "highlight.js/lib/core";
 // hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));

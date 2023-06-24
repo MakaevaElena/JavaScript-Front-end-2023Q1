@@ -49,3 +49,34 @@
   width: min-content;
   color: white;
 }
+
+@keyframes right-light {
+  0% {
+    background-color: #246424;
+  }
+  33% {
+    background-color: #a9d8a9;
+  }
+  66% {
+    background-color: #246424;
+  }
+  100% {
+    background-color: #a9d8a9;
+  }
+}
+
+.css-right-blink {
+  animation: right-light 0.5s;
+  animation-iteration-count: 1;
+}
+
+.css-right {
+  background-color: #a9d8a9;
+}
+
+@media screen and (max-width: 1280px) {
+  .html-block {
+    font-size: 0.9rem;
+    grid-column: 1/10;
+  }
+}

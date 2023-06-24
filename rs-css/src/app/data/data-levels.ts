@@ -324,7 +324,7 @@ export const levels = [
     selector: "mat :last-child",
     syntax: ":last-child",
     description:
-      "You can use this selector to select an element that is the last child element inside of another element.",
+      "<p>You can use this selector to select an element that is the last child element inside of another element.</p></br><p>Pro Tip → In cases where there is only one element, that element counts as the first-child, only-child and last-child!</p>",
     examples: [
       "<strong>:last-child</strong> selects all last-child elements.",
       "<strong>span:last-child</strong> selects all last-child <tag>span</tag> elements.",

@@ -1,17 +1,22 @@
+import { CssClasses } from "./../../enums/view/css-classes";
 // import { Level } from "./../../types/interfaces";
 import "./style.css";
-import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
 // import Observer from "../../observer/observer";
 import DefaultView from "../default-view";
 // import TagItemView from "./tag-item/tag-item-view";
 // import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
+import hljs from "highlight.js/lib/core";
+//!
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 
 export default class BoardView extends DefaultView {
   private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
   private table = this.createTagElement("div", ["table"], "");
   private taskTitle = this.createTagElement("div", ["title-task"], "");
+  private tooltip = this.createTagElement("span", ["tooltip"], "");
 
   constructor() {
     super();
@@ -52,24 +57,40 @@ export default class BoardView extends DefaultView {
       animated.forEach((el) => el.classList.add("animated-tag-item"));
     }
 
-    // levels[this.levelNum].html.forEach((el: HTMLElement) =>
-    //   hljs.highlightBlock(el)
-    // );
-
-    // let tagItemItem = new TagItemView(observer);
-    // tagItemItem.configureHtml("item_1", "cat-orange");
-    // table.append(tagItemItem.getHtmlElement());
-    // tagItemItem = new TagItemView(observer);
-    // tagItemItem.configureHtml("item_2", "hat-blue");
-    // table.append(tagItemItem.getHtmlElement());
-    // tagItemItem = new TagItemView(observer);
-    // tagItemItem.configureHtml("item_3", "dog-gray");
-    // table.append(tagItemItem.getHtmlElement());
+    const elements = block.querySelectorAll(".table *");
+    elements.forEach((element) => {
+      if (element instanceof HTMLElement) {
+        element.addEventListener("mouseover", () => {
+          this.showTooltip(element);
+        });
+        element.addEventListener("mouseout", () => {
+          this.showTooltip(element);
+        });
+      }
+    });
   }
 
   public createTitleTask(levelNum: number) {
     const taskTitle = document.querySelector(".title-task");
     const block = taskTitle ? taskTitle : this.taskTitle;
     block.innerHTML = levels[levelNum - 1].task;
+  }
+
+  //! при смене уровня зависает
+  private showTooltip(element: HTMLElement) {
+    // console.log(element.classList);
+
+    this.tooltip.classList.toggle("hidden");
+    const elementClass = element.getAttribute("class")
+      ? `class=${element.getAttribute("class")}`
+      : "";
+    const elementId = element.getAttribute("id")
+      ? `id=${element.getAttribute("id")}`
+      : "";
+    const tooltipText = `<${element.tagName.toLocaleLowerCase()} ${elementClass} ${elementId}></${element.tagName.toLocaleLowerCase()}>`;
+    this.tooltip.innerHTML = hljs.highlightAuto(tooltipText).value;
+    this.tooltip.style.left = `${element.getClientRects()[0].left - 200}px`;
+    this.tooltip.style.top = `${element.getClientRects()[0].top - 50}px`;
+    this.htmlElement.append(this.tooltip);
   }
 }

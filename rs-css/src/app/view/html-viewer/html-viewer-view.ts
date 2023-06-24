@@ -12,7 +12,9 @@ import { Level } from "../../types/interfaces";
 import "highlight.js/styles/github.css";
 // import "@types/highlight.js";
 // import "./paraiso-dark.min.css";
+
 import hljs from "highlight.js/lib/core";
+//!
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 

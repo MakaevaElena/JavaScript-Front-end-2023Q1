@@ -11,7 +11,7 @@
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   cursor: pointer;
-  background-color: gray;
+  background-color: #cfcfcf;
 }
 
 .html-viewer-header {
@@ -43,6 +43,7 @@
   grid-row: 2/10;
   color: black;
   font-size: 1rem;
+  font-weight: 600;
 }
 
 .row-code :hover {

@@ -213,3 +213,18 @@ hat.blue {
 .table cat.gray {
   background-image: url("../../../assets/img/dog_gray.png");
 }
+
+.hidden {
+  display: none;
+}
+
+.tooltip {
+  background-color: #cfcfcf;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  position: absolute;
+  display: block;
+  padding: 0.8rem;
+  text-align: center;
+  border-radius: 5px;
+}

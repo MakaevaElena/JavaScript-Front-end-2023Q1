@@ -29,7 +29,9 @@ export default class MenuView extends DefaultView {
       // console.log(this.levelNum);
       if (i === level - 1) {
         levelLine.style.boxShadow = "0 0 10px #0000004d";
-        levelLine.style.backgroundColor = "#6b6b6b";
+        // levelLine.style.backgroundColor = "#6b6b6b";
+        levelLine.style.fontSize = "1.5rem";
+        levelLine.style.fontWeight = "600";
       }
     }
     //! бесконечный вызов

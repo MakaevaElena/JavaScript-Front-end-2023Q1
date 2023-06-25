@@ -6,7 +6,7 @@ import CssViewerView from "./css-viewer/css-viewer-view";
 import DefaultView from "./default-view";
 import HtmlViewerView from "./html-viewer/html-viewer-view";
 import LevelView from "./level/level-view";
-import TableView from "./table/board-view";
+import BoardView from "./table/board-view";
 import ObserverMethod from "../observer/observer-method";
 import { levels } from "../data/data-levels";
 
@@ -19,8 +19,8 @@ export default class MainView extends DefaultView {
     }
     const observerMethod = new ObserverMethod();
 
-    const levelView = new LevelView(observerMethod);
-    const tableView = new TableView();
+    const levelView = new LevelView();
+    const tableView = new BoardView(observerMethod);
     const htmlViewerView = new HtmlViewerView(observerMethod);
     const cssViewerView = new CssViewerView();
 

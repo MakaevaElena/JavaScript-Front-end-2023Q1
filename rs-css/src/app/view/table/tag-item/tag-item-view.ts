@@ -20,14 +20,14 @@ export default class TagItemView extends DefaultView {
       this.unselectHandler.bind(this)
     );
 
-    observer?.subscribe(
-      EventName.LEVEL_SELECTED,
-      this.selectHandler.bind(this)
-    );
-    observer?.subscribe(
-      EventName.LEVEL_UNSELECTED,
-      this.unselectHandler.bind(this)
-    );
+    // observer?.subscribe(
+    //   EventName.LEVEL_SELECTED,
+    //   this.selectHandler.bind(this)
+    // );
+    // observer?.subscribe(
+    //   EventName.LEVEL_UNSELECTED,
+    //   this.unselectHandler.bind(this)
+    // );
 
     this.htmlElement.addEventListener("mouseenter", () =>
       observer?.notify(EventName.TAG_SELECTED)

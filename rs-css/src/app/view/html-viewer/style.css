@@ -14,6 +14,15 @@
   background-color: #cfcfcf;
 }
 
+.selected {
+  /* background: gray; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 800;
+  padding: 0.2rem;
+  /* font-size: 1.2rem; */
+  border-radius: 5%;
+}
+
 .html-viewer-header {
   grid-column: 1/11;
   grid-row: 1/2;

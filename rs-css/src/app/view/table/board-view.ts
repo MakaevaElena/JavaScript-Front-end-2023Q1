@@ -2,10 +2,10 @@ import { CssClasses } from "./../../enums/view/css-classes";
 // import { Level } from "./../../types/interfaces";
 import "./style.css";
 import { TagNames } from "../../enums/view/tag-names";
-// import Observer from "../../observer/observer";
 import DefaultView from "../default-view";
 // import TagItemView from "./tag-item/tag-item-view";
-// import ObserverMethod from "../../observer/observer-method";
+import ObserverMethod from "../../observer/observer-method";
+import { EventName } from "../../enums/events/event-names";
 import { levels } from "../../data/data-levels";
 import hljs from "highlight.js/lib/core";
 //!
@@ -18,10 +18,35 @@ export default class BoardView extends DefaultView {
   private taskTitle = this.createTagElement("div", ["title-task"], "");
   private tooltip = this.createTagElement("span", ["tooltip"], "");
 
-  constructor() {
+  constructor(observerMethod: ObserverMethod) {
     super();
     this.htmlElement = this.createHtml();
     this.configureHtml();
+
+    this.table.childNodes.forEach((node) => {
+      node.addEventListener("mouseenter", (event) => {
+        if (event.target instanceof HTMLElement) {
+          const selectedElementClass =
+            event?.target.tagName.toLocaleLowerCase();
+          observerMethod?.notify(EventName.TAG_SELECTED, selectedElementClass);
+        }
+
+        console.log("notify mouseenter");
+      });
+    });
+
+    // this.htmlElement.addEventListener("mouseenter", (event) => {
+    //   if (event.target instanceof HTMLElement) {
+    //     const selectedElementClass = event?.target.getAttribute("class");
+    //     observerMethod?.notify(EventName.TAG_SELECTED, selectedElementClass);
+    //   }
+
+    //   console.log("notify mouseenter");
+    // });
+    this.htmlElement.addEventListener("mouseout", () => {
+      observerMethod?.notify(EventName.TAG_UNSELECTED);
+      console.log("notify mouseout");
+    });
   }
 
   private configureHtml() {
@@ -68,6 +93,18 @@ export default class BoardView extends DefaultView {
         });
       }
     });
+
+    // elements.forEach((element) => {
+    //   const selector = element.getAttribute("class");
+
+    //   element.addEventListener("mouseenter", () => {
+    //     this.observerMethod?.notify(EventName.TAG_SELECTED, selector);
+    //   });
+
+    //   element.addEventListener("mouseout", () => {
+    //     this.observerMethod?.notify(EventName.TAG_UNSELECTED, selector);
+    //   });
+    // });
   }
 
   public createTitleTask(levelNum: number) {

@@ -34,11 +34,6 @@ p {
   z-index: -1;
 }
 
-.selected {
-  background: gray;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
-}
-
 .label {
   padding: 1rem;
 }
@@ -53,5 +48,3 @@ p {
   flex-direction: column;
   justify-content: space-around;
 }
-
-

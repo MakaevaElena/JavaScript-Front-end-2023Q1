@@ -2,7 +2,7 @@ import "./style.css";
 import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
-import { EventName } from "../../enums/events/event-names";
+// import { EventName } from "../../enums/events/event-names";
 // import Observer from "../../observer/observer";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
@@ -22,7 +22,7 @@ export default class LevelView extends DefaultView {
   private level = levels[this.levelNum - 1];
   private observerMethod = new ObserverMethod();
   private htmlViewerView = new HtmlViewerView(this.observerMethod);
-  private boardView = new BoardView();
+  private boardView = new BoardView(this.observerMethod);
   private cssViewerView = new CssViewerView();
   private menuView = new MenuView();
   private menuViewElement = this.menuView.getHtmlElement();
@@ -30,16 +30,9 @@ export default class LevelView extends DefaultView {
   htmlBlock = this.createTagElement("div", ["html-block"], "");
   levelBlock!: HTMLElement | null;
 
-  constructor(observer: ObserverMethod) {
+  constructor() {
     super();
     this.configureHtml();
-
-    this.htmlElement.addEventListener("mouseenter", () =>
-      observer?.notify(EventName.LEVEL_SELECTED, this.TEXT)
-    );
-    this.htmlElement.addEventListener("mouseout", () =>
-      observer?.notify(EventName.LEVEL_UNSELECTED, this.TEXT)
-    );
   }
   protected createHtml(): HTMLElement {
     const element = document.createElement(TagNames.SECTION);

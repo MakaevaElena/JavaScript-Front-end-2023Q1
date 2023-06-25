@@ -25,42 +25,43 @@ export default class HtmlViewerView extends DefaultView {
 
   private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
 
-  constructor(observer: ObserverMethod | null) {
+  constructor(observerMethod: ObserverMethod) {
     super();
     this.configureHtml();
 
-    observer?.subscribe(EventName.TAG_SELECTED, this.selectHandler.bind(this));
-    observer?.subscribe(
-      EventName.TAG_UNSELECTED,
-      this.unselectHandler.bind(this)
-    );
-
-    observer?.subscribe(
-      EventName.LEVEL_SELECTED,
+    observerMethod?.subscribe(
+      EventName.TAG_SELECTED,
       this.selectHandler.bind(this)
     );
-    observer?.subscribe(
-      EventName.LEVEL_UNSELECTED,
+    observerMethod?.subscribe(
+      EventName.TAG_UNSELECTED,
       this.unselectHandler.bind(this)
-    );
-
-    this.htmlElement.addEventListener("mouseenter", () =>
-      observer?.notify(EventName.HTML_SELECTED)
-    );
-    this.htmlElement.addEventListener("mouseout", () =>
-      observer?.notify(EventName.HTML_UNSELECTED)
     );
   }
 
   private selectHandler<T>(param: T) {
-    this.htmlElement.classList.add(CssClasses.SELECTED);
+    console.log("param selectedElementClass", param);
     if (typeof param === "string") {
-      // this.htmlElement.textContent = param;
+      const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
+      // console.log(param);
+      //! не выделяет вложенные тэги, хотя они с классом .hljs-name
+      hljsTags.forEach((tag) => {
+        if (tag.innerHTML === param) {
+          if (tag instanceof HTMLElement) {
+            // hljs.highlightElement(tag);
+            tag.classList.add(CssClasses.SELECTED);
+          }
+        }
+      });
     }
   }
   private unselectHandler() {
-    this.htmlElement.classList.remove(CssClasses.SELECTED);
-    // this.htmlElement.textContent = "";
+    const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
+    hljsTags.forEach((tag) => {
+      if (tag instanceof HTMLElement) {
+        tag.classList.remove(CssClasses.SELECTED);
+      }
+    });
   }
 
   private configureHtml() {

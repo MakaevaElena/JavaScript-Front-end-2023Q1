@@ -33,12 +33,14 @@ export default class MenuView extends DefaultView {
 
     this.htmlElement.append(this.levelList);
     if (this.levelList instanceof HTMLUListElement) {
-      this.levelList.addEventListener("click", (evt: Event) => {
-        if (evt.target instanceof HTMLLIElement) {
-          // level = Number(evt.target.dataset.id);
-          // this.saveLevelNumber(level);
-          // window.location.reload();
-        }
+      // console.log(this.levelList.childNodes);
+
+      this.levelList.childNodes.forEach((node, i) => {
+        node.addEventListener("click", () => {
+          level = i + 1;
+          this.saveLevelNumber(level);
+          window.location.reload();
+        });
       });
     }
   }

@@ -49,7 +49,7 @@ export default class LevelView extends DefaultView {
   }
 
   private configureHtml() {
-    this.changeLevel();
+    // this.changeLevel();
     if (this.levelBlock) {
       this.levelBlock.innerHTML = "";
     }
@@ -104,7 +104,7 @@ export default class LevelView extends DefaultView {
     this.htmlElement.append(descriptionBlock, this.menuViewElement);
   }
 
-  private goToNextLevel() {
+  public goToNextLevel() {
     this.levelNum += 1;
     this.saveLevelNumber(this.levelNum);
     this.level = levels[this.levelNum - 1];
@@ -138,27 +138,29 @@ export default class LevelView extends DefaultView {
     this.boardView.createTitleTask(this.levelNum);
     this.boardView.createTable(this.levelNum);
     this.cssViewerView.createHelpButton();
+
+    // this.saveLevelNumber(newLevel);
+    // window.location.reload();
   }
 
   //! переход на уровень в листе
-  private changeLevel() {
-    const levelLines = document.querySelectorAll(".level-line");
-    // console.log(levelLines);
-    if (levelLines instanceof HTMLElement) {
-      levelLines.forEach((levelLine) =>
-        levelLine.addEventListener("click", () => {
-          if (levelLine instanceof HTMLElement) {
-            this.goToLevel(Number(levelLine.dataset.id));
-          }
-        })
-      );
-    }
-  }
+  // private changeLevel() {
+  //   const levelLines = document.querySelectorAll(".level-line");
+  //   console.log(levelLines);
+  //   if (levelLines instanceof HTMLCollection) {
+  //     levelLines.forEach((levelLine) =>
+  //       levelLine.addEventListener("click", () => {
+  //         if (levelLine instanceof HTMLLIElement) {
+  //           console.log("ok");
+  //           // this.goToLevel(Number(levelLine.dataset.id));
 
-  public saveLevelNumber = (levelNum: number) => {
-    const savedLevel = +levelNum;
-    localStorage.setItem("savedLevel", JSON.stringify(savedLevel));
-  };
+  //           // this.saveLevelNumber(newLevel);
+  //           // window.location.reload();
+  //         }
+  //       })
+  //     );
+  //   }
+  // }
 
   private createBurger() {
     const burger = this.createTagElement("div", ["hamburger"], "");

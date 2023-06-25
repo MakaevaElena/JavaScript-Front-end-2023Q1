@@ -33,5 +33,10 @@ export default abstract class DefaultView {
     return lineNumbers;
   };
 
+  protected saveLevelNumber = (levelNum: number) => {
+    const savedLevel = +levelNum;
+    localStorage.setItem("savedLevel", JSON.stringify(savedLevel));
+  };
+
   protected abstract createHtml<T>(param?: T): HTMLElement;
 }

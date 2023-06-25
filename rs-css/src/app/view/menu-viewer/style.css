@@ -9,11 +9,11 @@
 .menu {
   /* grid-column: 7/9;
   grid-row: 2/10; */
-  width: 85%;
-
+  width: 87%;
+  height: 89%;
   /* position: fixed; */
   position: absolute;
-  top: 67px;
+  top: 60px;
   /* right: 0; */
   /* left: 0; */
   /* transition: left 1s; */
@@ -24,7 +24,7 @@
   /* overflow: hidden; */
   border: 1px solid transparent;
 
-  background: gray;
+  background: #bbb9b9;
   padding: 1.5rem;
 }
 
@@ -41,7 +41,7 @@ span.done::after {
   right: 0; */
   /* height: 100%; */
   /* width: 90%; */
-  background-color: gray;
+  /* background-color: #bbb9b9; */
   list-style-type: none;
 }
 

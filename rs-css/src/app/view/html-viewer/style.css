@@ -29,7 +29,7 @@
   grid-column: 1/2;
   grid-row: 2/11;
   border: 1px solid grey;
-  background-color: rgb(187, 185, 185);
+  background-color: #bbb9b9;
   width: 50%;
   padding: 0.5rem;
 
@@ -46,9 +46,15 @@
   font-weight: 600;
 }
 
-.row-code :hover {
+.row-code:hover {
   width: min-content;
   color: white;
+}
+
+.hljs-tag:hover,
+.hljs-tag ~ :hover {
+  padding: 0.5rem;
+  box-shadow: 0 0 10px #0000004d;
 }
 
 @keyframes right-light {

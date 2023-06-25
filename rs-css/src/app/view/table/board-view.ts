@@ -60,10 +60,10 @@ export default class BoardView extends DefaultView {
     const elements = block.querySelectorAll(".table *");
     elements.forEach((element) => {
       if (element instanceof HTMLElement) {
-        element.addEventListener("mouseover", () => {
+        element.addEventListener("mouseenter", () => {
           this.showTooltip(element);
         });
-        element.addEventListener("mouseout", () => {
+        element.addEventListener("mouseleave", () => {
           this.showTooltip(element);
         });
       }
@@ -77,20 +77,23 @@ export default class BoardView extends DefaultView {
   }
 
   //! при смене уровня зависает
+  // не видит вложенные элементы
+  // tooltip не исчезает при mouseout/leave
   private showTooltip(element: HTMLElement) {
-    // console.log(element.classList);
-
-    this.tooltip.classList.toggle("hidden");
-    const elementClass = element.getAttribute("class")
+    let elementClass = element.getAttribute("class")
       ? `class=${element.getAttribute("class")}`
       : "";
     const elementId = element.getAttribute("id")
       ? `id=${element.getAttribute("id")}`
       : "";
+    if (element.getAttribute("class")?.includes("animated-tag-item")) {
+      elementClass = "";
+    }
     const tooltipText = `<${element.tagName.toLocaleLowerCase()} ${elementClass} ${elementId}></${element.tagName.toLocaleLowerCase()}>`;
     this.tooltip.innerHTML = hljs.highlightAuto(tooltipText).value;
     this.tooltip.style.left = `${element.getClientRects()[0].left - 200}px`;
     this.tooltip.style.top = `${element.getClientRects()[0].top - 50}px`;
     this.htmlElement.append(this.tooltip);
+    this.tooltip.classList.toggle("hidden");
   }
 }

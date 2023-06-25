@@ -6,15 +6,16 @@ import { levels } from "../../data/data-levels";
 
 export default class MenuView extends DefaultView {
   private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
-  private links = this.createTagElement("ul", ["level-list"], "");
+  private levelList = this.createTagElement("ul", ["level-list"], "");
+  // private levelLine?: HTMLElement | null;
   constructor() {
     super();
     this.configureHtml(this.levelNum);
   }
 
   public configureHtml(level: number) {
-    // const links = this.createTagElement("ul", ["level-list"], "");
-    this.links.innerHTML = "";
+    // const levelList = this.createTagElement("ul", ["level-list"], "");
+    this.levelList.innerHTML = "";
     for (let i = 0; i < levels.length; i += 1) {
       // const levelNum = Number(localStorage.getItem("savedLevel")) || 0;
       const levelLine = this.createTagElement(
@@ -24,7 +25,7 @@ export default class MenuView extends DefaultView {
           levels[i].level
         }. ${levels[i].syntax}`
       );
-      this.links.append(levelLine);
+      this.levelList.append(levelLine);
       // console.log(i);
       // console.log(this.levelNum);
       if (i === level - 1) {
@@ -34,13 +35,20 @@ export default class MenuView extends DefaultView {
         levelLine.style.fontWeight = "600";
       }
     }
-    //! бесконечный вызов
-    // links.addEventListener("click", (evt: Event) => {
-    //   if (evt.target instanceof HTMLElement) {
-    //     this.levelView.goToLevel(Number(evt.target.dataset.id));
-    //   }
-    // });
-    this.htmlElement.append(this.links);
+
+    this.htmlElement.append(this.levelList);
+    console.log(this.levelList);
+
+    if (this.levelList instanceof HTMLUListElement) {
+      this.levelList.addEventListener("click", (evt: Event) => {
+        if (evt.target instanceof HTMLLIElement) {
+          // level = Number(evt.target.dataset.id);
+          // console.log(level);
+          // this.saveLevelNumber(level);
+          // window.location.reload();
+        }
+      });
+    }
   }
 
   protected createHtml(): HTMLElement {

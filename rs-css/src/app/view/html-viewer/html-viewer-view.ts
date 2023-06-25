@@ -115,6 +115,10 @@ export default class HtmlViewerView extends DefaultView {
       row.append(pre);
 
       block.append(row);
+
+      // const divBlock = htmlBlock?.querySelectorAll(".hljs-tag");
+      // divBlock?.forEach((el) => hljs.highlightElement(el as HTMLElement));
+      // console.log("ok");
     });
   }
 }

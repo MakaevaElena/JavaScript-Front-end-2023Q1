@@ -6,6 +6,7 @@ import { levels } from "../../data/data-levels";
 
 export default class CssViewerView extends DefaultView {
   private readonly HEADER_TEXT = "CSS Editor";
+
   private checkIconMenu = document.querySelector("span.ready-button::after");
   private checkIconLevel = document.querySelector("span.done::after");
   private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
@@ -117,6 +118,8 @@ export default class CssViewerView extends DefaultView {
         if (this.inputCssEditor instanceof HTMLInputElement) {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
             console.log("right");
+            this.saveLevelNumber(level + 1);
+            window.location.reload();
             this.inputCssEditor.classList.add("css-right-blink", "css-right");
             if (
               this.checkIconMenu instanceof HTMLElement &&

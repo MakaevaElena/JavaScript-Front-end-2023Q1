@@ -14,10 +14,8 @@ export default class MenuView extends DefaultView {
   }
 
   public configureHtml(level: number) {
-    // const levelList = this.createTagElement("ul", ["level-list"], "");
     this.levelList.innerHTML = "";
     for (let i = 0; i < levels.length; i += 1) {
-      // const levelNum = Number(localStorage.getItem("savedLevel")) || 0;
       const levelLine = this.createTagElement(
         "li",
         ["level-line"],
@@ -26,24 +24,18 @@ export default class MenuView extends DefaultView {
         }. ${levels[i].syntax}`
       );
       this.levelList.append(levelLine);
-      // console.log(i);
-      // console.log(this.levelNum);
       if (i === level - 1) {
         levelLine.style.boxShadow = "0 0 10px #0000004d";
-        // levelLine.style.backgroundColor = "#6b6b6b";
         levelLine.style.fontSize = "1.5rem";
         levelLine.style.fontWeight = "600";
       }
     }
 
     this.htmlElement.append(this.levelList);
-    console.log(this.levelList);
-
     if (this.levelList instanceof HTMLUListElement) {
       this.levelList.addEventListener("click", (evt: Event) => {
         if (evt.target instanceof HTMLLIElement) {
           // level = Number(evt.target.dataset.id);
-          // console.log(level);
           // this.saveLevelNumber(level);
           // window.location.reload();
         }

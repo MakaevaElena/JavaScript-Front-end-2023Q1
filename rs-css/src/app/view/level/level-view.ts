@@ -18,7 +18,7 @@ export default class LevelView extends DefaultView {
   // private level = levels[0];
   // private levelNum = +this.level.level;
   private levelHeader = this.createTagElement("div", ["level-header"], "");
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
   private level = levels[this.levelNum - 1];
   private observerMethod = new ObserverMethod();
   private htmlViewerView = new HtmlViewerView(this.observerMethod);
@@ -49,9 +49,10 @@ export default class LevelView extends DefaultView {
   }
 
   private configureHtml() {
-    // this.changeLevel();
-    if (this.levelBlock) {
-      this.levelBlock.innerHTML = "";
+    const levelSection = document.querySelector(".level");
+    const levelSectionBlock = levelSection ? levelSection : this.levelBlock;
+    if (levelSectionBlock instanceof HTMLElement) {
+      levelSectionBlock.innerHTML = "";
     }
 
     const levelHeader = document.querySelector(".level-header");
@@ -128,20 +129,19 @@ export default class LevelView extends DefaultView {
     this.menuView.configureHtml(this.levelNum);
   }
 
-  //TODO в css-view добавить переход через submit/Enter
-  public goToLevel(newLevel: number) {
-    this.levelNum = newLevel;
-    this.saveLevelNumber(this.levelNum);
-    this.level = levels[this.levelNum - 1];
-    this.configureHtml();
-    this.htmlViewerView.renderHTMLCodeView(this.level);
-    this.boardView.createTitleTask(this.levelNum);
-    this.boardView.createTable(this.levelNum);
-    this.cssViewerView.createHelpButton();
+  // public goToLevel(newLevel: number) {
+  //   this.levelNum = newLevel;
+  //   this.saveLevelNumber(this.levelNum);
+  //   this.level = levels[this.levelNum - 1];
+  //   this.configureHtml();
+  //   this.htmlViewerView.renderHTMLCodeView(this.level);
+  //   this.boardView.createTitleTask(this.levelNum);
+  //   this.boardView.createTable(this.levelNum);
+  //   this.cssViewerView.createHelpButton();
 
-    // this.saveLevelNumber(newLevel);
-    // window.location.reload();
-  }
+  //   // this.saveLevelNumber(newLevel);
+  //   // window.location.reload();
+  // }
 
   //! переход на уровень в листе
   // private changeLevel() {
@@ -152,10 +152,6 @@ export default class LevelView extends DefaultView {
   //       levelLine.addEventListener("click", () => {
   //         if (levelLine instanceof HTMLLIElement) {
   //           console.log("ok");
-  //           // this.goToLevel(Number(levelLine.dataset.id));
-
-  //           // this.saveLevelNumber(newLevel);
-  //           // window.location.reload();
   //         }
   //       })
   //     );

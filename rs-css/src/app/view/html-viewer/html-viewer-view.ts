@@ -23,7 +23,7 @@ export default class HtmlViewerView extends DefaultView {
   private readonly HEADER_TEXT = "HTML Viewer";
   private htmlBlock = this.createTagElement("div", ["html-block"], "");
 
-  private levelNum = localStorage.getItem("savedLevel") || null;
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
 
   constructor(observer: ObserverMethod | null) {
     super();
@@ -118,7 +118,6 @@ export default class HtmlViewerView extends DefaultView {
 
       // const divBlock = htmlBlock?.querySelectorAll(".hljs-tag");
       // divBlock?.forEach((el) => hljs.highlightElement(el as HTMLElement));
-      // console.log("ok");
     });
   }
 }

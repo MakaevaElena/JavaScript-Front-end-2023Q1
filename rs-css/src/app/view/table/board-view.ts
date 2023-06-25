@@ -13,7 +13,7 @@ import hljs from "highlight.js/lib/core";
 hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 
 export default class BoardView extends DefaultView {
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
   private table = this.createTagElement("div", ["table"], "");
   private taskTitle = this.createTagElement("div", ["title-task"], "");
   private tooltip = this.createTagElement("span", ["tooltip"], "");

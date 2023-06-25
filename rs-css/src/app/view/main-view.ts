@@ -8,11 +8,15 @@ import HtmlViewerView from "./html-viewer/html-viewer-view";
 import LevelView from "./level/level-view";
 import TableView from "./table/board-view";
 import ObserverMethod from "../observer/observer-method";
+import { levels } from "../data/data-levels";
 
 export default class MainView extends DefaultView {
   constructor() {
     super();
 
+    if (Number(localStorage.getItem("savedLevel")) > levels.length) {
+      this.saveLevelNumber(1);
+    }
     const observerMethod = new ObserverMethod();
 
     const levelView = new LevelView(observerMethod);

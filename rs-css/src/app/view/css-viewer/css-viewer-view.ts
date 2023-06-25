@@ -114,10 +114,11 @@ export default class CssViewerView extends DefaultView {
       this.submitButton.type = "submit";
 
       const submit = () => {
-        const level = Number(localStorage.getItem("savedLevel")) || 0;
+        const level = Number(localStorage.getItem("savedLevel")) || 1;
         if (this.inputCssEditor instanceof HTMLInputElement) {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
             console.log("right");
+            if (level === 17) this.saveLevelNumber(1);
             this.saveLevelNumber(level + 1);
             window.location.reload();
             this.inputCssEditor.classList.add("css-right-blink", "css-right");
@@ -159,7 +160,7 @@ export default class CssViewerView extends DefaultView {
       this.buttonHelp.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const level = Number(localStorage.getItem("savedLevel")) || 0;
+        const level = Number(localStorage.getItem("savedLevel")) || 1;
         const answer = levels[level - 1].selector;
 
         if (this.inputCssEditor instanceof HTMLInputElement) {

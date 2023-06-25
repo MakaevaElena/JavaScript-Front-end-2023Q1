@@ -17,35 +17,63 @@ export default class BoardView extends DefaultView {
   private table = this.createTagElement("div", ["table"], "");
   private taskTitle = this.createTagElement("div", ["title-task"], "");
   private tooltip = this.createTagElement("span", ["tooltip"], "");
+  private observerMethod;
 
   constructor(observerMethod: ObserverMethod) {
     super();
+    this.observerMethod = observerMethod;
     this.htmlElement = this.createHtml();
     this.configureHtml();
+
+    observerMethod?.subscribe(
+      EventName.CODE_SELECTED,
+      this.pictureSelectHandler.bind(this)
+    );
+    observerMethod?.subscribe(
+      EventName.CODE_UNSELECTED,
+      this.pictureUnelectHandler.bind(this)
+    );
 
     this.table.childNodes.forEach((node) => {
       node.addEventListener("mouseenter", (event) => {
         if (event.target instanceof HTMLElement) {
           const selectedElementClass =
             event?.target.tagName.toLocaleLowerCase();
-          observerMethod?.notify(EventName.TAG_SELECTED, selectedElementClass);
+          observerMethod?.notify(
+            EventName.PICTURE_SELECTED,
+            selectedElementClass
+          );
         }
-
-        console.log("notify mouseenter");
       });
     });
 
-    // this.htmlElement.addEventListener("mouseenter", (event) => {
-    //   if (event.target instanceof HTMLElement) {
-    //     const selectedElementClass = event?.target.getAttribute("class");
-    //     observerMethod?.notify(EventName.TAG_SELECTED, selectedElementClass);
-    //   }
-
-    //   console.log("notify mouseenter");
-    // });
     this.htmlElement.addEventListener("mouseout", () => {
-      observerMethod?.notify(EventName.TAG_UNSELECTED);
-      console.log("notify mouseout");
+      observerMethod?.notify(EventName.PICTURE_UNSELECTED);
+    });
+  }
+
+  private pictureSelectHandler<T>(param: T) {
+    // console.log("selector", param);
+    if (param instanceof HTMLElement) {
+      const selected = this.table.querySelectorAll(`${param.innerHTML}`);
+      // selected.forEach((el) => el.classList.add(CssClasses.SELECTED));
+      selected.forEach((el) => {
+        // console.log(el);
+        if (el instanceof HTMLElement) {
+          // el.classList.add(CssClasses.SELECTED);
+          this.showTooltip(el);
+        }
+      });
+    }
+  }
+
+  private pictureUnelectHandler() {
+    // console.log("pictureUnelectHandlerr");
+    this.table.childNodes.forEach((node) => {
+      if (node instanceof HTMLElement) {
+        // node.classList.remove(CssClasses.SELECTED);
+        this.showTooltip(node);
+      }
     });
   }
 
@@ -93,18 +121,6 @@ export default class BoardView extends DefaultView {
         });
       }
     });
-
-    // elements.forEach((element) => {
-    //   const selector = element.getAttribute("class");
-
-    //   element.addEventListener("mouseenter", () => {
-    //     this.observerMethod?.notify(EventName.TAG_SELECTED, selector);
-    //   });
-
-    //   element.addEventListener("mouseout", () => {
-    //     this.observerMethod?.notify(EventName.TAG_UNSELECTED, selector);
-    //   });
-    // });
   }
 
   public createTitleTask(levelNum: number) {

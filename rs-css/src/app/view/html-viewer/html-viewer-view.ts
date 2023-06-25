@@ -22,28 +22,27 @@ hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 export default class HtmlViewerView extends DefaultView {
   private readonly HEADER_TEXT = "HTML Viewer";
   private htmlBlock = this.createTagElement("div", ["html-block"], "");
-
   private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
+  private observerMethod;
 
   constructor(observerMethod: ObserverMethod) {
     super();
+    this.observerMethod = observerMethod;
     this.configureHtml();
 
     observerMethod?.subscribe(
-      EventName.TAG_SELECTED,
-      this.selectHandler.bind(this)
+      EventName.PICTURE_SELECTED,
+      this.codeSelectHandler.bind(this)
     );
     observerMethod?.subscribe(
-      EventName.TAG_UNSELECTED,
-      this.unselectHandler.bind(this)
+      EventName.PICTURE_UNSELECTED,
+      this.codeUnselectHandler.bind(this)
     );
   }
 
-  private selectHandler<T>(param: T) {
-    console.log("param selectedElementClass", param);
+  private codeSelectHandler<T>(param: T) {
     if (typeof param === "string") {
       const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
-      // console.log(param);
       //! не выделяет вложенные тэги, хотя они с классом .hljs-name
       hljsTags.forEach((tag) => {
         if (tag.innerHTML === param) {
@@ -55,7 +54,7 @@ export default class HtmlViewerView extends DefaultView {
       });
     }
   }
-  private unselectHandler() {
+  private codeUnselectHandler() {
     const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
     hljsTags.forEach((tag) => {
       if (tag instanceof HTMLElement) {
@@ -117,8 +116,44 @@ export default class HtmlViewerView extends DefaultView {
 
       block.append(row);
 
-      // const divBlock = htmlBlock?.querySelectorAll(".hljs-tag");
-      // divBlock?.forEach((el) => hljs.highlightElement(el as HTMLElement));
+      //! нет id вложенных тэгов
+      // const hljsTags = pre.querySelectorAll(".hljs-tag");
+      const hljsTags = pre.querySelectorAll(".hljs-name");
+      hljsTags.forEach((element) => {
+        // console.log("hljs-tag", element);
+
+        // const tag = element.querySelector(".hljs-name")?.innerHTML || "";
+        // const attributeName =
+        //   element.querySelector(".hljs-attr")?.innerHTML || "";
+        // const id = element.querySelector(".hljs-string")?.innerHTML || "";
+        // const className =
+        //   element.querySelector(".hljs-string")?.innerHTML || "";
+
+        element.addEventListener("mouseenter", () => {
+          this.observerMethod.notify(
+            EventName.CODE_SELECTED,
+            element
+            // `${tag} ${className ? "#" : ""}${className} ${id ? "." : ""}${id} `
+            // `${tag}`
+          );
+          // console.log("notify CODE_SELECTED");
+        });
+      });
+
+      pre.addEventListener("mouseout", () => {
+        // console.log("notify CODE_UNSELECTED");
+        this.observerMethod.notify(EventName.CODE_UNSELECTED);
+      });
     });
+  }
+
+  private getElementSElectors(element: HTMLElement) {
+    const elementClass = element.getAttribute("class")
+      ? `.${element.getAttribute("class")}`
+      : "";
+    const elementId = element.getAttribute("id")
+      ? `#${element.getAttribute("id")}`
+      : "";
+    return `${element.tagName.toLocaleLowerCase()} ${elementClass} ${elementId}></${element.tagName.toLocaleLowerCase()}`;
   }
 }

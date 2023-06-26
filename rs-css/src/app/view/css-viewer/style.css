@@ -62,6 +62,10 @@
   background-color: lightblue;
 }
 
+.input-css-editor:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .blink {
   animation: blink 0.5s linear infinite;
   background-color: none;
@@ -87,6 +91,11 @@
   background-color: grey;
   border-radius: 5%;
   cursor: pointer;
+  border: none;
+}
+
+.submit-button:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .submit-button:active {
@@ -100,6 +109,11 @@
   background-color: lightblue;
   border-radius: 5%;
   cursor: pointer;
+  border: none;
+}
+
+.button-help:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .comments {

@@ -1,5 +1,6 @@
 export const levels = [
   {
+    isDone: false,
     level: "1",
     selectorName: "Type Selector",
     levelTitle: "Select elements by their type",
@@ -18,6 +19,7 @@ export const levels = [
     selector: "cat",
   },
   {
+    isDone: false,
     level: "2",
     task: "Select the hat",
     selector: "hat",
@@ -37,6 +39,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "3",
     task: "Select the orange cat",
     selector: "#orange",
@@ -56,6 +59,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "4",
     levelTitle: "Select an element inside another element",
     selectorName: "Descendant Selector",
@@ -76,6 +80,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "5",
     task: "Select the hat on the orange cat",
     selector: "#orange hat",
@@ -93,6 +98,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "6",
     task: "Select the blue hat",
     selector: ".blue",
@@ -111,6 +117,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "7",
     task: "Select the blue hat",
     selectorName: "",
@@ -129,6 +136,7 @@ export const levels = [
       <hat></hat>`,
   },
   {
+    isDone: false,
     level: "8",
     task: "Select the blue hat on the cat",
     selectorName: "",
@@ -145,6 +153,7 @@ export const levels = [
       <hat class="blue"></hat>`,
   },
   {
+    isDone: false,
     level: "9",
     task: "Select all the dogs and hats",
     selector: "dog,hat",
@@ -164,6 +173,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "10",
     task: "Select all the things!",
     selector: "*",
@@ -182,6 +192,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "11",
     task: "Select everything on a cat",
     selector: "cat *",
@@ -200,6 +211,7 @@ export const levels = [
    `,
   },
   {
+    isDone: false,
     level: "12",
     task: "Select every cat that's next to a dog",
     selector: "dog + cat",
@@ -221,6 +233,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "13",
     selectorName: "General Sibling Selector",
     levelTitle: "Select elements that follows another element",
@@ -241,6 +254,7 @@ export const levels = [
     `,
   },
   {
+    isDone: false,
     level: "14",
     selectorName: "Child Selector",
     syntax: "A > B&nbsp;",
@@ -260,6 +274,7 @@ export const levels = [
   `,
   },
   {
+    isDone: false,
     level: "15",
     selectorName: "First Child Pseudo-selector",
     levelTitle: "Select a first child element inside of another element",
@@ -286,6 +301,7 @@ export const levels = [
   `,
   },
   {
+    isDone: false,
     level: "16",
     selectorName: "Only Child Pseudo-selector",
     levelTitle:
@@ -317,6 +333,7 @@ export const levels = [
   `,
   },
   {
+    isDone: false,
     level: "17",
     selectorName: "Last Child Pseudo-selector",
     levelTitle: "Select the last element inside of another element",
@@ -339,6 +356,7 @@ export const levels = [
     </mat>`,
   },
   {
+    isDone: false,
     level: "18",
     selectorName: "Nth Child Pseudo-selector",
     levelTitle: "Select an element by its order in another element",

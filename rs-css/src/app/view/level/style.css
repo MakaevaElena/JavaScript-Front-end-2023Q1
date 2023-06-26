@@ -27,11 +27,18 @@
   width: 1.8rem;
 } */
 
-.ready-button::after {
+.ready-button-no-done::after {
   content: "\2713";
   font-weight: 900;
   font-size: 2rem;
   color: white;
+}
+
+.ready-button-done::after {
+  content: "\2713";
+  font-weight: 900;
+  font-size: 2rem;
+  color: green;
 }
 
 .prev-row {
@@ -42,6 +49,12 @@
   background-repeat: no-repeat;
   height: 1.8rem;
   width: 1.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+.prev-row:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .next-row {
@@ -52,6 +65,12 @@
   height: 1.8rem;
   width: 1.8rem;
   rotate: 180deg;
+  border: none;
+  cursor: pointer;
+}
+
+.next-row:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hamburger {

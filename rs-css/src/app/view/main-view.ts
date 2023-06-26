@@ -19,10 +19,10 @@ export default class MainView extends DefaultView {
     }
     const observerMethod = new ObserverMethod();
 
-    const levelView = new LevelView();
+    const levelView = new LevelView(observerMethod);
     const tableView = new BoardView(observerMethod);
     const htmlViewerView = new HtmlViewerView(observerMethod);
-    const cssViewerView = new CssViewerView();
+    const cssViewerView = new CssViewerView(observerMethod);
 
     this.htmlElement.append(
       tableView.getHtmlElement(),

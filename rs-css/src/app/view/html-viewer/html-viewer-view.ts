@@ -2,23 +2,15 @@ import "./style.css";
 import { EventName } from "../../enums/events/event-names";
 import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
-// import INotify from "../../observer/interfaces/i-notify";
-// import Observer from "../../observer/observer";
 import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
 import { Level } from "../../types/interfaces";
-
 import "highlight.js/styles/github.css";
-// import "@types/highlight.js";
-// import "./paraiso-dark.min.css";
-
 import hljs from "highlight.js/lib/core";
-//!
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
+import xml from "highlight.js/lib/languages/xml";
+hljs.registerLanguage("xml", xml);
 
-// export default class HtmlViewerView extends DefaultView implements INotify {
 export default class HtmlViewerView extends DefaultView {
   private readonly HEADER_TEXT = "HTML Viewer";
   private htmlBlock = this.createTagElement("div", ["html-block"], "");
@@ -43,7 +35,7 @@ export default class HtmlViewerView extends DefaultView {
   private codeSelectHandler<T>(param: T) {
     if (typeof param === "string") {
       const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
-      //! не выделяет вложенные тэги, хотя они с классом .hljs-name
+      //TODO не выделяет вложенные тэги, хотя они с классом .hljs-name
       hljsTags.forEach((tag) => {
         if (tag.innerHTML === param) {
           if (tag instanceof HTMLElement) {
@@ -116,7 +108,7 @@ export default class HtmlViewerView extends DefaultView {
 
       block.append(row);
 
-      //! нет id вложенных тэгов
+      //TODO нет id вложенных тэгов
       // const hljsTags = pre.querySelectorAll(".hljs-tag");
       const hljsTags = pre.querySelectorAll(".hljs-name");
       hljsTags.forEach((element) => {

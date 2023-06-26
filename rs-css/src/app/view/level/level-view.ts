@@ -2,9 +2,8 @@ import "./style.css";
 import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
-// import { EventName } from "../../enums/events/event-names";
-// import Observer from "../../observer/observer";
 import ObserverMethod from "../../observer/observer-method";
+import { EventName } from "../../enums/events/event-names";
 import { levels } from "../../data/data-levels";
 import HtmlViewerView from "../../view/html-viewer/html-viewer-view";
 import BoardView from "../../view/table/board-view";
@@ -13,27 +12,40 @@ import MenuView from "../../view/menu-viewer/menu-view";
 
 export default class LevelView extends DefaultView {
   private readonly TEXT = "LevelView";
-
   private levels = levels;
-  // private level = levels[0];
-  // private levelNum = +this.level.level;
   private levelHeader = this.createTagElement("div", ["level-header"], "");
   private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
   private level = levels[this.levelNum - 1];
-  private observerMethod = new ObserverMethod();
-  private htmlViewerView = new HtmlViewerView(this.observerMethod);
-  private boardView = new BoardView(this.observerMethod);
-  private cssViewerView = new CssViewerView();
+  // private observerMethod = new ObserverMethod();
+
   private menuView = new MenuView();
   private menuViewElement = this.menuView.getHtmlElement();
-
-  htmlBlock = this.createTagElement("div", ["html-block"], "");
+  private readyButton = this.createTagElement(
+    "span",
+    ["ready-button-no-done"],
+    ""
+  );
+  // private htmlBlock = this.createTagElement("div", ["html-block"], "");
   levelBlock!: HTMLElement | null;
+  private observerMethod;
+  private htmlViewerView;
+  private boardView;
+  private cssViewerView;
 
-  constructor() {
+  constructor(observerMethod: ObserverMethod) {
     super();
+    this.observerMethod = observerMethod;
+    this.htmlViewerView = new HtmlViewerView(this.observerMethod);
+    this.boardView = new BoardView(this.observerMethod);
+    this.cssViewerView = new CssViewerView(this.observerMethod);
+
+    observerMethod?.subscribe(
+      EventName.CORRECT_ANSWER,
+      this.correctAnswerHandler.bind(this)
+    );
     this.configureHtml();
   }
+
   protected createHtml(): HTMLElement {
     const element = document.createElement(TagNames.SECTION);
     element.classList.add(CssClasses.LEVEL);
@@ -57,11 +69,29 @@ export default class LevelView extends DefaultView {
     }`;
     levelHeaderBlock.append(levelNumBlock);
 
-    const readyButton = this.createTagElement("span", ["ready-button"], "");
+    // const readyButton = this.createTagElement("span", ["ready-button-no-done"], "");
     const prevRow = this.createTagElement("button", ["prev-row"], "");
     const nextRow = this.createTagElement("button", ["next-row"], "");
 
-    levelHeaderBlock.append(readyButton, prevRow, nextRow);
+    let results = localStorage.getItem("results") || "";
+    if (!results) {
+      results = JSON.stringify(new Array(levels.length).fill(false));
+    }
+    if (results !== null) {
+      const resultArr = JSON.parse(results);
+
+      if (resultArr[this.levelNum - 1] === true) {
+        console.log("ok");
+        this.readyButton.classList.remove("ready-button-no-done");
+        this.readyButton.classList.add("ready-button-done");
+      }
+      if (resultArr[this.levelNum - 1] === null) {
+        this.readyButton.classList.remove("ready-button-done");
+        this.readyButton.classList.add("ready-button-no-done");
+      }
+    }
+
+    levelHeaderBlock.append(this.readyButton, prevRow, nextRow);
     this.htmlElement.append(levelHeaderBlock);
     if (this.levelNum < levels.length - 1) {
       nextRow.addEventListener("click", () => this.goToNextLevel());
@@ -72,6 +102,13 @@ export default class LevelView extends DefaultView {
 
     this.createBurger();
     this.renderLevelDescription();
+  }
+
+  private correctAnswerHandler<T>(param: T) {
+    const level: number = +param;
+    // console.log(param);
+    //TODO saveResult
+    this.saveResult(level - 1, true);
   }
 
   private renderLevelDescription() {
@@ -122,35 +159,6 @@ export default class LevelView extends DefaultView {
     this.menuView.configureHtml(this.levelNum);
   }
 
-  // public goToLevel(newLevel: number) {
-  //   this.levelNum = newLevel;
-  //   this.saveLevelNumber(this.levelNum);
-  //   this.level = levels[this.levelNum - 1];
-  //   this.configureHtml();
-  //   this.htmlViewerView.renderHTMLCodeView(this.level);
-  //   this.boardView.createTitleTask(this.levelNum);
-  //   this.boardView.createTable(this.levelNum);
-  //   this.cssViewerView.createHelpButton();
-
-  //   // this.saveLevelNumber(newLevel);
-  //   // window.location.reload();
-  // }
-
-  //! переход на уровень в листе
-  // private changeLevel() {
-  //   const levelLines = document.querySelectorAll(".level-line");
-  //   console.log(levelLines);
-  //   if (levelLines instanceof HTMLCollection) {
-  //     levelLines.forEach((levelLine) =>
-  //       levelLine.addEventListener("click", () => {
-  //         if (levelLine instanceof HTMLLIElement) {
-  //           console.log("ok");
-  //         }
-  //       })
-  //     );
-  //   }
-  // }
-
   private createBurger() {
     const burger = this.createTagElement("div", ["hamburger"], "");
     const hamburgerLine = this.createTagElement("div", ["hamburger-line"], "");
@@ -158,13 +166,11 @@ export default class LevelView extends DefaultView {
 
     const toggleMenu = () => {
       if (burger.classList.contains("opened")) {
-        // this.menuViewElement.style.left = "100%";
         this.menuViewElement.style.opacity = "100%";
         burger.classList.remove("opened");
         burger.style.transform = "rotate(0deg)";
         document.body.style.overflow = "";
       } else {
-        // this.menuViewElement.style.left = "0";
         this.menuViewElement.style.opacity = "0";
         burger.classList.add("opened");
         burger.style.transform = "rotate(90deg)";
@@ -173,8 +179,6 @@ export default class LevelView extends DefaultView {
     };
 
     burger.addEventListener("click", toggleMenu);
-    // links.addEventListener("click", toggleMenu);
     this.levelHeader.append(burger);
-    // this.htmlElement.append(this.menuViewElement);
   }
 }

@@ -8,4 +8,5 @@ export type Level = {
   html: string;
   task: string;
   selector: string;
+  isDone: boolean;
 };

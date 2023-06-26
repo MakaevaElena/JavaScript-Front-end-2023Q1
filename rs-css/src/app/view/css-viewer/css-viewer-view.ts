@@ -3,38 +3,35 @@ import { CssClasses } from "../../enums/view/css-classes";
 import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
 import { levels } from "../../data/data-levels";
+import hljs from "highlight.js/lib/core";
+import xml from "highlight.js/lib/languages/xml";
+import ObserverMethod from "../../observer/observer-method";
+import { EventName } from "../../enums/events/event-names";
+// import { HTMLElementTagNameMap } from "../../types/interfaces";
+hljs.registerLanguage("xml", xml);
 
 export default class CssViewerView extends DefaultView {
   private readonly HEADER_TEXT = "CSS Editor";
-
-  private checkIconMenu = document.querySelector("span.ready-button::after");
-  private checkIconLevel = document.querySelector("span.done::after");
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
-  private inputCssEditor: HTMLElement | null = this.createTagElement(
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
+  private observerMethod;
+  private inputCssEditor = this.createTagElement(
     "input",
     ["input-css-editor", "blink"],
     ""
   );
-  private cssEditor: HTMLElement | null = this.createTagElement(
-    "div",
-    ["css-editor"],
-    ""
-  );
+  private cssEditor = this.createTagElement("div", ["css-editor"], "");
 
-  private buttonHelp: HTMLElement | null = this.createTagElement(
-    "button",
-    ["button-help"],
-    ""
-  );
+  private buttonHelp = this.createTagElement("button", ["button-help"], "");
 
-  private submitButton: HTMLElement | null = this.createTagElement(
+  private submitButton = this.createTagElement(
     "button",
     ["submit-button"],
     "Enter"
   );
 
-  constructor() {
+  constructor(observerMethod: ObserverMethod) {
     super();
+    this.observerMethod = observerMethod;
     this.configureHtml();
   }
 
@@ -117,34 +114,27 @@ export default class CssViewerView extends DefaultView {
         const level = Number(localStorage.getItem("savedLevel")) || 1;
         if (this.inputCssEditor instanceof HTMLInputElement) {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
-            console.log("right");
             if (level === 17) this.saveLevelNumber(1);
             this.saveLevelNumber(level + 1);
             window.location.reload();
             this.inputCssEditor.classList.add("css-right-blink", "css-right");
-            if (
-              this.checkIconMenu instanceof HTMLElement &&
-              this.checkIconLevel instanceof HTMLElement
-            ) {
-              //! галочки не красятся  в зеленый
-              this.checkIconMenu.style.color = "green";
-              this.checkIconLevel.style.color = "green";
-            }
           } else {
             this.inputCssEditor?.classList.add("shake");
           }
         }
+
+        this.observerMethod.notify(EventName.CORRECT_ANSWER, level.toString());
       };
       this.submitButton.addEventListener("click", () => submit());
 
-      // this.submitButton.addEventListener("keydown", (event) => {
-      //   //! не срабатывает Enter
-      //   console.log("enter");
-      //   if (event.keyCode === 13 || event.key === "Enter") {
-      //     event.preventDefault();
-      //     submit();
-      //   }
-      // });
+      //TODO не срабатывает Enter
+      this.inputCssEditor.addEventListener("keydown", (event) => {
+        console.log("enter");
+        if (event.keyCode === 13 || event.key === "Enter") {
+          event.preventDefault();
+          submit();
+        }
+      });
     }
   }
 

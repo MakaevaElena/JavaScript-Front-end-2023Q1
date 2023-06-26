@@ -8,9 +8,8 @@ import ObserverMethod from "../../observer/observer-method";
 import { EventName } from "../../enums/events/event-names";
 import { levels } from "../../data/data-levels";
 import hljs from "highlight.js/lib/core";
-//!
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
+import xml from "highlight.js/lib/languages/xml";
+hljs.registerLanguage("xml", xml);
 
 export default class BoardView extends DefaultView {
   private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
@@ -53,14 +52,10 @@ export default class BoardView extends DefaultView {
   }
 
   private pictureSelectHandler<T>(param: T) {
-    // console.log("selector", param);
     if (param instanceof HTMLElement) {
       const selected = this.table.querySelectorAll(`${param.innerHTML}`);
-      // selected.forEach((el) => el.classList.add(CssClasses.SELECTED));
       selected.forEach((el) => {
-        // console.log(el);
         if (el instanceof HTMLElement) {
-          // el.classList.add(CssClasses.SELECTED);
           this.showTooltip(el);
         }
       });
@@ -68,10 +63,8 @@ export default class BoardView extends DefaultView {
   }
 
   private pictureUnelectHandler() {
-    // console.log("pictureUnelectHandlerr");
     this.table.childNodes.forEach((node) => {
       if (node instanceof HTMLElement) {
-        // node.classList.remove(CssClasses.SELECTED);
         this.showTooltip(node);
       }
     });
@@ -129,9 +122,8 @@ export default class BoardView extends DefaultView {
     block.innerHTML = levels[levelNum - 1].task;
   }
 
-  //! при смене уровня зависает
+  //TODO при смене уровня зависает
   // не видит вложенные элементы
-  // tooltip не исчезает при mouseout/leave
   private showTooltip(element: HTMLElement) {
     let elementClass = element.getAttribute("class")
       ? `class=${element.getAttribute("class")}`
@@ -144,9 +136,8 @@ export default class BoardView extends DefaultView {
     }
     const tooltipText = `<${element.tagName.toLocaleLowerCase()} ${elementClass} ${elementId}></${element.tagName.toLocaleLowerCase()}>`;
     this.tooltip.innerHTML = hljs.highlightAuto(tooltipText).value;
-    this.tooltip.style.left = `${element.getClientRects()[0].left - 200}px`;
-    this.tooltip.style.top = `${element.getClientRects()[0].top - 50}px`;
     this.htmlElement.append(this.tooltip);
-    this.tooltip.classList.toggle("hidden");
+    this.tooltip.classList.toggle("show");
+    element.append(this.tooltip);
   }
 }

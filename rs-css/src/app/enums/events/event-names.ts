@@ -4,4 +4,7 @@ export enum EventName {
 
   CODE_SELECTED,
   CODE_UNSELECTED,
+
+  CORRECT_ANSWER,
+  WRONG_ANSWER,
 }

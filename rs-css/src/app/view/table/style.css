@@ -195,36 +195,45 @@ hat.blue {
 }
 
 .table cat.orange {
+  position: relative;
   background-image: url("../../../assets/img/cat_orange_2.png");
 }
 
 .table cat.black {
+  position: relative;
   background-image: url("../../../assets/img/cat_black_2.png");
 }
 
 .table cat.gray {
+  position: relative;
   background-image: url("../../../assets/img/cat_gray_2.png");
 }
 
 .table hat.blue {
+  position: relative;
   background-image: url("../../../assets/img/hat_blue.png");
 }
 
 .table cat.gray {
+  position: relative;
   background-image: url("../../../assets/img/dog_gray.png");
 }
 
-.hidden {
-  display: none;
-}
-
 .tooltip {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  min-width: max-content;
+  max-height: 20px;
   background-color: #cfcfcf;
   font-size: 1.2rem;
   opacity: 0.9;
-  position: absolute;
-  display: block;
+  display: none;
   padding: 0.8rem;
   text-align: center;
   border-radius: 5px;
+}
+
+.show {
+  display: block;
 }

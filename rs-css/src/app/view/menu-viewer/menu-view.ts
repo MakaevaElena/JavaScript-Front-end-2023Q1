@@ -5,9 +5,10 @@ import { TagNames } from "../../enums/view/tag-names";
 import { levels } from "../../data/data-levels";
 
 export default class MenuView extends DefaultView {
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 0;
+  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
   private levelList = this.createTagElement("ul", ["level-list"], "");
-  // private levelLine?: HTMLElement | null;
+  private readyTick = this.createTagElement("span", ["no-done"], "");
+  private resetButton = this.createTagElement("div", ["reset-button"], "Reset");
   constructor() {
     super();
     this.configureHtml(this.levelNum);
@@ -15,19 +16,42 @@ export default class MenuView extends DefaultView {
 
   public configureHtml(level: number) {
     this.levelList.innerHTML = "";
-    for (let i = 0; i < levels.length; i += 1) {
+
+    for (let i = 0; i < levels.length - 1; i += 1) {
+      const readyTick = this.createTagElement("span", ["no-done"], "");
+      const readyTickBlock = readyTick ? readyTick : this.readyTick;
+      this.readyTick.setAttribute("id", `${i + 1}`);
+
       const levelLine = this.createTagElement(
         "li",
         ["level-line"],
-        `<span class="done" data-id=${i + 1}></span> Level ${
-          levels[i].level
-        }. ${levels[i].syntax}`
+        `Level ${levels[i].level}. ${levels[i].syntax}`
       );
+      levelLine.prepend(readyTickBlock);
       this.levelList.append(levelLine);
       if (i === level - 1) {
         levelLine.style.boxShadow = "0 0 10px #0000004d";
         levelLine.style.fontSize = "1.5rem";
         levelLine.style.fontWeight = "600";
+      }
+
+      let results = localStorage.getItem("results") || "";
+      if (!results) {
+        results = JSON.stringify(new Array(levels.length).fill(false));
+      }
+      if (results !== null) {
+        const resultArr = JSON.parse(results);
+
+        console.log(resultArr);
+
+        if (resultArr[i] === true) {
+          readyTickBlock.classList.remove("no-done");
+          readyTickBlock.classList.add("done");
+        }
+        if (resultArr[i] === null) {
+          readyTickBlock.classList.remove("done");
+          readyTickBlock.classList.add("no-done");
+        }
       }
     }
 
@@ -43,6 +67,18 @@ export default class MenuView extends DefaultView {
         });
       });
     }
+    this.createResetButton();
+  }
+
+  private createResetButton() {
+    this.levelList.append(this.resetButton);
+    this.resetButton.addEventListener("click", () => {
+      console.log("reset");
+      new Array(levels.length).map((i) => {
+        this.saveResult(i, false);
+      });
+      console.log(localStorage.getItem("results"));
+    });
   }
 
   protected createHtml(): HTMLElement {

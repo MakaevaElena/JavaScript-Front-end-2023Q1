@@ -50,20 +50,12 @@ export default abstract class DefaultView {
       prev = JSON.stringify(new Array(levels.length).fill(false));
     }
     if (prev !== null) {
-      console.log(prev);
-      // this.results.push(...JSON.parse(prev));
+      const results: boolean[] = JSON.parse(prev);
 
-      //   const trueIDs = JSON.parse(prev).reduce(
-      //     (newArr: number[], el: boolean, i: number) => {
-      //       if (el === true) {
-      //         // console.log(newArr);
-      //         [...newArr, i];
-      //       }
-      //     },
-      //     []
-      //   );
-      //   console.log(trueIDs);
-      const results = JSON.parse(prev);
+      if (results.filter((el: boolean) => el === false).length === 0) {
+        alert("YOU WIN! RESET PROGRESS AND START AGAIN");
+      }
+
       results[levelNum] = isDone;
       this.results = results;
     }

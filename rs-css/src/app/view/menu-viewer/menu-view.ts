@@ -17,7 +17,7 @@ export default class MenuView extends DefaultView {
   public configureHtml(level: number) {
     this.levelList.innerHTML = "";
 
-    for (let i = 0; i < levels.length - 1; i += 1) {
+    for (let i = 0; i < levels.length; i += 1) {
       const readyTick = this.createTagElement("span", ["no-done"], "");
       const readyTickBlock = readyTick ? readyTick : this.readyTick;
       this.readyTick.setAttribute("id", `${i + 1}`);
@@ -42,8 +42,6 @@ export default class MenuView extends DefaultView {
       if (results !== null) {
         const resultArr = JSON.parse(results);
 
-        console.log(resultArr);
-
         if (resultArr[i] === true) {
           readyTickBlock.classList.remove("no-done");
           readyTickBlock.classList.add("done");
@@ -57,13 +55,12 @@ export default class MenuView extends DefaultView {
 
     this.htmlElement.append(this.levelList);
     if (this.levelList instanceof HTMLUListElement) {
-      // console.log(this.levelList.childNodes);
-
       this.levelList.childNodes.forEach((node, i) => {
         node.addEventListener("click", () => {
           level = i + 1;
           this.saveLevelNumber(level);
           window.location.reload();
+          // this.configureHtml(level);
         });
       });
     }
@@ -73,11 +70,11 @@ export default class MenuView extends DefaultView {
   private createResetButton() {
     this.levelList.append(this.resetButton);
     this.resetButton.addEventListener("click", () => {
-      console.log("reset");
-      new Array(levels.length).map((i) => {
+      const arr = new Array(levels.length).fill("false");
+      arr.forEach((_, i) => {
         this.saveResult(i, false);
       });
-      console.log(localStorage.getItem("results"));
+      this.configureHtml(this.levelNum);
     });
   }
 

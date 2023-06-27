@@ -114,7 +114,7 @@ export default class CssViewerView extends DefaultView {
         const level = Number(localStorage.getItem("savedLevel")) || 1;
         if (this.inputCssEditor instanceof HTMLInputElement) {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
-            if (level === 17) this.saveLevelNumber(1);
+            if (level === 18) this.saveLevelNumber(1);
             this.saveLevelNumber(level + 1);
             window.location.reload();
             this.inputCssEditor.classList.add("css-right-blink", "css-right");
@@ -129,7 +129,6 @@ export default class CssViewerView extends DefaultView {
 
       //TODO не срабатывает Enter
       this.inputCssEditor.addEventListener("keydown", (event) => {
-        console.log("enter");
         if (event.keyCode === 13 || event.key === "Enter") {
           event.preventDefault();
           submit();
@@ -169,7 +168,7 @@ export default class CssViewerView extends DefaultView {
     if (blockInput instanceof HTMLInputElement) {
       if (str.length > 0) {
         blockInput.value += str[0];
-        setTimeout(() => this.printLetters(str.slice(1)), 300);
+        setTimeout(() => this.printLetters(str.slice(1)), 200);
       }
     }
   }

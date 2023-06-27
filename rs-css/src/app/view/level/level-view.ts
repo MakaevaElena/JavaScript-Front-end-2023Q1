@@ -81,7 +81,6 @@ export default class LevelView extends DefaultView {
       const resultArr = JSON.parse(results);
 
       if (resultArr[this.levelNum - 1] === true) {
-        console.log("ok");
         this.readyButton.classList.remove("ready-button-no-done");
         this.readyButton.classList.add("ready-button-done");
       }
@@ -106,8 +105,6 @@ export default class LevelView extends DefaultView {
 
   private correctAnswerHandler<T>(param: T) {
     const level: number = +param;
-    // console.log(param);
-    //TODO saveResult
     this.saveResult(level - 1, true);
   }
 

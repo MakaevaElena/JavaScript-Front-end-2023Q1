@@ -1,8 +1,6 @@
 .footer {
   margin: 0 auto;
-  width: 80%;
-  grid-column: 1/6;
-  grid-row: 9/10;
+  width: 100%;
   background-color: rgb(192, 190, 190);
 
   display: flex;
@@ -17,20 +15,34 @@
   margin-left: 1.25rem;
 }
 
+.year {
+  font-size: 1.5rem;
+}
+
 .rsschool-logo a {
   display: block;
   width: 6.69rem;
   height: 2rem;
-  background-image: url("../../../assets/img/rs_school_js_svg");
+  background-image: url("../../../assets/img/rs-logo.png");
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   cursor: pointer;
-  margin: 10px;
 }
 
 .github a {
+  display: block;
+  width: 6.69rem;
+  height: 2.5rem;
   text-decoration: none;
-  color: white;
-  font-size: 1.125rem;
-  font-weight: 700;
+
+  background-image: url("../../../assets/img/GitHub-Logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 800px) {
+  .footer {
+    display: none;
+  }
 }

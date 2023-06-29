@@ -19,14 +19,6 @@
   font-weight: 600;
 }
 
-/* .ready-button {
-  background-image: url("../../../assets/img/tick-black.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 1.8rem;
-  width: 1.8rem;
-} */
-
 .ready-button-no-done::after {
   content: "\2713";
   font-weight: 900;
@@ -75,7 +67,6 @@
 
 .hamburger {
   z-index: 3;
-  /* display: none; */
   width: 2rem;
   cursor: pointer;
   transition: 0.8s;
@@ -108,3 +99,26 @@
   height: 0.2rem;
   transition: 1.5s;
 }
+
+.hide {
+  opacity: 0;
+}
+
+.show {
+  opacity: 100;
+}
+
+/* @media (max-width: 1400px) {
+} */
+
+@media (max-width: 1200px) {
+  .level-header {
+    font-size: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hamburger {
+    width: 1.5rem;
+  }
+}
+

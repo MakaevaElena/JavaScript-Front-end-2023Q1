@@ -141,3 +141,8 @@
   animation: wrong-shake 0.16s;
   animation-iteration-count: 1;
 }
+
+@media (max-width: 800px) {
+  /* .css-viewer {
+  } */
+}

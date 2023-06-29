@@ -237,3 +237,9 @@ hat.blue {
 .show {
   display: block;
 }
+
+@media (max-width: 800px) {
+  .table * {
+    background-size: 70%;
+  }
+}

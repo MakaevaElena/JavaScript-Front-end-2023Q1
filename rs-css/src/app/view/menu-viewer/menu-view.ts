@@ -75,6 +75,9 @@ export default class MenuView extends DefaultView {
         this.saveResult(i, false);
       });
       this.configureHtml(this.levelNum);
+      const readyButton = document.querySelector(".ready-button-done");
+      readyButton?.classList.remove("ready-button-done");
+      readyButton?.classList.add("ready-button-no-done");
     });
   }
 

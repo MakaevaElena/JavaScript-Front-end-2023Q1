@@ -5,9 +5,10 @@
 }
 
 .menu {
-  width: 87%;
-  height: 89%;
+  width: 21vw;
+  height: 79vh;
   position: absolute;
+  /* position: fixed; */
   top: 60px;
   transition: opacity 1s;
   z-index: 2;
@@ -16,7 +17,9 @@
   border: 1px solid transparent;
 
   background: #bbb9b9;
+
   padding: 1.5rem;
+  /* opacity: 0; */
 }
 
 span.no-done::after {
@@ -35,10 +38,6 @@ span.done::after {
 
 .level-list {
   list-style-type: none;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: start; */
 }
 
 .level-line {
@@ -80,4 +79,40 @@ span.done::after {
 .reset-button:active {
   background-color: #7a7979;
   font-size: 1.6rem;
+}
+
+@media (max-width: 1860px) {
+  .menu {
+    width: 17.5vw;
+  }
+}
+
+/* @media (max-width: 1460px) {
+  .menu {
+    width: 17.4vw;
+  }
+} */
+/* 
+@media (max-width: 1300px) {
+  .menu {
+    width: 16vw;
+  }
+} */
+
+@media (max-width: 1200px) {
+  .menu {
+    top: 88px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .menu {
+    width: 17vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .menu {
+    width: 90vw;
+  }
 }

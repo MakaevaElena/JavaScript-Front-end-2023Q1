@@ -25,6 +25,12 @@ export default class LevelView extends DefaultView {
     ["ready-button-no-done"],
     ""
   );
+
+  private descriptionBlock = this.createTagElement(
+    "div",
+    ["level-decsription", "hide"],
+    ""
+  );
   // private htmlBlock = this.createTagElement("div", ["html-block"], "");
   levelBlock!: HTMLElement | null;
   private observerMethod;
@@ -92,7 +98,7 @@ export default class LevelView extends DefaultView {
 
     levelHeaderBlock.append(this.readyButton, prevRow, nextRow);
     this.htmlElement.append(levelHeaderBlock);
-    if (this.levelNum < levels.length - 1) {
+    if (this.levelNum < levels.length) {
       nextRow.addEventListener("click", () => this.goToNextLevel());
     }
     if (this.levelNum > 1) {
@@ -109,27 +115,24 @@ export default class LevelView extends DefaultView {
   }
 
   private renderLevelDescription() {
-    const descriptionBlock = this.createTagElement(
-      "div",
-      ["level-decsription"],
-      ""
-    );
-    descriptionBlock.innerHTML = "";
-    descriptionBlock.append(
+    this.descriptionBlock.innerHTML = "";
+    this.descriptionBlock.append(
       this.createTagElement("h2", ["selector-name"], this.level.selectorName),
       this.createTagElement("h3", ["title"], this.level.levelTitle),
       this.createTagElement("h2", ["syntax"], this.level.syntax),
       this.createTagElement("p", ["description"], this.level.description)
     );
     if (this.level.examples) {
-      descriptionBlock.append(
+      this.descriptionBlock.append(
         this.createTagElement("h3", ["examples"], "Examples")
       );
       this.level.examples.forEach((el) =>
-        descriptionBlock.append(this.createTagElement("div", ["example"], el))
+        this.descriptionBlock.append(
+          this.createTagElement("div", ["example"], el)
+        )
       );
     }
-    this.htmlElement.append(descriptionBlock, this.menuViewElement);
+    this.htmlElement.append(this.descriptionBlock, this.menuViewElement);
   }
 
   public goToNextLevel() {
@@ -163,15 +166,25 @@ export default class LevelView extends DefaultView {
 
     const toggleMenu = () => {
       if (burger.classList.contains("opened")) {
-        this.menuViewElement.style.opacity = "100%";
+        // this.menuViewElement.style.opacity = "100%";
+        this.descriptionBlock.classList.add("hide");
+        this.descriptionBlock.classList.remove("show");
+
+        this.menuViewElement.classList.add("show");
+        this.menuViewElement.classList.remove("hide");
         burger.classList.remove("opened");
         burger.style.transform = "rotate(0deg)";
-        document.body.style.overflow = "";
+        // document.body.style.overflow = "";
       } else {
-        this.menuViewElement.style.opacity = "0";
+        // this.menuViewElement.style.opacity = "0";
+        this.descriptionBlock.classList.remove("hide");
+        this.descriptionBlock.classList.add("show");
+
+        this.menuViewElement.classList.remove("show");
+        this.menuViewElement.classList.add("hide");
         burger.classList.add("opened");
         burger.style.transform = "rotate(90deg)";
-        document.body.style.overflow = "hidden";
+        // document.body.style.overflow = "hidden";
       }
     };
 

@@ -102,6 +102,10 @@ export default class CssViewerView extends DefaultView {
       this.createSubmitButton();
       this.inputCssEditor.addEventListener("input", () => {
         this.inputCssEditor?.classList.remove("css-right");
+        this.inputCssEditor?.classList.remove("shake");
+      });
+      this.inputCssEditor.addEventListener("focus", () => {
+        this.inputCssEditor?.classList.remove("shake");
       });
     }
   }

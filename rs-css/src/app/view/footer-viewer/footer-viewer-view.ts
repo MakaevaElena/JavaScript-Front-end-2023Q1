@@ -21,7 +21,7 @@ export default class FooterViewerView extends DefaultView {
       ["header-title"],
       this.FOOTER_TEXT
     );
-    const github = this.createTagElement("div", ["github"], "GitHub");
+    const github = this.createTagElement("div", ["github"], "");
     const linckToGit = this.createTagElement("a", [], "");
     linckToGit.setAttribute("href", "https://github.com/MakaevaElena");
     linckToGit.setAttribute("target", "_blank");

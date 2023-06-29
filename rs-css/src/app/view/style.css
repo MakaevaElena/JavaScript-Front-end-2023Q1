@@ -6,7 +6,7 @@ p {
 .main {
   position: relative;
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   font-family: menlo, monospace;
   font-size: 14px;
 
@@ -18,9 +18,10 @@ p {
   /* padding: 5px; */
 
   border: 1px solid;
+  background-color: #fefefe;
 }
 
-.main::after {
+/* .main::after {
   content: "";
   background-image: url("../../assets/img/bgrd-wave.jpg");
   background-repeat: no-repeat;
@@ -32,7 +33,7 @@ p {
   right: 0;
   position: absolute;
   z-index: -1;
-}
+} */
 
 .label {
   padding: 1rem;
@@ -47,4 +48,17 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+/* 
+@media (max-width: 1400px) {
+  .main {
+    width: 98%;
+  }
+} */
+
+@media (max-width: 800px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
 }

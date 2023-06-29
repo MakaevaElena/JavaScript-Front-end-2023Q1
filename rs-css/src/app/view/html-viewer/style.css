@@ -96,3 +96,8 @@
     grid-column: 1/10;
   }
 }
+
+@media (max-width: 800px) {
+  /* .html-viewer {
+  } */
+}

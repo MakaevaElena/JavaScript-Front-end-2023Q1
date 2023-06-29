@@ -33,7 +33,7 @@ export default class MenuView extends DefaultView {
         `Level ${levels[i].level}. ${levels[i].syntax}`
       );
 
-      let resultsWithHelp = localStorage.getItem("results") || "";
+      let resultsWithHelp = localStorage.getItem("resultsWithHelp") || "";
       if (!resultsWithHelp) {
         resultsWithHelp = JSON.stringify(new Array(levels.length).fill(false));
       }

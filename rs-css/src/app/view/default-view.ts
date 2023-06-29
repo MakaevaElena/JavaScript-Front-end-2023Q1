@@ -66,7 +66,7 @@ export default abstract class DefaultView {
   };
 
   protected saveIsUseHelp = (levelNum: number, isUseHelp: boolean) => {
-    let prev = localStorage.getItem("isUseHelp");
+    let prev = localStorage.getItem("resultsWithHelp");
     if (!prev) {
       prev = JSON.stringify(new Array(levels.length).fill(false));
     }

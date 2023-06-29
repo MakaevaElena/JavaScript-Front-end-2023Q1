@@ -54,9 +54,11 @@ export default class BoardView extends DefaultView {
   private pictureSelectHandler<T>(param: T) {
     if (param instanceof HTMLElement) {
       const selected = this.table.querySelectorAll(`${param.innerHTML}`);
+      console.log(selected);
       selected.forEach((el) => {
         if (el instanceof HTMLElement) {
           this.showTooltip(el);
+          el.classList.add("selected");
         }
       });
     }
@@ -66,6 +68,15 @@ export default class BoardView extends DefaultView {
     this.table.childNodes.forEach((node) => {
       if (node instanceof HTMLElement) {
         this.showTooltip(node);
+        node.classList.remove("selected");
+
+        if (node.hasChildNodes()) {
+          node.childNodes.forEach((el) => {
+            if (el instanceof HTMLElement) {
+              el.classList.remove("selected");
+            }
+          });
+        }
       }
     });
   }
@@ -86,11 +97,6 @@ export default class BoardView extends DefaultView {
     return element;
   }
 
-  // private createTable<T>(param: T) {
-  // let observer: ObserverMethod | null = null;
-  // if (param instanceof ObserverMethod) {
-  // observer = param;
-  // }
   public createTable(levelNum: number) {
     const table = document.querySelector(".table");
     const block = table ? table : this.table;
@@ -122,8 +128,6 @@ export default class BoardView extends DefaultView {
     block.innerHTML = levels[levelNum - 1].task;
   }
 
-  //TODO при смене уровня зависает
-  // не видит вложенные элементы
   private showTooltip(element: HTMLElement) {
     let elementClass = element.getAttribute("class")
       ? `class=${element.getAttribute("class")}`

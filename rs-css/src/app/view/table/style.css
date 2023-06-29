@@ -188,10 +188,14 @@ hat.blue {
   rotate: -5deg;
 }
 
+.table mat {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .table mat > * {
-  position: absolute;
-  top: -25%;
-  left: 15%;
+  margin-bottom: 45%;
 }
 
 .table cat.orange {

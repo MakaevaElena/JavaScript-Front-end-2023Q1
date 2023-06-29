@@ -131,7 +131,6 @@ export default class CssViewerView extends DefaultView {
       };
       this.submitButton.addEventListener("click", () => submit());
 
-      //TODO не срабатывает Enter
       this.inputCssEditor.addEventListener("keydown", (event) => {
         if (event.keyCode === 13 || event.key === "Enter") {
           event.preventDefault();
@@ -161,6 +160,7 @@ export default class CssViewerView extends DefaultView {
           this.inputCssEditor.classList.remove("blink");
         }
         this.printLetters(answer);
+        this.saveIsUseHelp(level - 1, true);
       });
     }
   }

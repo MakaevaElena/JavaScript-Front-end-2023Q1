@@ -8,6 +8,7 @@ export default class MenuView extends DefaultView {
   private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
   private levelList = this.createTagElement("ul", ["level-list"], "");
   private readyTick = this.createTagElement("span", ["no-done"], "");
+  private tickIsHelp = this.createTagElement("span", ["is-help"], "");
   private resetButton = this.createTagElement("div", ["reset-button"], "Reset");
   constructor() {
     super();
@@ -22,12 +23,31 @@ export default class MenuView extends DefaultView {
       const readyTickBlock = readyTick ? readyTick : this.readyTick;
       this.readyTick.setAttribute("id", `${i + 1}`);
 
+      const tickIsHelp = this.createTagElement("span", ["is-help"], "");
+      const tickIsHelpBlock = tickIsHelp ? tickIsHelp : this.tickIsHelp;
+      this.readyTick.setAttribute("id", `${i + 1}`);
+
       const levelLine = this.createTagElement(
         "li",
         ["level-line"],
         `Level ${levels[i].level}. ${levels[i].syntax}`
       );
+
+      let resultsWithHelp = localStorage.getItem("results") || "";
+      if (!resultsWithHelp) {
+        resultsWithHelp = JSON.stringify(new Array(levels.length).fill(false));
+      }
+
+      if (resultsWithHelp !== null) {
+        const resultsWithHelpArr = JSON.parse(resultsWithHelp);
+
+        if (resultsWithHelpArr[i] === true) {
+          levelLine.prepend(tickIsHelpBlock);
+        }
+      }
+
       levelLine.prepend(readyTickBlock);
+
       this.levelList.append(levelLine);
       if (i === level - 1) {
         levelLine.style.boxShadow = "0 0 10px #0000004d";
@@ -73,6 +93,7 @@ export default class MenuView extends DefaultView {
       const arr = new Array(levels.length).fill("false");
       arr.forEach((_, i) => {
         this.saveResult(i, false);
+        this.saveIsUseHelp(i, false);
       });
       this.configureHtml(this.levelNum);
       const readyButton = document.querySelector(".ready-button-done");

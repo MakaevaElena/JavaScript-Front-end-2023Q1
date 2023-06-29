@@ -3,6 +3,7 @@ import { levels } from "../data/data-levels";
 export default abstract class DefaultView {
   protected htmlElement: HTMLElement;
   private results = new Array(levels.length);
+  private resultsWithHelp = new Array(levels.length);
 
   constructor() {
     this.htmlElement = this.createHtml();
@@ -41,7 +42,6 @@ export default abstract class DefaultView {
     localStorage.setItem("savedLevel", JSON.stringify(savedLevel));
   };
 
-  //TODO
   protected saveResult = (levelNum: number, isDone: boolean) => {
     // const results = new Array(levels.length);
 
@@ -63,6 +63,24 @@ export default abstract class DefaultView {
     // this.results[levelNum] = isDone;
 
     localStorage.setItem("results", JSON.stringify(this.results));
+  };
+
+  protected saveIsUseHelp = (levelNum: number, isUseHelp: boolean) => {
+    let prev = localStorage.getItem("isUseHelp");
+    if (!prev) {
+      prev = JSON.stringify(new Array(levels.length).fill(false));
+    }
+    if (prev !== null) {
+      const resultsWithHelp: boolean[] = JSON.parse(prev);
+
+      resultsWithHelp[levelNum] = isUseHelp;
+      this.resultsWithHelp = resultsWithHelp;
+    }
+
+    localStorage.setItem(
+      "resultsWithHelp",
+      JSON.stringify(this.resultsWithHelp)
+    );
   };
 
   protected abstract createHtml<T>(param?: T): HTMLElement;

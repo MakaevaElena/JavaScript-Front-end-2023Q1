@@ -101,11 +101,19 @@ export default class CssViewerView extends DefaultView {
       this.htmlElement.append(this.cssEditor);
       this.createSubmitButton();
       this.inputCssEditor.addEventListener("input", () => {
-        this.inputCssEditor?.classList.remove("css-right");
-        this.inputCssEditor?.classList.remove("shake");
+        //TODO подсветка кода в инпуте
+        // if (evt.target instanceof HTMLInputElement) {
+        //   const highlightedCode = hljs.highlight(evt.target?.value, {
+        //     language: "xml",
+        //   });
+        //   this.inputCssEditor.innerHTML = highlightedCode.value;
+        // }
+
+        this.inputCssEditor.classList.remove("css-right");
+        this.inputCssEditor.classList.remove("shake");
       });
       this.inputCssEditor.addEventListener("focus", () => {
-        this.inputCssEditor?.classList.remove("shake");
+        this.inputCssEditor.classList.remove("shake");
       });
     }
   }
@@ -171,7 +179,11 @@ export default class CssViewerView extends DefaultView {
 
     if (blockInput instanceof HTMLInputElement) {
       if (str.length > 0) {
+        // const highlightedCode = hljs.highlight(str[0], {
+        //   language: "xml",
+        // }).value;
         blockInput.value += str[0];
+        // blockInput.value += highlightedCode;
         setTimeout(() => this.printLetters(str.slice(1)), 200);
       }
     }

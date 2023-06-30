@@ -100,10 +100,7 @@ export default class HtmlViewerView extends DefaultView {
       const pre = document.createElement("pre");
 
       const highlightedCode = hljs.highlight(node, { language: "xml" });
-      // pre.innerText = highlightedCode;
-
       pre.innerHTML = highlightedCode.value;
-      // hljs.highlightElement(row);
       row.append(pre);
 
       block.append(row);

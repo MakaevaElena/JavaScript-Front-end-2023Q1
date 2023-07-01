@@ -66,14 +66,29 @@
   box-shadow: 0 0 10px #0000004d;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1860px) {
   .html-block {
     font-size: 0.9rem;
+    grid-column: 2/10;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .html-block {
+    font-size: 0.86rem;
     grid-column: 1/10;
   }
 }
 
-@media (max-width: 800px) {
-  /* .html-viewer {
-  } */
+@media screen and (max-width: 1000px) {
+  .html-block {
+    font-size: 1rem;
+    grid-column: 2/10;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .html-block {
+    grid-column: 1/10;
+  }
 }

@@ -80,7 +80,6 @@ export default class MenuView extends DefaultView {
           level = i + 1;
           this.saveLevelNumber(level);
           window.location.reload();
-          // this.configureHtml(level);
         });
       });
     }
@@ -105,7 +104,7 @@ export default class MenuView extends DefaultView {
   protected createHtml(): HTMLElement {
     const element = document.createElement(TagNames.SECTION);
 
-    element.classList.add(CssClasses.MENU);
+    element.classList.add(CssClasses.MENU, "hide");
     return element;
   }
 }

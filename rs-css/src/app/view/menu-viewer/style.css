@@ -6,20 +6,16 @@
 
 .menu {
   width: 21vw;
-  height: 79vh;
+  height: 75vh;
   position: absolute;
-  /* position: fixed; */
   top: 60px;
   transition: opacity 1s;
   z-index: 2;
   transform: translateZ(0);
   backface-visibility: hidden;
   border: 1px solid transparent;
-
   background: #bbb9b9;
-
   padding: 1.5rem;
-  /* opacity: 0; */
 }
 
 span.no-done::after {
@@ -94,32 +90,16 @@ span.is-help::after {
   }
 }
 
-/* @media (max-width: 1460px) {
+@media screen and (max-width: 1000px) {
   .menu {
-    width: 17.4vw;
-  }
-} */
-/* 
-@media (max-width: 1300px) {
-  .menu {
-    width: 16vw;
-  }
-} */
-
-@media (max-width: 1200px) {
-  .menu {
-    top: 88px;
+    top: 60px;
+    width: 85vw;
+    height: 100vh;
   }
 }
 
-@media (max-width: 1000px) {
+@media screen and (max-width: 800px) {
   .menu {
-    width: 17vw;
-  }
-}
-
-@media (max-width: 800px) {
-  .menu {
-    width: 90vw;
+    width: 80vw;
   }
 }

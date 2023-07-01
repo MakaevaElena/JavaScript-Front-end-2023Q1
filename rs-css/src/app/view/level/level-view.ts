@@ -28,10 +28,10 @@ export default class LevelView extends DefaultView {
 
   private descriptionBlock = this.createTagElement(
     "div",
-    ["level-decsription", "hide"],
+    ["level-decsription"],
     ""
   );
-  // private htmlBlock = this.createTagElement("div", ["html-block"], "");
+
   levelBlock!: HTMLElement | null;
   private observerMethod;
   private htmlViewerView;
@@ -75,7 +75,6 @@ export default class LevelView extends DefaultView {
     }`;
     levelHeaderBlock.append(levelNumBlock);
 
-    // const readyButton = this.createTagElement("span", ["ready-button-no-done"], "");
     const prevRow = this.createTagElement("button", ["prev-row"], "");
     const nextRow = this.createTagElement("button", ["next-row"], "");
 
@@ -160,13 +159,12 @@ export default class LevelView extends DefaultView {
   }
 
   private createBurger() {
-    const burger = this.createTagElement("div", ["hamburger"], "");
+    const burger = this.createTagElement("div", ["hamburger", "opened"], "");
     const hamburgerLine = this.createTagElement("div", ["hamburger-line"], "");
     burger.append(hamburgerLine);
 
     const toggleMenu = () => {
       if (burger.classList.contains("opened")) {
-        // this.menuViewElement.style.opacity = "100%";
         this.descriptionBlock.classList.add("hide");
         this.descriptionBlock.classList.remove("show");
 
@@ -174,9 +172,7 @@ export default class LevelView extends DefaultView {
         this.menuViewElement.classList.remove("hide");
         burger.classList.remove("opened");
         burger.style.transform = "rotate(0deg)";
-        // document.body.style.overflow = "";
       } else {
-        // this.menuViewElement.style.opacity = "0";
         this.descriptionBlock.classList.remove("hide");
         this.descriptionBlock.classList.add("show");
 
@@ -184,7 +180,6 @@ export default class LevelView extends DefaultView {
         this.menuViewElement.classList.add("hide");
         burger.classList.add("opened");
         burger.style.transform = "rotate(90deg)";
-        // document.body.style.overflow = "hidden";
       }
     };
 

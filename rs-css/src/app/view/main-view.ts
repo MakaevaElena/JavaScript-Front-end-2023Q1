@@ -1,10 +1,10 @@
 import "./style.css";
 import { CssClasses } from "../enums/view/css-classes";
 import { TagNames } from "../enums/view/tag-names";
-// import Observer from "../observer/observer";
 import CssViewerView from "./css-viewer/css-viewer-view";
 import DefaultView from "./default-view";
 import HtmlViewerView from "./html-viewer/html-viewer-view";
+import FooterViewerView from "./footer-viewer/footer-viewer-view";
 import LevelView from "./level/level-view";
 import BoardView from "./table/board-view";
 import ObserverMethod from "../observer/observer-method";
@@ -23,12 +23,14 @@ export default class MainView extends DefaultView {
     const tableView = new BoardView(observerMethod);
     const htmlViewerView = new HtmlViewerView(observerMethod);
     const cssViewerView = new CssViewerView(observerMethod);
+    const footerViewerView = new FooterViewerView();
 
     this.htmlElement.append(
       tableView.getHtmlElement(),
       levelView.getHtmlElement(),
       htmlViewerView.getHtmlElement(),
-      cssViewerView.getHtmlElement()
+      cssViewerView.getHtmlElement(),
+      footerViewerView.getHtmlElement()
     );
   }
 

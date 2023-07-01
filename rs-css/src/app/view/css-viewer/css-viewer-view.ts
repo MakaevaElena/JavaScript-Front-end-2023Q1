@@ -4,11 +4,15 @@ import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
 import { levels } from "../../data/data-levels";
 import hljs from "highlight.js/lib/core";
+import "highlight.js/styles/github.css";
 import xml from "highlight.js/lib/languages/xml";
+import css from "highlight.js/lib/languages/css";
 import ObserverMethod from "../../observer/observer-method";
 import { EventName } from "../../enums/events/event-names";
+
 // import { HTMLElementTagNameMap } from "../../types/interfaces";
 hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("css", css);
 
 export default class CssViewerView extends DefaultView {
   private readonly HEADER_TEXT = "CSS Editor";
@@ -100,14 +104,15 @@ export default class CssViewerView extends DefaultView {
       );
       this.htmlElement.append(this.cssEditor);
       this.createSubmitButton();
-      this.inputCssEditor.addEventListener("input", () => {
+      this.inputCssEditor.addEventListener("input", (evt) => {
         //TODO подсветка кода в инпуте
-        // if (evt.target instanceof HTMLInputElement) {
-        //   const highlightedCode = hljs.highlight(evt.target?.value, {
-        //     language: "xml",
-        //   });
-        //   this.inputCssEditor.innerHTML = highlightedCode.value;
-        // }
+        if (evt.target instanceof HTMLInputElement) {
+          console.log(evt.target.value);
+          const highlightedCode = hljs.highlight(evt.target.value, {
+            language: "css",
+          });
+          this.inputCssEditor.innerHTML = highlightedCode.value;
+        }
 
         this.inputCssEditor.classList.remove("wobble", "css-right-blink");
       });
@@ -178,11 +183,11 @@ export default class CssViewerView extends DefaultView {
 
     if (blockInput instanceof HTMLInputElement) {
       if (str.length > 0) {
-        // const highlightedCode = hljs.highlight(str[0], {
-        //   language: "xml",
-        // }).value;
-        blockInput.value += str[0];
-        // blockInput.value += highlightedCode;
+        const highlightedCode = hljs.highlight(str[0], {
+          language: "xml",
+        }).value;
+        // blockInput.value += str[0];
+        blockInput.value += highlightedCode;
         setTimeout(() => this.printLetters(str.slice(1)), 200);
       }
     }

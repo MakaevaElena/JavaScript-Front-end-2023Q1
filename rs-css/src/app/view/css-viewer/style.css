@@ -34,10 +34,6 @@
   justify-content: space-around;
 }
 
-/* .line-number {
-  
-} */
-
 .css-editor {
   grid-column: 2/11;
   grid-row: 2/3;
@@ -60,6 +56,8 @@
   transition: 0.5s;
   padding: 0.3rem;
   background-color: lightblue;
+  font-weight: 600;
+  /* color: green; */
 }
 
 .input-css-editor:hover {

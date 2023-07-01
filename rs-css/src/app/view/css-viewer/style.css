@@ -66,23 +66,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.blink {
-  animation: blink 0.5s linear infinite;
-  background-color: none;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 0.7;
-  }
-  /* 50% {
-    opacity: 0.85;
-  } */
-  100% {
-    opacity: 1;
-  }
-}
-
 .submit-button {
   border: lightslategray;
   margin: 0.5rem;
@@ -122,24 +105,62 @@
   color: grey;
 }
 
-@keyframes wrong-shake {
-  0% {
-    transform: translate(1px, 5px) rotate(-1deg);
-  }
-  33% {
-    transform: translate(1px, 6px) rotate(-2deg);
-  }
-  66% {
-    transform: translate(3px, 6px) rotate(-1deg);
-  }
+.css-right-blink {
+  animation: bounce 2s;
+  animation-iteration-count: 1;
+}
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
   100% {
-    transform: translate(3px, 5px) rotate(-2deg);
+    transform: translateY(0);
+    background-color: #a9d8a9;
+  }
+  40% {
+    transform: translateY(-12px);
+    background-color: #5d8e5d;
+  }
+  60% {
+    transform: translateY(-4px);
+    background-color: #5d8e5d;
   }
 }
 
-.shake {
-  animation: wrong-shake 0.16s;
+.wobble {
+  animation: wobble 2s ease infinite;
   animation-iteration-count: 1;
+}
+@keyframes wobble {
+  0% {
+    transform: translateX(0%);
+    background-color: #cfa7a7;
+  }
+  15% {
+    transform: translateX(-9%) rotate(-2deg);
+    background-color: #de6f6f;
+  }
+  30% {
+    transform: translateX(8%) rotate(1.5deg);
+    background-color: #cfa7a7;
+  }
+  45% {
+    transform: translateX(-5%) rotate(-1.5deg);
+    background-color: #de6f6f;
+  }
+  60% {
+    transform: translateX(4%) rotate(0.7deg);
+    background-color: #cfa7a7;
+  }
+  75% {
+    transform: translateX(-1%) rotate(-0.5deg);
+    background-color: #de6f6f;
+  }
+  100% {
+    transform: translateX(0%);
+    background-color: #cfa7a7;
+  }
 }
 
 @media (max-width: 800px) {

@@ -16,7 +16,7 @@ export default class CssViewerView extends DefaultView {
   private observerMethod;
   private inputCssEditor = this.createTagElement(
     "input",
-    ["input-css-editor", "blink"],
+    ["input-css-editor", "css-right-blink"],
     ""
   );
   private cssEditor = this.createTagElement("div", ["css-editor"], "");
@@ -109,11 +109,10 @@ export default class CssViewerView extends DefaultView {
         //   this.inputCssEditor.innerHTML = highlightedCode.value;
         // }
 
-        this.inputCssEditor.classList.remove("css-right");
-        this.inputCssEditor.classList.remove("shake");
+        this.inputCssEditor.classList.remove("wobble", "css-right-blink");
       });
       this.inputCssEditor.addEventListener("focus", () => {
-        this.inputCssEditor.classList.remove("shake");
+        this.inputCssEditor.classList.remove("wobble", "css-right-blink");
       });
     }
   }
@@ -128,10 +127,10 @@ export default class CssViewerView extends DefaultView {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
             if (level === 18) this.saveLevelNumber(1);
             this.saveLevelNumber(level + 1);
+            this.inputCssEditor.classList.add("css-right-blink");
             window.location.reload();
-            this.inputCssEditor.classList.add("css-right-blink", "css-right");
           } else {
-            this.inputCssEditor?.classList.add("shake");
+            this.inputCssEditor?.classList.add("wobble");
           }
         }
 
@@ -165,7 +164,7 @@ export default class CssViewerView extends DefaultView {
 
         if (this.inputCssEditor instanceof HTMLInputElement) {
           this.inputCssEditor.value = "";
-          this.inputCssEditor.classList.remove("blink");
+          this.inputCssEditor.classList.remove("css-right-blink");
         }
         this.printLetters(answer);
         this.saveIsUseHelp(level - 1, true);

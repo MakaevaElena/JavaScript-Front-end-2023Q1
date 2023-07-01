@@ -1,12 +1,9 @@
 .html-viewer {
   grid-column: 4/7;
   grid-row: 4/10;
-
   margin: 5px;
   padding: 5px;
-
   border: 1px solid;
-
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -15,11 +12,9 @@
 }
 
 .selected {
-  /* background: gray; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   font-weight: 800;
   padding: 0.2rem;
-  /* font-size: 1.2rem; */
   border-radius: 5%;
 }
 
@@ -64,6 +59,10 @@
 .hljs-tag ~ :hover {
   padding: 0.5rem;
   box-shadow: 0 0 10px #0000004d;
+}
+
+label {
+  padding: 1rem;
 }
 
 @media screen and (max-width: 1860px) {

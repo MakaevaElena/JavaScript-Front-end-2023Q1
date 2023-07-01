@@ -19,14 +19,14 @@
   font-weight: 600;
 }
 
-.ready-button-no-done::after {
+.ready-tick-no-done::after {
   content: "\2713";
   font-weight: 900;
   font-size: 2rem;
   color: white;
 }
 
-.ready-button-done::after {
+.ready-tick-done::after {
   content: "\2713";
   font-weight: 900;
   font-size: 2rem;
@@ -100,12 +100,20 @@
   transition: 1.5s;
 }
 
+.hamburger-closed {
+  transform: rotate(90deg);
+}
+
 .hide {
   opacity: 0;
 }
 
 .show {
   opacity: 100;
+}
+
+.examples {
+  margin-top: 1rem;
 }
 
 @media (max-width: 1000px) {

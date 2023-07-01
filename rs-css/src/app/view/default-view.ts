@@ -31,7 +31,6 @@ export default abstract class DefaultView {
       const numberBlock = document.createElement("div");
       numberBlock.classList.add("line-number");
       numberBlock.innerHTML = `${i + 1}`;
-      // lineNumber.innerHTML += `${i + 1}<br>`;
       lineNumbers.append(numberBlock);
     }
     return lineNumbers;
@@ -43,8 +42,6 @@ export default abstract class DefaultView {
   };
 
   protected saveResult = (levelNum: number, isDone: boolean) => {
-    // const results = new Array(levels.length);
-
     let prev = localStorage.getItem("results");
     if (!prev) {
       prev = JSON.stringify(new Array(levels.length).fill(false));
@@ -59,8 +56,6 @@ export default abstract class DefaultView {
       results[levelNum] = isDone;
       this.results = results;
     }
-
-    // this.results[levelNum] = isDone;
 
     localStorage.setItem("results", JSON.stringify(this.results));
   };

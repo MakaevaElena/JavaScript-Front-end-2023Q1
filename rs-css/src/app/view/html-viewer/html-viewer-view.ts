@@ -1,7 +1,14 @@
 import "./style.css";
 import { EventName } from "../../enums/events/event-names";
 import { CssClasses } from "../../enums/view/css-classes";
+import { Attributes } from "../../enums/view/css-attributes";
 import { TagNames } from "../../enums/view/tag-names";
+import {
+  START_LEVEL_NUMBER,
+  HTML_VIEWER_HEADER_TEXT,
+  HTML_VIEWER_FILE_NAME_TEXT,
+} from "../../data/constants";
+import { Storage } from "../../enums/storage-names";
 import DefaultView from "../default-view";
 import ObserverMethod from "../../observer/observer-method";
 import { levels } from "../../data/data-levels";
@@ -12,9 +19,13 @@ import xml from "highlight.js/lib/languages/xml";
 hljs.registerLanguage("xml", xml);
 
 export default class HtmlViewerView extends DefaultView {
-  private readonly HEADER_TEXT = "HTML Viewer";
-  private htmlBlock = this.createTagElement("div", ["html-block"], "");
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
+  private htmlBlock = this.createTagElement(
+    TagNames.BLOCK,
+    [CssClasses.HTML_BLOCK],
+    ""
+  );
+  private levelNum =
+    Number(localStorage.getItem(Storage.SAVED_LEVEL)) || START_LEVEL_NUMBER;
   private observerMethod;
 
   constructor(observerMethod: ObserverMethod) {
@@ -34,12 +45,14 @@ export default class HtmlViewerView extends DefaultView {
 
   private codeSelectHandler<T>(param: T) {
     if (typeof param === "string") {
-      const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
+      const hljsTags = this.htmlElement.querySelectorAll(
+        `.${CssClasses.HLJS_NAME}`
+      );
+
       //TODO не выделяет вложенные тэги, хотя они с классом .hljs-name
       hljsTags.forEach((tag) => {
         if (tag.innerHTML === param) {
           if (tag instanceof HTMLElement) {
-            // hljs.highlightElement(tag);
             tag.classList.add(CssClasses.SELECTED);
           }
         }
@@ -47,7 +60,9 @@ export default class HtmlViewerView extends DefaultView {
     }
   }
   private codeUnselectHandler() {
-    const hljsTags = this.htmlElement.querySelectorAll(".hljs-name");
+    const hljsTags = this.htmlElement.querySelectorAll(
+      `.${CssClasses.HLJS_NAME}`
+    );
     hljsTags.forEach((tag) => {
       if (tag instanceof HTMLElement) {
         tag.classList.remove(CssClasses.SELECTED);
@@ -56,23 +71,30 @@ export default class HtmlViewerView extends DefaultView {
   }
 
   private configureHtml() {
-    const htmlViewerHeader = document.createElement("div");
-    htmlViewerHeader.classList.add("html-viewer-header");
-    this.htmlElement.append(htmlViewerHeader);
+    const htmlViewerHeader = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.HTML_VIEWER_HEADER],
+      ""
+    );
 
-    const fileName = document.createElement("div");
-    fileName.classList.add("fileName");
-    fileName.innerText = "table.html";
-    htmlViewerHeader.append(fileName);
+    const fileName = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.HTML_VIEWER_FILE_NAME],
+      HTML_VIEWER_FILE_NAME_TEXT
+    );
+    const HtmlViewerTitle = this.createTagElement(
+      TagNames.SECTION_LABEL,
+      [CssClasses.HTML_VIEWER_TITLE],
+      HTML_VIEWER_HEADER_TEXT
+    );
+    htmlViewerHeader.append(fileName, HtmlViewerTitle);
 
-    const label = document.createElement(TagNames.SECTION_HEADER);
-    label.classList.add("label");
-    label.textContent = this.HEADER_TEXT;
-    htmlViewerHeader.append(label);
-
-    const numberLinesBlock = document.createElement("div");
-    numberLinesBlock.classList.add("html-number-lines");
-    this.htmlElement.append(numberLinesBlock);
+    const numberLinesBlock = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.HTML_NUMBER_LINES],
+      ""
+    );
+    this.htmlElement.append(htmlViewerHeader, numberLinesBlock);
 
     const numberLines = this.createLineNumber();
     numberLinesBlock.append(numberLines);
@@ -84,20 +106,27 @@ export default class HtmlViewerView extends DefaultView {
   }
 
   protected createHtml(): HTMLElement {
-    const element = document.createElement(TagNames.SECTION);
-    element.classList.add(CssClasses.HTML_VIEWER);
+    const element = this.createTagElement(
+      TagNames.SECTION,
+      [CssClasses.HTML_VIEWER],
+      ""
+    );
     return element;
   }
 
   public renderHTMLCodeView(level: Level) {
-    const htmlBlock = document.querySelector(".html-block");
+    const htmlBlock = document.querySelector(`.${CssClasses.HTML_BLOCK}`);
     const block = htmlBlock ? htmlBlock : this.htmlBlock;
 
     block.innerHTML = "";
 
     level.html.split("\n").map((node) => {
-      const row = this.createTagElement("div", ["row-code"], "");
-      const pre = document.createElement("pre");
+      const row = this.createTagElement(
+        TagNames.BLOCK,
+        [CssClasses.HTML_ROW_CODE],
+        ""
+      );
+      const pre = document.createElement(TagNames.PRE);
 
       const highlightedCode = hljs.highlight(node, { language: "xml" });
       pre.innerHTML = highlightedCode.value;
@@ -107,7 +136,7 @@ export default class HtmlViewerView extends DefaultView {
 
       //TODO нет id вложенных тэгов
       // const hljsTags = pre.querySelectorAll(".hljs-tag");
-      const hljsTags = pre.querySelectorAll(".hljs-name");
+      const hljsTags = pre.querySelectorAll(`.${CssClasses.HLJS_NAME}`);
       hljsTags.forEach((element) => {
         // console.log("hljs-tag", element);
 
@@ -137,11 +166,11 @@ export default class HtmlViewerView extends DefaultView {
   }
 
   private getElementSElectors(element: HTMLElement) {
-    const elementClass = element.getAttribute("class")
-      ? `.${element.getAttribute("class")}`
+    const elementClass = element.getAttribute(Attributes.CLASS)
+      ? `.${element.getAttribute(Attributes.CLASS)}`
       : "";
-    const elementId = element.getAttribute("id")
-      ? `#${element.getAttribute("id")}`
+    const elementId = element.getAttribute(Attributes.ID)
+      ? `#${element.getAttribute(Attributes.ID)}`
       : "";
     return `${element.tagName.toLocaleLowerCase()} ${elementClass} ${elementId}></${element.tagName.toLocaleLowerCase()}`;
   }

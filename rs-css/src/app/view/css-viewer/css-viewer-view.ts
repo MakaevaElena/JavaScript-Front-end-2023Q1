@@ -1,5 +1,6 @@
 import "./style.css";
 import { CssClasses } from "../../enums/view/css-classes";
+import { Storage } from "../../enums/storage-names";
 import { TagNames } from "../../enums/view/tag-names";
 import DefaultView from "../default-view";
 import { levels } from "../../data/data-levels";
@@ -9,28 +10,43 @@ import xml from "highlight.js/lib/languages/xml";
 import css from "highlight.js/lib/languages/css";
 import ObserverMethod from "../../observer/observer-method";
 import { EventName } from "../../enums/events/event-names";
+import {
+  START_LEVEL_NUMBER,
+  FINISH_LEVEL_NUMBER,
+  CSS_VIEWER_TITLE_TEXT,
+  CSS_VIEWER_FILE_NAME_TEXT,
+  BUTTON_SUBMIT_TEXT,
+  CSS_COMMENTS_TEXT,
+  CSS_INPUT_PLACEHOLDER_TEXT,
+  LETTERS_PRINT_TIME,
+} from "../../data/constants";
 
-// import { HTMLElementTagNameMap } from "../../types/interfaces";
 hljs.registerLanguage("xml", xml);
 hljs.registerLanguage("css", css);
 
 export default class CssViewerView extends DefaultView {
-  private readonly HEADER_TEXT = "CSS Editor";
-  private levelNum = Number(localStorage.getItem("savedLevel")) || 1;
   private observerMethod;
   private inputCssEditor = this.createTagElement(
-    "input",
-    ["input-css-editor", "css-right-blink"],
+    TagNames.INPUT,
+    [CssClasses.INPUT_CSS_EDITOR, CssClasses.CSS_RIGHT_BLINCK],
     ""
   );
-  private cssEditor = this.createTagElement("div", ["css-editor"], "");
+  private cssEditor = this.createTagElement(
+    TagNames.BLOCK,
+    [CssClasses.CSS_EDITOR],
+    ""
+  );
 
-  private buttonHelp = this.createTagElement("button", ["button-help"], "");
+  private buttonHelp = this.createTagElement(
+    TagNames.BUTTON,
+    [CssClasses.BUTTON_HELP],
+    ""
+  );
 
   private submitButton = this.createTagElement(
-    "button",
-    ["submit-button"],
-    "Enter"
+    TagNames.BUTTON,
+    [CssClasses.BUTTON_SUBMIT],
+    BUTTON_SUBMIT_TEXT
   );
 
   constructor(observerMethod: ObserverMethod) {
@@ -40,49 +56,50 @@ export default class CssViewerView extends DefaultView {
   }
 
   private configureHtml() {
-    const cssViewerHeader = document.createElement("div");
-    cssViewerHeader.classList.add("css-viewer-header");
-    this.htmlElement.append(cssViewerHeader);
-
-    const fileName = document.createElement("div");
-    fileName.classList.add("fileName");
-    fileName.innerText = "style.css";
-    cssViewerHeader.append(fileName);
-
-    const label = document.createElement(TagNames.SECTION_HEADER);
-    label.classList.add("label");
-    label.textContent = this.HEADER_TEXT;
-    cssViewerHeader.append(label);
-
-    const numberLinesBlock = document.createElement("div");
-    numberLinesBlock.classList.add("css-number-lines");
-    this.htmlElement.append(numberLinesBlock);
-
-    const numberLines = this.createLineNumber();
-    numberLinesBlock.append(numberLines);
-
-    this.renderCssEditor();
-
-    const comments = this.createTagElement(
-      "div",
-      ["comments"],
-      `<pre>
-    /* Styles would go here. */
-    }
-    
-    /*
-    Type a number to skip to a level.
-    Ex → "5" for level 5
-    */
-    </pre>`
+    const cssViewerHeader = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.CSS_VIEWER_HEADER],
+      ""
     );
 
-    this.htmlElement.append(comments);
+    const fileName = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.CSS_VIEWER_FILE_NAME],
+      CSS_VIEWER_FILE_NAME_TEXT
+    );
+
+    const label = this.createTagElement(
+      TagNames.SECTION_LABEL,
+      [CssClasses.CSS_VIEWER_TITLE],
+      CSS_VIEWER_TITLE_TEXT
+    );
+
+    const numberLinesBlock = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.CSS_NUMBER_LINES],
+      ""
+    );
+
+    const numberLines = this.createLineNumber();
+
+    const comments = this.createTagElement(
+      TagNames.BLOCK,
+      [CssClasses.CSS_COMMENTS],
+      CSS_COMMENTS_TEXT
+    );
+
+    this.renderCssEditor();
+    numberLinesBlock.append(numberLines);
+    cssViewerHeader.append(fileName, label);
+    this.htmlElement.append(cssViewerHeader, numberLinesBlock, comments);
   }
 
   protected createHtml(): HTMLElement {
-    const element = document.createElement(TagNames.SECTION);
-    element.classList.add(CssClasses.CSS_VIEWER);
+    const element = this.createTagElement(
+      TagNames.SECTION,
+      [CssClasses.CSS_VIEWER],
+      ""
+    );
 
     return element;
   }
@@ -95,7 +112,7 @@ export default class CssViewerView extends DefaultView {
       this.submitButton instanceof Node &&
       this.buttonHelp instanceof Node
     ) {
-      this.inputCssEditor.placeholder = "Type in a CSS selector";
+      this.inputCssEditor.placeholder = CSS_INPUT_PLACEHOLDER_TEXT;
 
       this.cssEditor.append(
         this.inputCssEditor,
@@ -104,7 +121,7 @@ export default class CssViewerView extends DefaultView {
       );
       this.htmlElement.append(this.cssEditor);
       this.createSubmitButton();
-      this.inputCssEditor.addEventListener("input", (evt) => {
+      this.inputCssEditor.addEventListener(TagNames.INPUT, (evt) => {
         //TODO подсветка кода в инпуте
         if (evt.target instanceof HTMLInputElement) {
           console.log(evt.target.value);
@@ -114,10 +131,16 @@ export default class CssViewerView extends DefaultView {
           this.inputCssEditor.innerHTML = highlightedCode.value;
         }
 
-        this.inputCssEditor.classList.remove("wobble", "css-right-blink");
+        this.inputCssEditor.classList.remove(
+          CssClasses.CSS_WRONG_ANSWER_WOBBLE,
+          CssClasses.CSS_RIGHT_ANSWER_BLINCK
+        );
       });
       this.inputCssEditor.addEventListener("focus", () => {
-        this.inputCssEditor.classList.remove("wobble", "css-right-blink");
+        this.inputCssEditor.classList.remove(
+          CssClasses.CSS_WRONG_ANSWER_WOBBLE,
+          CssClasses.CSS_RIGHT_ANSWER_BLINCK
+        );
       });
     }
   }
@@ -127,15 +150,21 @@ export default class CssViewerView extends DefaultView {
       this.submitButton.type = "submit";
 
       const submit = () => {
-        const level = Number(localStorage.getItem("savedLevel")) || 1;
+        const level =
+          Number(localStorage.getItem(Storage.SAVED_LEVEL)) ||
+          START_LEVEL_NUMBER;
         if (this.inputCssEditor instanceof HTMLInputElement) {
           if (this.inputCssEditor?.value === levels[level - 1].selector) {
-            if (level === 18) this.saveLevelNumber(1);
+            if (level === FINISH_LEVEL_NUMBER) this.saveLevelNumber(1);
             this.saveLevelNumber(level + 1);
-            this.inputCssEditor.classList.add("css-right-blink");
+            this.inputCssEditor.classList.add(
+              CssClasses.CSS_RIGHT_ANSWER_BLINCK
+            );
             window.location.reload();
           } else {
-            this.inputCssEditor?.classList.add("wobble");
+            this.inputCssEditor?.classList.add(
+              CssClasses.CSS_WRONG_ANSWER_WOBBLE
+            );
           }
         }
 
@@ -153,7 +182,7 @@ export default class CssViewerView extends DefaultView {
   }
 
   public createHelpButton() {
-    const inputCssEditor = document.querySelector(".input-css-editor");
+    const inputCssEditor = document.querySelector(CssClasses.INPUT_CSS_EDITOR);
     const block = inputCssEditor ? inputCssEditor : this.inputCssEditor;
     if (block instanceof HTMLInputElement) {
       block.innerHTML = "";
@@ -164,12 +193,16 @@ export default class CssViewerView extends DefaultView {
       this.buttonHelp.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const level = Number(localStorage.getItem("savedLevel")) || 1;
+        const level =
+          Number(localStorage.getItem(Storage.SAVED_LEVEL)) ||
+          START_LEVEL_NUMBER;
         const answer = levels[level - 1].selector;
 
         if (this.inputCssEditor instanceof HTMLInputElement) {
           this.inputCssEditor.value = "";
-          this.inputCssEditor.classList.remove("css-right-blink");
+          this.inputCssEditor.classList.remove(
+            CssClasses.CSS_RIGHT_ANSWER_BLINCK
+          );
         }
         this.printLetters(answer);
         this.saveIsUseHelp(level - 1, true);
@@ -178,17 +211,17 @@ export default class CssViewerView extends DefaultView {
   }
 
   private printLetters(str: string) {
-    const inputCssEditor = document.querySelector(".input-css-editor");
+    const inputCssEditor = document.querySelector(CssClasses.INPUT_CSS_EDITOR);
     const blockInput = inputCssEditor ? inputCssEditor : this.inputCssEditor;
 
     if (blockInput instanceof HTMLInputElement) {
       if (str.length > 0) {
-        const highlightedCode = hljs.highlight(str[0], {
-          language: "xml",
-        }).value;
-        // blockInput.value += str[0];
-        blockInput.value += highlightedCode;
-        setTimeout(() => this.printLetters(str.slice(1)), 200);
+        // const highlightedCode = hljs.highlight(str[0], {
+        //   language: "xml",
+        // }).value;
+        blockInput.value += str[0];
+        // blockInput.value += highlightedCode;
+        setTimeout(() => this.printLetters(str.slice(1)), LETTERS_PRINT_TIME);
       }
     }
   }

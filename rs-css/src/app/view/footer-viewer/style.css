@@ -11,10 +11,28 @@
   padding: 0.5rem 0;
 }
 
+.year {
+  margin-right: 3rem;
+}
+
 .year,
 .github,
 .rsschool-link {
   margin-left: 1.25rem;
+}
+
+.github:hover,
+.rsschool-logo a:hover {
+  animation: pulse 1s infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1.2);
+  }
 }
 
 .year {

@@ -12,8 +12,8 @@ export const levels = [
       "<strong>p</strong> selects all <tag>p</tag> elements.",
     ],
     html: `
-       <cat></cat>
-       <cat></cat>
+    <cat></cat>
+    <cat></cat>
     `,
     task: "Select the cat",
     selector: "cat",
@@ -53,9 +53,9 @@ export const levels = [
     ],
     selector: "#orange",
     html: `
-      <cat></cat>
-      <cat id="orange"></cat>
-      <dog></dog>
+    <cat></cat>
+    <cat id="orange"></cat>
+    <dog></dog>
     `,
   },
   {
@@ -92,9 +92,9 @@ export const levels = [
     ],
     selector: "#orange hat",
     html: `
-      <cat><hat></hat></cat>
-      <cat id="orange"><hat></hat></cat>
-      <dog><hat></hat></dog>
+    <cat><hat></hat></cat>
+    <cat id="orange"><hat></hat></cat>
+    <dog><hat></hat></dog>
     `,
   },
   {
@@ -131,9 +131,9 @@ export const levels = [
     ],
     selector: "hat.blue",
     html: `
-      <cat id="black"><hat class="blue"></hat></cat>
-      <dog><hat></hat></dog>
-      <hat></hat>`,
+    <cat id="black"><hat class="blue"></hat></cat>
+    <dog><hat></hat></dog>
+    <hat></hat>`,
   },
   {
     isDone: false,
@@ -147,10 +147,10 @@ export const levels = [
     examples: [],
     selector: "cat hat.blue",
     html: `
-      <cat id="orange"><hat class="blue"></hat></cat>
-      <dog><hat></hat></dog>
-      <cat id="black"><hat class="blue"></hat></cat>
-      <hat class="blue"></hat>`,
+    <cat id="orange"><hat class="blue"></hat></cat>
+    <dog><hat></hat></dog>
+    <cat id="black"><hat class="blue"></hat></cat>
+    <hat class="blue"></hat>`,
   },
   {
     isDone: false,
@@ -167,9 +167,9 @@ export const levels = [
     ],
     selector: "dog,hat",
     html: `
-      <dog></dog>
-      <cat id="black"><bow class="blue"></bow></cat>
-      <cat><hat></hat></cat>
+    <dog></dog>
+    <cat id="black"><bow class="blue"></bow></cat>
+    <cat><hat></hat></cat>
     `,
   },
   {
@@ -185,10 +185,10 @@ export const levels = [
     ],
     selector: "*",
     html: `
-  <humster></humster>
-  <cat></cat>
-  <hat></hat>
-  <dog class="brown"></dog>
+    <humster></humster>
+    <cat></cat>
+    <hat></hat>
+    <dog class="brown"></dog>
     `,
   },
   {
@@ -205,9 +205,13 @@ export const levels = [
     ],
     selector: "cat *",
     html: `
-      <cat id="orange"><hat class="blue"></hat></cat>
-      <cat><hat></hat></cat>
-      <cat id="black"><bow class="blue"></bow></cat>
+    <cat id="orange">
+      <hat class="blue"></hat>
+    </cat>
+    <cat><hat></hat></cat>
+    <cat id="black">
+      <bow class="blue"></bow>
+    </cat>
    `,
   },
   {
@@ -225,11 +229,11 @@ export const levels = [
     ],
     selector: "dog + cat",
     html: `
-      <dog><bow class="blue"></bow></dog>
-      <cat></cat>
-      <humster></humster>
-      <dog></dog>
-      <cat class="orange"></cat>
+    <dog><bow class="blue"></bow></dog>
+    <cat></cat>
+    <humster></humster>
+    <dog></dog>
+    <cat class="orange"></cat>
     `,
   },
   {
@@ -316,15 +320,9 @@ export const levels = [
     ],
     selector: "cat :only-child",
     html: `
-    <cat>
-      <bow />
-    </cat>
-    <cat>
-      <hat />
-    </cat>
-    <humster>
-      <bow />
-    </humster>
+    <cat><bow/></cat>
+    <cat><hat/></cat>
+    <humster><bow/></humster>
     <cat>
       <hat class="blue" />
       <hat />
@@ -344,7 +342,9 @@ export const levels = [
     examples: [],
     selector: "#orange > hat,dog > bow",
     html: `
-  <cat id="orange"><hat class="blue"></hat></cat>
+  <cat id="orange">
+    <hat class="blue"></hat>
+  </cat>
   <dog><bow></bow></dog>
   <dog><hat></hat></dog>
 `,
@@ -431,8 +431,14 @@ export const levels = [
     examples: [],
     selector: "mat > dog > bow",
     html: `
-<mat><dog id="gray"><bow class="blue"></bow></dog></mat>
-<dog id="gray"><bow class="blue"></bow></dog>
+    <mat>
+      <dog id="gray">
+        <bow class="blue"></bow>
+      </dog>
+    </mat>
+    <dog id="gray">
+      <bow class="blue"></bow>
+    </dog>
 `,
   },
 ];

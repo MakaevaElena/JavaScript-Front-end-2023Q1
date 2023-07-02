@@ -161,7 +161,8 @@
   }
 }
 
-@media (max-width: 800px) {
-  /* .css-viewer {
-  } */
+@media (max-width: 1600px) {
+  .css-number-lines {
+    font-size: 0.7rem;
+  }
 }

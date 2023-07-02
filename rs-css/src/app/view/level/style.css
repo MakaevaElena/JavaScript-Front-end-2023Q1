@@ -116,6 +116,27 @@
   margin-top: 1rem;
 }
 
+@media (max-width: 1600px) {
+  .next-row,
+  .prev-row {
+    height: 1.4rem;
+    width: 1.3rem;
+  }
+
+  .hamburger {
+    width: 1.3rem;
+  }
+
+  .ready-tick-no-done::after,
+  .ready-tick-done::after {
+    font-size: 1.5rem;
+  }
+
+  .level-header {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 1000px) {
   .level-header {
     font-size: 1rem;

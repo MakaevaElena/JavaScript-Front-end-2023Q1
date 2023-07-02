@@ -15,27 +15,28 @@
   backface-visibility: hidden;
   border: 1px solid transparent;
   background: #bbb9b9;
-  padding: 1.5rem;
+  padding: 1rem;
+  font-size: 0.7rem;
 }
 
 span.no-done::after {
   content: "\2713";
   font-weight: 900;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: white;
 }
 
 span.done::after {
   content: "\2713";
   font-weight: 900;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: green;
 }
 
 span.is-help::after {
   content: "?";
   font-weight: 900;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: yellow;
 }
 
@@ -61,12 +62,12 @@ span.is-help::after {
 
 .current-level-line {
   box-shadow: 0 0 10px #0000004d;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .reset-button {
-  margin: 3rem auto;
+  margin: 1.2rem auto;
   padding: 0.2rem;
   display: flex;
   align-items: center;
@@ -93,6 +94,12 @@ span.is-help::after {
 @media (max-width: 1860px) {
   .menu {
     width: 17.5vw;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .menu {
+    height: 81vh;
   }
 }
 

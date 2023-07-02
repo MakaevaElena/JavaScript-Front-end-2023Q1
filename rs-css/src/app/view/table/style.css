@@ -33,7 +33,7 @@
 }
 
 .animated-tag-item {
-  animation-name: circle;
+  animation-name: animated;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
@@ -41,7 +41,7 @@
   transform-origin: center bottom;
 }
 
-@keyframes circle {
+@keyframes animated {
   from {
     transform: rotate(0deg);
     background-size: 100% 100%;
@@ -138,6 +138,7 @@ bow {
   display: block;
   height: 150px;
   width: 150px;
+  margin-bottom: 30px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -151,6 +152,7 @@ mat {
   height: 100px;
   width: 200px;
   padding-top: 30px;
+  margin-bottom: 20px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -244,6 +246,81 @@ hat.blue {
 
 .selected {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1600px) {
+  .table * {
+    background-size: 70%;
+  }
+
+  @keyframes animated {
+    from {
+      transform: rotate(0deg);
+      background-size: 70% 70%;
+    }
+
+    20% {
+      transform: rotate(-3deg);
+      background-size: 70% 68%;
+    }
+
+    30% {
+      transform: rotate(-2deg);
+      background-size: 70% 68%;
+    }
+
+    50% {
+      transform: rotate(0deg);
+      background-size: 70% 70%;
+    }
+
+    70% {
+      transform: rotate(2deg);
+      background-size: 70% 68%;
+    }
+
+    80% {
+      transform: rotate(3deg);
+      background-size: 70% 68%;
+    }
+
+    100% {
+      transform: rotate(0deg);
+      background-size: 70% 70%;
+    }
+  }
+
+  cat#orange {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 30px;
+  }
+
+  hat.blue {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 30px;
+  }
+
+  .table mat > * {
+    margin-bottom: 15%;
+  }
+
+  .table cat#orange > * {
+    top: -40%;
+  }
+
+  .table cat > *,
+  .table dog > *,
+  .table hat > *,
+  .table humster > * {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: -13%;
+    left: 15%;
+    rotate: -5deg;
+  }
 }
 
 @media (max-width: 800px) {

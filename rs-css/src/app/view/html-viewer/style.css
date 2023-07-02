@@ -72,6 +72,12 @@ label {
   }
 }
 
+@media (max-width: 1600px) {
+  .html-number-lines {
+    font-size: 0.7rem;
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .html-block {
     font-size: 0.86rem;

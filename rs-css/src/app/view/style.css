@@ -32,6 +32,12 @@ label {
   justify-content: space-around;
 }
 
+@media (max-width: 1600px) {
+  /* .main {
+    grid-auto-rows: 9.7vh;
+  } */
+}
+
 @media (max-width: 1000px) {
   .main {
     display: flex;

@@ -198,7 +198,7 @@ export default class LevelView extends DefaultView {
   private createBurger() {
     const burger = this.createTagElement(
       TagNames.BLOCK,
-      [CssClasses.HUNBURGER, CssClasses.HUMBURGER_OPENED],
+      [CssClasses.HUNBURGER, CssClasses.HUMBURGER_CLOSED],
       ""
     );
     const hamburgerLine = this.createTagElement(

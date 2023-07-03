@@ -131,7 +131,7 @@ export default class MenuView extends DefaultView {
   protected createHtml(): HTMLElement {
     const element = document.createElement(TagNames.SECTION);
 
-    element.classList.add(CssClasses.MENU, CssClasses.HIDE);
+    element.classList.add(CssClasses.MENU);
     return element;
   }
 }

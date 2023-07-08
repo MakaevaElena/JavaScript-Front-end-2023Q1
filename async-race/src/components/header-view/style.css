@@ -1,0 +1,13 @@
+.header {
+    margin-bottom: 2rem;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: left;
+    justify-items: center;
+}
+
+.header-buttons .button {
+    margin-right: 0.5rem;
+}

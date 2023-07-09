@@ -1,6 +1,5 @@
 export default class Api {
     private url = 'http://127.0.0.1:3000';
-    // private url = 'http://localhost:3000';
     private garage = `${this.url}/garage`;
     private engine = `${this.url}/engine`;
     private winners = `${this.url}/winners`;

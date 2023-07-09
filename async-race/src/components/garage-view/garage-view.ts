@@ -1,3 +1,5 @@
+import Api from '../../api';
+import { CarsType, CarType } from '../../types/types';
 import './style.css';
 
 export default class GarageView {
@@ -18,22 +20,28 @@ export default class GarageView {
     private roadHeader = document.createElement('h2');
     private pageNumberHeader = document.createElement('h3');
     private carsList = document.createElement('div');
-    private carsListData = ['Car1', 'Car2', 'Car3', 'Car4', 'Car5'];
+    private carsListData!: CarsType;
     private currentPageNumber = 1;
+    private api = new Api();
 
     constructor() {
+        this.getCars();
         this.garageView = this.createGarage();
         this.createForm();
-        this.createRaceRoad();
     }
 
     getGarageView() {
         return this.garageView;
     }
 
+    private async getCars() {
+        this.carsListData = await this.api.getCars();
+        this.createRaceRoad();
+    }
+
     private createGarage() {
         this.garage.classList.add('garage');
-        this.garage.append(this.form, this.raceRoads, this.carsList);
+        this.garage.append(this.form, this.raceRoads);
         return this.garage;
     }
 
@@ -63,17 +71,20 @@ export default class GarageView {
     }
 
     private createRaceRoad() {
+        console.log(this.carsListData);
         this.roadHeader.innerText = `Garage ${this.carsListData.length}`;
         this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
+        this.carsList.classList.add('cars-list');
 
         this.carsListData.map((carData) => this.createCar(carData));
         this.raceRoads.append(this.roadHeader, this.pageNumberHeader, this.carsList);
     }
 
     //TODO создать класс для отдельной машины
-    private createCar(carData: string) {
+    private createCar(carData: CarType) {
         const carBlock = document.createElement('div');
         carBlock.classList.add('car-block');
-        carBlock.innerHTML = `${carData}`;
+        carBlock.innerHTML = `${carData.name}`;
+        this.carsList.append(carBlock);
     }
 }

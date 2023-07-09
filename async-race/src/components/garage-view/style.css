@@ -46,3 +46,18 @@
     grid-area: buttonGenerateCars;
 }
 
+.cars-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    border: 1px solid white;
+}
+
+.car-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid white;
+    margin: 0.5rem;
+}

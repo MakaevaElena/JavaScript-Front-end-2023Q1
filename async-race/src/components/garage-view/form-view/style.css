@@ -13,10 +13,13 @@
 
 .create-name {
     grid-area: inputCreateName;
+    color: #0000ff;
+    font-weight: 800;
 }
 
 .create-color {
     grid-area: buttonCreateColor;
+    width: 100%;
 }
 
 .button-create {
@@ -25,10 +28,13 @@
 
 .update-name {
     grid-area: inputUpdateName;
+    color: blue;
+    font-weight: 800;
 }
 
 .update-color {
     grid-area: buttonUpdateColor;
+    width: 100%;
 }
 
 .button-update {

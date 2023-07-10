@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: black;
+}
+
 h2,
 h3 {
     margin: 0;

@@ -1,4 +1,5 @@
 import './style.css';
+import Api from '../../api';
 import { CarType } from '../../types/types';
 import { carImage } from '../car-view/car-image';
 
@@ -16,12 +17,15 @@ export default class CarView {
     private car = document.createElement('div');
 
     private carData: CarType;
+    private api = new Api();
 
     constructor(carData: CarType) {
         this.carData = carData;
         this.createTop(this.carData);
         this.createBottom();
         this.createCar(carData);
+        this.updateCar(carData);
+        this.deleteCar(carData);
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -60,5 +64,24 @@ export default class CarView {
         const carSVGElement = this.car.querySelector('svg g');
         if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
         this.carBottom.append(this.car);
+    }
+
+    private updateCar(carData: CarType) {
+        this.selectButton.addEventListener('click', () => {
+            // if (event.target instanceof HTMLElement) {
+            //     const id = event.target.closest('car-block')?.getAttribute('id');
+            //     if (id) localStorage.setItem('id', id.toString());
+            // }
+            localStorage.setItem('id', carData.id.toString());
+            localStorage.setItem('name', carData.name);
+            // console.log(id);
+        });
+    }
+
+    private deleteCar(carData: CarType) {
+        this.removeButton.addEventListener('click', () => {
+            this.api.deleteCar(carData.id);
+            window.document.location.reload();
+        });
     }
 }

@@ -15,7 +15,7 @@ export default class Api {
             .then((response) => response.json())
             .then((json) => json)
             .catch((error) => console.log(error))
-            .finally(() => console.log('finally'));
+            .finally(() => console.log('getCars finally'));
     }
 
     public getCar(id: number) {
@@ -23,7 +23,7 @@ export default class Api {
             .then((response) => response.json())
             .then((json) => json)
             .catch((error) => console.log(error))
-            .finally(() => console.log('finally'));
+            .finally(() => console.log('getCar finally'));
     }
 
     public createCar(newCarData: newCarDataType) {
@@ -37,7 +37,7 @@ export default class Api {
             .then((response) => response.json())
             .then((json) => json)
             .catch((error) => console.log(error))
-            .finally(() => console.log('finally'));
+            .finally(() => console.log('createCar finally'));
     }
 
     public deleteCar(id: number) {
@@ -46,7 +46,7 @@ export default class Api {
         })
             .then((response) => response.json())
             .catch((error) => console.log(error))
-            .finally(() => console.log('finally'));
+            .finally(() => console.log('deleteCar finally'));
     }
 
     public updateCar(id: number, updatedCarData: updatedCarDataType) {
@@ -60,7 +60,7 @@ export default class Api {
             .then((response) => response.json())
             .then((json) => json)
             .catch((error) => console.log(error))
-            .finally(() => console.log('finally'));
+            .finally(() => console.log('updateCar finally'));
     }
 
     // startEngine// stopEngine

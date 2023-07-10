@@ -5,3 +5,13 @@ export type CarType = {
     color: string;
     id: number;
 };
+
+export type updatedCarDataType = {
+    name: string;
+    color: string;
+};
+
+export type newCarDataType = {
+    name: string;
+    color: string;
+};

@@ -1,21 +1,13 @@
 import Api from '../../api';
 import CarView from '../../components/car-view/car-view';
-import { CarsType, CarType } from '../../types/types';
+import { CarsType } from '../../types/types';
 import './style.css';
+import PaginationView from '../pagination/pagination';
+import FormView from './form-view/form-view';
 
 export default class GarageView {
     protected garageView: HTMLElement;
     private garage = document.createElement('div');
-    private form = document.createElement('form');
-    private inputCreateName = document.createElement('input');
-    private inputUpdateName = document.createElement('input');
-    private buttonCreateColor = document.createElement('button');
-    private buttonUpdateColor = document.createElement('button');
-    private buttonCreate = document.createElement('button');
-    private buttonUpdate = document.createElement('button');
-    private buttonRace = document.createElement('button');
-    private buttonReset = document.createElement('button');
-    private buttonGenerateCars = document.createElement('button');
 
     private raceRoads = document.createElement('div');
     private roadHeader = document.createElement('h2');
@@ -24,12 +16,13 @@ export default class GarageView {
     private carsListData!: CarsType;
     private currentPageNumber = 1;
     private api = new Api();
+    private formView = new FormView();
     private carView!: CarView;
+    private paginationView = new PaginationView();
 
     constructor() {
         this.getCars();
         this.garageView = this.createGarage();
-        this.createForm();
     }
 
     getGarageView() {
@@ -43,33 +36,9 @@ export default class GarageView {
 
     private createGarage() {
         this.garage.classList.add('garage');
-        this.garage.append(this.form, this.raceRoads);
+
+        this.garage.append(this.formView.createForm(), this.raceRoads, this.paginationView.createButtons());
         return this.garage;
-    }
-
-    private createForm() {
-        this.form.classList.add('form');
-        this.inputCreateName.classList.add('create-name');
-        this.buttonCreateColor.classList.add('create-color', 'button');
-        this.buttonCreate.classList.add('button-create', 'button');
-        this.inputUpdateName.classList.add('update-name');
-        this.buttonUpdateColor.classList.add('update-color', 'button');
-        this.buttonUpdate.classList.add('button-update', 'button');
-        this.buttonRace.classList.add('button-race', 'button');
-        this.buttonReset.classList.add('button-reset', 'button');
-        this.buttonGenerateCars.classList.add('generate-cars', 'button');
-
-        this.form.append(
-            this.inputCreateName,
-            this.buttonCreateColor,
-            this.buttonCreate,
-            this.inputUpdateName,
-            this.buttonUpdateColor,
-            this.buttonUpdate,
-            this.buttonRace,
-            this.buttonReset,
-            this.buttonGenerateCars
-        );
     }
 
     private createRaceRoad() {

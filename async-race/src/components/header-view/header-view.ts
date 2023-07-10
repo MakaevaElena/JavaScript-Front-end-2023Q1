@@ -19,9 +19,9 @@ export default class HeaderView {
         this.header.classList.add('header');
         this.headerButtons.classList.add('header-buttons');
         this.toGarageButton.classList.add('to-garage', 'button');
-        this.toGarageButton.innerHTML = `to garage`;
+        this.toGarageButton.innerHTML = `TO GARAGE`;
         this.toWinnersButton.classList.add('to-winners', 'button');
-        this.toWinnersButton.innerHTML = `to winners`;
+        this.toWinnersButton.innerHTML = `TO WINNERS`;
 
         this.headerButtons.append(this.toGarageButton, this.toWinnersButton);
         this.header.append(this.headerButtons);

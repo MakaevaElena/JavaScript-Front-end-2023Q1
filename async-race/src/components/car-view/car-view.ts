@@ -26,6 +26,7 @@ export default class CarView {
         this.createCar(carData);
         this.updateCar(carData);
         this.deleteCar(carData);
+        this.driveCar();
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -64,17 +65,16 @@ export default class CarView {
         const carSVGElement = this.car.querySelector('svg g');
         if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
         this.carBottom.append(this.car);
+        document.addEventListener('animationend', () => {
+            this.car.classList.remove('drive-car');
+            // this.car.style.left = '800px';
+        });
     }
 
     private updateCar(carData: CarType) {
         this.selectButton.addEventListener('click', () => {
-            // if (event.target instanceof HTMLElement) {
-            //     const id = event.target.closest('car-block')?.getAttribute('id');
-            //     if (id) localStorage.setItem('id', id.toString());
-            // }
             localStorage.setItem('id', carData.id.toString());
             localStorage.setItem('name', carData.name);
-            // console.log(id);
         });
     }
 
@@ -82,6 +82,12 @@ export default class CarView {
         this.removeButton.addEventListener('click', () => {
             this.api.deleteCar(carData.id);
             window.document.location.reload();
+        });
+    }
+
+    private driveCar() {
+        this.startButton.addEventListener('click', () => {
+            this.car.classList.add('drive-car');
         });
     }
 }

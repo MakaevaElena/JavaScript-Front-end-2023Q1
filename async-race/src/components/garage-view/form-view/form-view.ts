@@ -3,6 +3,8 @@ import Api from '../../../api';
 // import { CarsType } from '../../types/types';
 import './style.css';
 
+import { MODELS } from './constants';
+
 export default class FormView {
     private form = document.createElement('form');
     private inputCreateName = document.createElement('input');
@@ -66,6 +68,14 @@ export default class FormView {
             this.api.createCar({ name: name, color: color });
         };
 
+        const createHundredCars = () => {
+            for (let i = 0; i < 10; i++) {
+                const randomName = MODELS[this.getRandomInt(MODELS.length)];
+                const randomColor = '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
+                this.api.createCar({ name: randomName, color: randomColor });
+            }
+        };
+
         const updateCar = () => {
             const id = localStorage.getItem('id');
             let name = localStorage.getItem('name');
@@ -78,5 +88,10 @@ export default class FormView {
 
         this.buttonCreate.addEventListener('click', createCar);
         this.buttonUpdate.addEventListener('click', updateCar);
+        this.buttonGenerateCars.addEventListener('click', createHundredCars);
+    }
+
+    private getRandomInt(max: number) {
+        return Math.floor(Math.random() * max);
     }
 }

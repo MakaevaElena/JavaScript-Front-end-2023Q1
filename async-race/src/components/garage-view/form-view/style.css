@@ -8,7 +8,8 @@
         'inputUpdateName inputUpdateName buttonUpdateColor buttonUpdate'
         'buttonRace buttonReset buttonGenerateCars buttonGenerateCars';
     grid-gap: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
 }
 
 .create-name {

@@ -14,7 +14,8 @@ export default class GarageView {
     private pageNumberHeader = document.createElement('h3');
     private carsListElement = document.createElement('div');
     private carsListData!: CarsType;
-    private currentPageNumber = 1;
+    private allCars!: CarsType;
+    private currentPageNumber = localStorage.getItem('currentPage');
     private api = new Api();
     private formView = new FormView();
     private carView!: CarView;
@@ -22,6 +23,7 @@ export default class GarageView {
 
     constructor() {
         this.getCars();
+        this.getCarsByPage();
         this.garageView = this.createGarage();
     }
 
@@ -30,8 +32,18 @@ export default class GarageView {
     }
 
     private async getCars() {
-        this.carsListData = await this.api.getCars();
+        this.allCars = await this.api.getCars();
+        console.log(this.allCars);
+        if (this.allCars) localStorage.setItem('totalCountCars', `${this.allCars.length}`);
+    }
+
+    private async getCarsByPage() {
+        const currentPageNumber = localStorage.getItem('currentPage');
+        currentPageNumber
+            ? (this.carsListData = await this.api.getCarsByPage(+currentPageNumber))
+            : (this.carsListData = await this.api.getCarsByPage(1));
         this.createRaceRoad();
+        // console.log(currentPageNumber);
     }
 
     private createGarage() {
@@ -42,9 +54,11 @@ export default class GarageView {
     }
 
     private createRaceRoad() {
-        console.log(this.carsListData);
+        // console.log(this.carsListData);
         this.raceRoads.classList.add('race-road');
-        this.roadHeader.innerText = `Garage (${this.carsListData.length})`;
+        this.allCars
+            ? (this.roadHeader.innerText = `Garage (${this.allCars.length})`)
+            : (this.roadHeader.innerText = `Garage (${0})`);
         this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
         this.carsListElement.classList.add('cars-list');
 

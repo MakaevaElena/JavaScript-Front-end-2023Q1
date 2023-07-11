@@ -4,8 +4,9 @@ import { CarsType } from '../../types/types';
 import './style.css';
 import PaginationView from '../pagination/pagination';
 import FormView from './form-view/form-view';
+import MainView from '../main-view/main-view';
 
-export default class GarageView {
+export default class GarageView extends MainView {
     protected garageView: HTMLElement;
     private garage = document.createElement('div');
 
@@ -22,8 +23,7 @@ export default class GarageView {
     private paginationView = new PaginationView();
 
     constructor() {
-        this.getCars();
-        this.getCarsByPage();
+        super();
         this.garageView = this.createGarage();
     }
 
@@ -33,7 +33,7 @@ export default class GarageView {
 
     private async getCars() {
         this.allCars = await this.api.getCars();
-        console.log(this.allCars);
+        // console.log(this.allCars);
         if (this.allCars) localStorage.setItem('totalCountCars', `${this.allCars.length}`);
     }
 
@@ -48,7 +48,8 @@ export default class GarageView {
 
     private createGarage() {
         this.garage.classList.add('garage');
-
+        this.getCars();
+        this.getCarsByPage();
         this.garage.append(this.formView.createForm(), this.raceRoads, this.paginationView.createButtons());
         return this.garage;
     }
@@ -67,5 +68,22 @@ export default class GarageView {
             this.carView.createCarBlock(this.carsListElement);
         });
         this.raceRoads.append(this.roadHeader, this.pageNumberHeader, this.carsListElement);
+    }
+
+    // TODO в инспекторе не добавляется класс hide/show к элементу garage
+    public showGarage() {
+        // const garage = document.querySelector('garage');
+        // const garageBlock = garage ? garage : this.garageView;
+        // TODO хотя в консоли этот элемент отображается с добавленным классом hide/show
+        console.log(this.garageView);
+        this.garageView.classList.add('show');
+        this.garageView.classList.remove('hide');
+    }
+
+    public hideGarage() {
+        console.log('hideGarage');
+        console.log(this.garageView);
+        this.garageView.classList.remove('show');
+        this.garageView.classList.add('hide');
     }
 }

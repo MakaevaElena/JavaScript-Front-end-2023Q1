@@ -9,7 +9,7 @@ export default class PaginationView {
 
     constructor() {
         // this.createButtons();
-        this.choosePage();
+        // this.choosePage();
     }
 
     public createButtons() {
@@ -23,13 +23,13 @@ export default class PaginationView {
             // pageButton.addEventListener('click', () => {
             //     this.api.getCarsByPage(i);
             // });
-
+            this.choosePage();
             this.pagination.append(pageButton);
         }
         return this.pagination;
     }
 
-    public async choosePage() {
+    private async choosePage() {
         this.pagination.addEventListener('click', async (event) => {
             if (event.target instanceof HTMLElement && event.target.classList.contains('page-button')) {
                 const id = event.target.getAttribute('id');

@@ -6,3 +6,11 @@
     border: 1px solid white;
     margin-top: 1rem;
 }
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

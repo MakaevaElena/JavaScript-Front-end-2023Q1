@@ -66,7 +66,8 @@ export default class CarView {
         if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
         this.carBottom.append(this.car);
         document.addEventListener('animationend', () => {
-            this.car.classList.remove('drive-car');
+            // this.car.classList.remove('drive-car');
+            this.car.classList.remove('move-right');
             // this.car.style.left = '800px';
         });
     }
@@ -87,7 +88,8 @@ export default class CarView {
 
     private driveCar() {
         this.startButton.addEventListener('click', () => {
-            this.car.classList.add('drive-car');
+            // this.car.classList.add('drive-car');
+            this.car.classList.add('move-right');
         });
     }
 }

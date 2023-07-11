@@ -1,1 +1,0 @@
-(()=>{"use strict";new class{constructor(){this.createApp()}createApp(){document.body.append("ASYNC-RACE")}}})();

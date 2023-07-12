@@ -1,3 +1,7 @@
+.garage {
+    transition: 0.2s;
+}
+
 .cars-list {
     display: flex;
     flex-direction: column;

@@ -2,6 +2,7 @@ import './style.css';
 import GarageView from '../garage-view/garage-view';
 import HeaderView from '../header-view/header-view';
 import WinnersView from '../winners-view/winners-view';
+// import PaginationView from '../pagination/pagination';
 
 export default class App {
     constructor() {

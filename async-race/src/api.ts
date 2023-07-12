@@ -14,24 +14,24 @@ export default class Api {
         return fetch(`${this.garage}`)
             .then((response) => response.json())
             .then((json) => json)
-            .catch((error) => console.log(error))
-            .finally(() => console.log('getCars finally'));
+            .catch((error) => console.log(error));
+        // .finally(() => console.log('getCars finally'));
     }
 
     public getCarsByPage(page: number, limit = 7) {
         return fetch(`${this.garage}?_page=${page}&_limit=${limit}`)
             .then((response) => response.json())
             .then((json) => json)
-            .catch((error) => console.log(error))
-            .finally(() => console.log('getCars finally'));
+            .catch((error) => console.log(error));
+        // .finally(() => console.log('getCars finally'));
     }
 
     public getCar(id: number) {
         return fetch(`${this.garage}/${id}`)
             .then((response) => response.json())
             .then((json) => json)
-            .catch((error) => console.log(error))
-            .finally(() => console.log('getCar finally'));
+            .catch((error) => console.log(error));
+        // .finally(() => console.log('getCar finally'));
     }
 
     public createCar(newCarData: newCarDataType) {

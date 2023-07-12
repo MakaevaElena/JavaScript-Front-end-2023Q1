@@ -1,7 +1,11 @@
+.winners {
+    transition: 0.2s;
+}
+
 .show {
-  display: block;
+    display: block;
 }
 
 .hide {
-  display: none;
+    display: none;
 }

@@ -2,6 +2,7 @@ import './style.css';
 import Api from '../../api';
 import { CarType } from '../../types/types';
 import { carImage } from '../car-view/car-image';
+import FormView from '../garage-view/form-view/form-view';
 
 export default class CarView {
     private carBlock = document.createElement('div');
@@ -18,8 +19,10 @@ export default class CarView {
 
     private carData: CarType;
     private api = new Api();
+    private formView: FormView;
 
-    constructor(carData: CarType) {
+    constructor(carData: CarType, formView: FormView) {
+        this.formView = formView;
         this.carData = carData;
         this.createTop(this.carData);
         this.createBottom();
@@ -76,6 +79,7 @@ export default class CarView {
         this.selectButton.addEventListener('click', () => {
             localStorage.setItem('id', carData.id.toString());
             localStorage.setItem('name', carData.name);
+            this.formView.setItemName(carData.name);
         });
     }
 

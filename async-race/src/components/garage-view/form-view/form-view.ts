@@ -69,6 +69,7 @@ export default class FormView {
         };
 
         const createHundredCars = () => {
+            //TODO при большой количестве генерации, генерируются не все машины
             for (let i = 0; i < 100; i++) {
                 const randomName = MODELS[this.getRandomInt(MODELS.length)];
                 const randomColor = '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
@@ -78,17 +79,21 @@ export default class FormView {
 
         const updateCar = () => {
             const id = localStorage.getItem('id');
-            let name = localStorage.getItem('name');
-            if (name) this.inputUpdateName.innerText = name;
-            this.inputUpdateName.addEventListener('change', () => (name = this.inputUpdateName.value));
-
+            // let name = localStorage.getItem('name');
+            // if (name) this.inputUpdateName.innerText = name;
+            // this.inputUpdateName.addEventListener('change', () => (name = this.inputUpdateName.value));
+            const newName = this.inputUpdateName.value;
             const newColor = this.buttonUpdateColor.value;
-            if (id && name) this.api.updateCar(+id, { name: name, color: newColor });
+            if (id && newName) this.api.updateCar(+id, { name: newName, color: newColor });
         };
 
         this.buttonCreate.addEventListener('click', createCar);
         this.buttonUpdate.addEventListener('click', updateCar);
         this.buttonGenerateCars.addEventListener('click', createHundredCars);
+    }
+
+    public setItemName(name: string) {
+        this.inputUpdateName.value = name;
     }
 
     private getRandomInt(max: number) {

@@ -5,26 +5,28 @@ import './style.css';
 export default class PaginationView {
     private pagination = document.createElement('div');
     // private api = new Api();
-    private totalCountCars = localStorage.getItem('totalCountCars') || 1;
+    private totalCountCars = localStorage.getItem('totalCountCars') || 4;
 
     constructor() {
         // this.createButtons();
         // this.choosePage();
     }
 
-    public createButtons() {
+    public createButtons(totalCountCars: string) {
+        // this.totalCountCars = localStorage.getItem('totalCountCars');
+
         this.pagination.classList.add('pagination');
-        // console.log(this.totalCountCars);
-        for (let i = 1; i <= +this.totalCountCars / 7; i++) {
+        const buttonsCount = Math.ceil(+totalCountCars / 7);
+
+        for (let i = 1; i <= buttonsCount; i++) {
+            console.log('buttons');
             const pageButton = document.createElement('div');
             pageButton.classList.add('page-button', 'button');
             pageButton.setAttribute('id', `${i}`);
             pageButton.innerHTML = i.toString();
-            // pageButton.addEventListener('click', () => {
-            //     this.api.getCarsByPage(i);
-            // });
-            this.choosePage();
+
             this.pagination.append(pageButton);
+            this.choosePage();
         }
         return this.pagination;
     }

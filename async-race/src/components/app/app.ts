@@ -1,6 +1,7 @@
 import './style.css';
 import GarageView from '../garage-view/garage-view';
 import HeaderView from '../header-view/header-view';
+import WinnersView from '../winners-view/winners-view';
 
 export default class App {
     constructor() {
@@ -10,9 +11,11 @@ export default class App {
     private createApp() {
         const app = document.createElement('div');
         app.classList.add('app');
-        const headerView = new HeaderView();
+
         const garageView = new GarageView();
-        app.append(headerView.getHeaderView(), garageView.getGarageView());
+        const winnersView = new WinnersView();
+        const headerView = new HeaderView(garageView, winnersView);
+        app.append(headerView.getHeaderView(), garageView.getGarageView(), winnersView.getWinnersView());
         document.body.append(app);
     }
 }

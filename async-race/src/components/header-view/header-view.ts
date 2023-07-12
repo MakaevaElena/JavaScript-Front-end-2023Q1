@@ -1,18 +1,23 @@
-import MainView from '../main-view/main-view';
-import './style.css';
 import GarageView from '../garage-view/garage-view';
+import MainView from '../main-view/main-view';
+import WinnersView from '../winners-view/winners-view';
+import './style.css';
+// import GarageView from '../garage-view/garage-view';
 
 export default class HeaderView extends MainView {
     private headerView: HTMLElement;
+    garageView: GarageView;
+    winnersView: WinnersView;
     // private header = document.createElement('div');
     private headerButtons = document.createElement('div');
     private toGarageButton = document.createElement('button');
     private toWinnersButton = document.createElement('button');
-    private garageView = new GarageView();
 
-    constructor() {
+    constructor(garageView: GarageView, winnersView: WinnersView) {
         super();
         this.headerView = this.createHeader();
+        this.garageView = garageView;
+        this.winnersView = winnersView;
     }
 
     getHeaderView() {
@@ -34,9 +39,14 @@ export default class HeaderView extends MainView {
         return header;
     }
 
-    // TODO в инспекторе не добавляется класс hide/show к элементу garage
     private changePage() {
-        this.toGarageButton.addEventListener('click', () => this.garageView.showGarage());
-        this.toWinnersButton.addEventListener('click', () => this.garageView.hideGarage());
+        this.toGarageButton.addEventListener('click', () => {
+            this.garageView.showGarage();
+            this.winnersView.hideWinners();
+        });
+        this.toWinnersButton.addEventListener('click', () => {
+            this.garageView.hideGarage();
+            this.winnersView.showWinners();
+        });
     }
 }

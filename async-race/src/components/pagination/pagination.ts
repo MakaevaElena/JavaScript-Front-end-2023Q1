@@ -1,7 +1,5 @@
 import GarageView from '../garage-view/garage-view';
 import './style.css';
-// import Api from '../../api';
-// import { CarsType } from '../../types/types';
 
 export default class PaginationView {
     private pagination = document.createElement('div');
@@ -9,10 +7,10 @@ export default class PaginationView {
 
     constructor(garageView: GarageView) {
         this.garageView = garageView;
-        this.choosePage();
     }
 
     public createButtons(totalCountCars: string) {
+        this.pagination.innerHTML = '';
         this.pagination.classList.add('pagination');
         const buttonsCount = Math.ceil(+totalCountCars / 7);
 
@@ -22,21 +20,15 @@ export default class PaginationView {
             pageButton.setAttribute('id', `${i}`);
             pageButton.innerHTML = i.toString();
 
+            pageButton.addEventListener('click', () => this.choosePage(i));
+
             this.pagination.append(pageButton);
         }
         return this.pagination;
     }
 
-    private choosePage() {
-        let currentPage;
-        this.pagination.addEventListener('click', async (event) => {
-            if (event.target instanceof HTMLElement && event.target.classList.contains('page-button')) {
-                currentPage = event.target.getAttribute('id');
-                if (currentPage) {
-                    localStorage.setItem('currentPage', currentPage);
-                    this.garageView.setPage(currentPage);
-                }
-            }
-        });
+    private choosePage(currentPage: number) {
+        localStorage.setItem('currentPage', currentPage.toString());
+        this.garageView.createRaceRoad();
     }
 }

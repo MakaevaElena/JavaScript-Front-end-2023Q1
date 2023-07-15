@@ -16,9 +16,9 @@ export default class GarageView extends MainView {
     private carsListElement = document.createElement('div');
     private currentPageNumber = localStorage.getItem('currentPage');
     private api = new Api();
-    private formView = new FormView();
     private carView!: CarView;
     private paginationView = new PaginationView(this);
+    private formView = new FormView(this, this.paginationView);
 
     constructor() {
         super();
@@ -29,13 +29,12 @@ export default class GarageView extends MainView {
         return this.garageView;
     }
 
-    public async setPage(currentPage: string) {
-        console.log(currentPage);
-        this.createGarage();
-    }
+    // public async setPage() {
+    //     this.carsListElement.innerHTML = '';
+    //     this.createRaceRoad();
+    // }
 
     private createGarage() {
-        // TODO почистить не получается
         if (this.garageView) this.garageView.innerHTML = '';
         this.garage.innerHTML = '';
 
@@ -52,12 +51,14 @@ export default class GarageView extends MainView {
                 this.createRaceRoad();
                 return this.garage;
             })
-            .then((garage) => garage);
+            .then((garage) => garage)
+            .catch(() => alert('Server Error - failed to get cars'));
 
         return this.garage;
     }
 
-    private async createRaceRoad() {
+    public async createRaceRoad() {
+        this.carsListElement.innerHTML = '';
         this.currentPageNumber = localStorage.getItem('currentPage');
         this.api.getCars().then((totalCountCars) => {
             this.roadHeader.innerText = `Garage (${totalCountCars.length})`;
@@ -71,10 +72,11 @@ export default class GarageView extends MainView {
         const currentPage = localStorage.getItem('currentPage') || '1';
         const carsListData: CarsType = await this.api.getCarsByPage(+currentPage);
         carsListData.map((carData) => {
-            this.carView = new CarView(carData, this.formView);
+            this.carView = new CarView(carData, this.formView, this);
             this.carView.createCarBlock(this.carsListElement);
         });
         this.raceRoads.append(this.roadHeader, this.pageNumberHeader, this.carsListElement);
+        this.api.getCars().then((allCars) => this.paginationView.createButtons(`${allCars.length}`));
     }
 
     public showGarage() {

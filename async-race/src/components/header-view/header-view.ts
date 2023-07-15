@@ -25,7 +25,7 @@ export default class HeaderView extends MainView {
     }
 
     private createHeader() {
-        const header = document.createElement('div');
+        const header = document.createElement('header');
         header.classList.add('header');
         this.headerButtons.classList.add('header-buttons');
         this.toGarageButton.classList.add('to-garage', 'button');
@@ -35,15 +35,20 @@ export default class HeaderView extends MainView {
         this.headerButtons.append(this.toGarageButton, this.toWinnersButton);
 
         header.append(this.headerButtons);
-        this.changePage();
+        // this.changePage();
+        this.showGarage();
+        this.shawWinners();
         return header;
     }
 
-    private changePage() {
+    private showGarage() {
         this.toGarageButton.addEventListener('click', () => {
             this.garageView.showGarage();
             this.winnersView.hideWinners();
         });
+    }
+
+    private shawWinners() {
         this.toWinnersButton.addEventListener('click', () => {
             this.garageView.hideGarage();
             this.winnersView.showWinners();

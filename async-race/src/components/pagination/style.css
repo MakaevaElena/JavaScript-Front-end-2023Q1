@@ -2,6 +2,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: 1rem;
 }
 
@@ -12,4 +13,5 @@
     margin-right: 0.5rem;
     height: 1.5rem;
     width: 1.5rem;
+    margin-top: 0.5rem;
 }

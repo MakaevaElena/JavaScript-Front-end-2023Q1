@@ -3,6 +3,7 @@ import Api from '../../api';
 import { CarType } from '../../types/types';
 import { carImage } from '../car-view/car-image';
 import FormView from '../garage-view/form-view/form-view';
+import GarageView from '../garage-view/garage-view';
 
 export default class CarView {
     private carBlock = document.createElement('div');
@@ -20,8 +21,10 @@ export default class CarView {
     private carData: CarType;
     private api = new Api();
     private formView: FormView;
+    private garageView: GarageView;
 
-    constructor(carData: CarType, formView: FormView) {
+    constructor(carData: CarType, formView: FormView, garageView: GarageView) {
+        this.garageView = garageView;
         this.formView = formView;
         this.carData = carData;
         this.createTop(this.carData);
@@ -71,7 +74,6 @@ export default class CarView {
         document.addEventListener('animationend', () => {
             // this.car.classList.remove('drive-car');
             this.car.classList.remove('move-right');
-            // this.car.style.left = '800px';
         });
     }
 
@@ -84,13 +86,14 @@ export default class CarView {
     }
 
     private deleteCar(carData: CarType) {
-        this.removeButton.addEventListener('click', () => {
+        this.removeButton.addEventListener('click', (event) => {
+            event.preventDefault();
             this.api.deleteCar(carData.id);
-            window.document.location.reload();
+            this.garageView.createRaceRoad();
         });
     }
 
-    private driveCar() {
+    public driveCar() {
         this.startButton.addEventListener('click', () => {
             // this.car.classList.add('drive-car');
             this.car.classList.add('move-right');

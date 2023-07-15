@@ -1,6 +1,6 @@
 import Api from '../../../api';
-// import CarView from '../../components/car-view/car-view';
-// import { CarsType } from '../../types/types';
+import GarageView from '../../garage-view/garage-view';
+import PaginationView from '../../pagination/pagination';
 import './style.css';
 
 import { MODELS } from './constants';
@@ -18,10 +18,16 @@ export default class FormView {
     private buttonGenerateCars = document.createElement('button');
 
     private api = new Api();
+    garageView: GarageView;
+    paginationView: PaginationView;
 
-    constructor() {
+    constructor(garageView: GarageView, paginationView: PaginationView) {
+        this.paginationView = paginationView;
+        this.garageView = garageView;
         this.createForm();
         this.sendFormData();
+        this.startRace();
+        this.resetRace();
     }
 
     public createForm() {
@@ -62,29 +68,34 @@ export default class FormView {
     }
 
     private sendFormData() {
-        const createCar = () => {
+        const createCar = (event: Event) => {
+            event.preventDefault();
             const name = this.inputCreateName.value || 'Car';
             const color = this.buttonCreateColor.value;
             this.api.createCar({ name: name, color: color });
+            this.garageView.createRaceRoad();
+            // this.api.getCars().then((allCars) => this.paginationView.createButtons(`${allCars.length}`));
         };
 
-        const createHundredCars = () => {
-            //TODO при большой количестве генерации, генерируются не все машины
+        const createHundredCars = (event: Event) => {
+            event.preventDefault();
+            //TODO при большом количестве генерации, генерируются не все машины
             for (let i = 0; i < 100; i++) {
                 const randomName = MODELS[this.getRandomInt(MODELS.length)];
                 const randomColor = '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
                 this.api.createCar({ name: randomName, color: randomColor });
             }
+            this.garageView.createRaceRoad();
+            // this.api.getCars().then((allCars) => this.paginationView.createButtons(`${allCars.length}`));
         };
 
-        const updateCar = () => {
+        const updateCar = (event: Event) => {
+            event.preventDefault();
             const id = localStorage.getItem('id');
-            // let name = localStorage.getItem('name');
-            // if (name) this.inputUpdateName.innerText = name;
-            // this.inputUpdateName.addEventListener('change', () => (name = this.inputUpdateName.value));
             const newName = this.inputUpdateName.value;
             const newColor = this.buttonUpdateColor.value;
             if (id && newName) this.api.updateCar(+id, { name: newName, color: newColor });
+            this.garageView.createRaceRoad();
         };
 
         this.buttonCreate.addEventListener('click', createCar);
@@ -98,5 +109,22 @@ export default class FormView {
 
     private getRandomInt(max: number) {
         return Math.floor(Math.random() * max);
+    }
+
+    private startRaceHandler(event: Event) {
+        event.preventDefault();
+    }
+
+    private startRace() {
+        this.buttonRace.addEventListener('click', this.startRaceHandler);
+        // this.api.getCars().then((allCars) => this.carView.driveCar());
+    }
+
+    private resetRaceHandler(event: Event) {
+        event.preventDefault();
+    }
+
+    private resetRace() {
+        this.buttonReset.addEventListener('click', this.resetRaceHandler);
     }
 }

@@ -9,3 +9,23 @@
 .hide {
     display: none;
 }
+
+.winners-table {
+    width: 50%;
+    border: 1px solid white;
+    margin: 0.2rem;
+}
+
+.winner-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    border: 1px solid white;
+    /* margin-top: 0.2rem; */
+}
+
+.cell {
+    padding: 0.5rem;
+    border: 1px solid white;
+    margin: 0.2rem;
+}

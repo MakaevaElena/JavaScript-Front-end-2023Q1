@@ -1,10 +1,10 @@
 import GarageView from '../garage-view/garage-view';
-import MainView from '../main-view/main-view';
+import DefaultView from '../main-view/default-view';
 import WinnersView from '../winners-view/winners-view';
 import './style.css';
 // import GarageView from '../garage-view/garage-view';
 
-export default class HeaderView extends MainView {
+export default class HeaderView extends DefaultView {
     private headerView: HTMLElement;
     garageView: GarageView;
     winnersView: WinnersView;

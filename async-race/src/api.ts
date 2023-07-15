@@ -1,4 +1,4 @@
-import { updatedCarDataType, newCarDataType } from './types/types';
+import { updatedCarDataType, newCarDataType, winnerDataType, updatedWinnerData } from './types/types';
 
 export default class Api {
     private url = 'http://127.0.0.1:3000';
@@ -66,17 +66,67 @@ export default class Api {
             body: JSON.stringify(updatedCarData),
         })
             .then((response) => response.json())
-            .then((json) => json)
             .catch((error) => console.log(error))
             .finally(() => console.log('updateCar finally'));
     }
 
-    // startEngine// stopEngine
-    // driveCar
+    public startStopEngine(id: number, status: string) {
+        return fetch(`${this.engine}?id=${id}&status=${status}`, {
+            method: 'PATCH',
+        })
+            .then((response) => response.json())
+            .catch((error) => console.log(error))
+            .finally(() => console.log('Car is started/stopped finally'));
+    }
 
-    // getWinners
-    // getWinner
-    // createWinner
-    // delete Winner
-    // updateWinner
+    public driveCar(id: number, status: string) {
+        return fetch(`${this.engine}?id=${id}&status=${status}`, {
+            method: 'PATCH',
+        })
+            .then((response) => response.json())
+            .catch((error) => console.log(error))
+            .finally(() => console.log('Car is drived finally'));
+    }
+
+    public getWinners(page: number, limit = 7, sort = 'id', order = 'ASC') {
+        return fetch(`${this.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
+            .then((response) => response.json())
+            .catch((error) => console.log(error));
+    }
+
+    public getWinner(id: number) {
+        return fetch(`${this.winners}/${id}`)
+            .then((response) => response.json())
+            .catch((error) => console.log(error));
+    }
+
+    public createWinner(winnerData: winnerDataType) {
+        return fetch(`${this.winners}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(winnerData),
+        })
+            .then((response) => response.json())
+            .then((json) => json)
+            .catch((error) => console.log(error))
+            .finally(() => console.log('createWinner finally'));
+    }
+
+    public deleteWinner(id: number) {
+        return fetch(`${this.winners}/${id}`, {
+            method: 'DELETE',
+        }).catch((error) => console.log(error));
+    }
+
+    public updateWinner(id: number, updatedWinnerData: updatedWinnerData) {
+        return fetch(`${this.winners}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedWinnerData),
+        }).catch((error) => console.log(error));
+    }
 }

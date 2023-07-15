@@ -1,6 +1,6 @@
 import './style.css';
 import Api from '../../api';
-import { CarType } from '../../types/types';
+import { CarType, winnerDataType } from '../../types/types';
 import { carImage } from '../car-view/car-image';
 import FormView from '../garage-view/form-view/form-view';
 import GarageView from '../garage-view/garage-view';
@@ -28,11 +28,10 @@ export default class CarView {
         this.formView = formView;
         this.carData = carData;
         this.createTop(this.carData);
-        this.createBottom();
+        this.createBottom(this.carData);
         this.createCar(carData);
         this.updateCar(carData);
         this.deleteCar(carData);
-        this.driveCar();
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -53,14 +52,19 @@ export default class CarView {
         this.carTop.append(this.selectButton, this.removeButton, this.carName);
     }
 
-    private createBottom() {
+    private createBottom(carData: CarType) {
         this.carBottom.classList.add('car-bottom');
         this.carBottomButtons.classList.add('car-bottom-buttons');
         this.startButton.classList.add('start-button', 'button');
         this.flag.classList.add('flag');
         this.startButton.innerHTML = `<h3>A</h3>`;
+
         this.stopButton.classList.add('stop-button', 'button');
         this.stopButton.innerHTML = `<h3>B</h3>`;
+
+        this.startButton.addEventListener('click', () => this.startEngine(carData.id));
+        this.stopButton.addEventListener('click', () => this.stopEngine(carData.id));
+
         this.carBottomButtons.append(this.startButton, this.stopButton);
         this.carBottom.append(this.carBottomButtons, this.flag);
     }
@@ -93,10 +97,51 @@ export default class CarView {
         });
     }
 
-    public driveCar() {
-        this.startButton.addEventListener('click', () => {
-            // this.car.classList.add('drive-car');
-            this.car.classList.add('move-right');
+    private startEngine(id: number) {
+        this.api.startStopEngine(id, 'started').then((response) => {
+            this.driveCar(id, response.distance / response.velocity);
         });
+    }
+
+    private stopEngine(id: number) {
+        this.api.startStopEngine(id, 'stopped');
+    }
+
+    private driveCar(id: number, time: number) {
+        console.log(time);
+        // this.car.classList.add('drive-car');
+        this.car.style.transitionDuration = `${time}`;
+        this.car.classList.add('move-right');
+        this.api
+            .driveCar(id, 'drive')
+            .then((response) => {
+                if (response.success === true) {
+                    console.log(`${id} add to winners`);
+
+                    this.api
+                        .getWinner(id)
+                        .then((winner: winnerDataType) => this.api.updateWinner(id, { wins: winner.wins, time: time }))
+                        .catch(() => this.api.createWinner({ id: id, wins: 1, time: time }));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                switch (error) {
+                    case 500:
+                        console.log('500 stop car');
+                        break;
+                    case 400:
+                        console.log('error 400');
+                        break;
+                    case 404:
+                        console.log('error 404');
+                        break;
+                    case 429:
+                        console.log('error 429');
+                        break;
+                    default:
+                        console.log('default');
+                }
+            });
     }
 }

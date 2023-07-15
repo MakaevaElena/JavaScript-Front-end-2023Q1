@@ -15,3 +15,14 @@ export type newCarDataType = {
     name: string;
     color: string;
 };
+
+export type winnerDataType = {
+    id: number;
+    wins: number;
+    time: number;
+};
+
+export type updatedWinnerData = {
+    wins: number;
+    time: number;
+};

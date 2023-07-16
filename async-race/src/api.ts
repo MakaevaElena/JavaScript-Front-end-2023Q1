@@ -6,10 +6,6 @@ export default class Api {
     private engine = `${this.url}/engine`;
     private winners = `${this.url}/winners`;
 
-    // constructor() {
-
-    // }
-
     public getCars() {
         return fetch(`${this.garage}`)
             .then((response) => response.json())
@@ -83,7 +79,7 @@ export default class Api {
         return fetch(`${this.engine}?id=${id}&status=${status}`, {
             method: 'PATCH',
         })
-            .then((response) => response.json())
+            .then((response) => (response.ok ? response.json() : response.status))
             .catch((error) => console.log(error))
             .finally(() => console.log('Car is drived finally'));
     }
@@ -94,10 +90,15 @@ export default class Api {
             .catch((error) => console.log(error));
     }
 
+    // public getWinner(id: number) {
+    //     return fetch(`${this.winners}/${id}`).then((response) => response.json());
+    // }
+
     public getWinner(id: number) {
         return fetch(`${this.winners}/${id}`)
-            .then((response) => response.json())
-            .catch((error) => console.log(error));
+            .then((response) => (response.ok ? response.json() : response.status))
+            .catch((error) => console.log(error))
+            .finally(() => console.log('getWinner finally'));
     }
 
     public createWinner(winnerData: winnerDataType) {
@@ -127,6 +128,8 @@ export default class Api {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(updatedWinnerData),
-        }).catch((error) => console.log(error));
+        })
+            .catch((error) => console.log(error))
+            .finally(() => console.log('updateWinner finally'));
     }
 }

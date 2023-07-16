@@ -1,5 +1,6 @@
 import { winnerDataType, CarType } from './../../types/types';
 import './style.css';
+import { carImage } from '../car-view/car-image';
 import Api from '../../api';
 import DefaultView from '../main-view/default-view';
 
@@ -18,7 +19,11 @@ export default class WinnersView extends DefaultView {
     }
 
     private createWinnersPage() {
-        this.winners.classList.add('winners');
+        this.winners.classList.add('winners', 'hide');
+
+        const isGarage = localStorage.getItem('isGarage');
+        isGarage === 'true' ? this.hideWinners() : this.showWinners();
+
         this.winners.innerHTML = 'WINNERS';
         this.winners.append(this.createWinnersTable());
         return this.winners;
@@ -37,10 +42,14 @@ export default class WinnersView extends DefaultView {
                 const winnerRow = this.createTagElement('div', ['winner-row', 'cell']);
                 const winnerNum = this.createTagElement('div', ['winner-Num', 'cell'], `${i}`);
                 const winnerWins = this.createTagElement('div', ['winner-wins', 'cell'], `${winner.wins}`);
-                const winnerTime = this.createTagElement('div', ['winner-time', 'cell'], `${winner.time}`);
+                const winnerTime = this.createTagElement('div', ['winner-time', 'cell'], `${Math.round(winner.time)}`);
 
                 this.api.getCar(winner.id).then((carData: CarType) => {
-                    const winnerCar = this.createTagElement('div', ['winner-car', 'cell'], `${carData.color}`);
+                    const winnerCar = this.createTagElement('div', ['winner-car', 'cell']);
+                    winnerCar.innerHTML = carImage;
+                    const carSVGElement = winnerCar.querySelector('svg g');
+                    if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
+
                     const winnerName = this.createTagElement('div', ['winner-name', 'cell'], `${carData.name}`);
                     winnerRow.append(winnerNum, winnerCar, winnerName, winnerWins, winnerTime);
                 });
@@ -66,10 +75,12 @@ export default class WinnersView extends DefaultView {
     public showWinners() {
         this.winners.classList.add('show');
         this.winners.classList.remove('hide');
+        localStorage.setItem('isGarage', 'false');
     }
 
     public hideWinners() {
         this.winners.classList.remove('show');
         this.winners.classList.add('hide');
+        localStorage.setItem('isGarage', 'true');
     }
 }

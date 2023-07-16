@@ -92,8 +92,10 @@ export default class CarView {
     private deleteCar(carData: CarType) {
         this.removeButton.addEventListener('click', (event) => {
             event.preventDefault();
-            this.api.deleteCar(carData.id);
-            this.garageView.createRaceRoad();
+            this.api.deleteCar(carData.id).then(() => {
+                this.garageView.createRaceRoad();
+                // this.api.deleteWinner(carData.id).then(() => this.winnersView.deleteWinner());
+            });
         });
     }
 
@@ -105,43 +107,53 @@ export default class CarView {
 
     private stopEngine(id: number) {
         this.api.startStopEngine(id, 'stopped');
+        this.car.style.animationPlayState = 'paused';
     }
 
-    private driveCar(id: number, time: number) {
-        console.log(time);
+    private animateCar() {
+        this.car.classList.add('move-right');
+        requestAnimationFrame(this.animateCar);
+    }
+
+    private async driveCar(id: number, time: number) {
         // this.car.classList.add('drive-car');
         this.car.style.transitionDuration = `${time}`;
         this.car.classList.add('move-right');
-        this.api
-            .driveCar(id, 'drive')
-            .then((response) => {
-                if (response.success === true) {
-                    console.log(`${id} add to winners`);
-
-                    this.api
-                        .getWinner(id)
-                        .then((winner: winnerDataType) => this.api.updateWinner(id, { wins: winner.wins, time: time }))
-                        .catch(() => this.api.createWinner({ id: id, wins: 1, time: time }));
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                switch (error) {
-                    case 500:
-                        console.log('500 stop car');
-                        break;
-                    case 400:
-                        console.log('error 400');
-                        break;
-                    case 404:
-                        console.log('error 404');
-                        break;
-                    case 429:
-                        console.log('error 429');
-                        break;
-                    default:
-                        console.log('default');
-                }
-            });
+        // this.animateCar();
+        await this.api.driveCar(id, 'drive').then((res) => {
+            console.log('res', res);
+            switch (true) {
+                case res.success === true:
+                    this.api.getWinner(id).then((res) => {
+                        switch (true) {
+                            case res instanceof Object:
+                                // console.log('winners', res);
+                                this.api.updateWinner(id, { wins: res.wins + 1, time: time });
+                                break;
+                            case res === 404:
+                                this.api.createWinner({ id: id, wins: 1, time: time });
+                                break;
+                            default:
+                                console.log('getWinner default error');
+                        }
+                    });
+                    break;
+                case res === 500:
+                    console.log('error 500');
+                    this.car.style.animationPlayState = 'paused';
+                    break;
+                case res === 400:
+                    console.log('error 400');
+                    break;
+                case res === 404:
+                    console.log('error 404');
+                    break;
+                case res === 429:
+                    console.log('error 429');
+                    break;
+                default:
+                    console.log('driveCar default error');
+            }
+        });
     }
 }

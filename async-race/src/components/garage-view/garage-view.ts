@@ -31,16 +31,22 @@ export default class GarageView extends DefaultView {
         return this.garageView;
     }
 
-    // public async setPage() {
-    //     this.carsListElement.innerHTML = '';
-    //     this.createRaceRoad();
-    // }
-
     private createGarage() {
-        if (this.garageView) this.garageView.innerHTML = '';
-        this.garage.innerHTML = '';
+        // if (this.garageView) this.garageView.innerHTML = '';
+        // this.garage.innerHTML = '';
 
         this.garage.classList.add('garage');
+        const isGarage = localStorage.getItem('isGarage');
+
+        //TODO ? почему не сработало this.hideGarage()
+        // isGarage === 'true' ? this.showGarage() : this.hideGarage();
+        if (isGarage === 'true') {
+            this.garage.classList.add('show');
+            this.garage.classList.remove('hide');
+        } else {
+            this.garage.classList.remove('show');
+            this.garage.classList.add('hide');
+        }
 
         this.api
             .getCars()
@@ -62,7 +68,7 @@ export default class GarageView extends DefaultView {
     public async createRaceRoad() {
         this.carsListElement.innerHTML = '';
         if (this.allCars.length <= 7) {
-            localStorage.setItem('currentPage', this.START_PAGE);
+            // localStorage.setItem('currentPage', this.START_PAGE);
             this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
         }
 
@@ -90,14 +96,14 @@ export default class GarageView extends DefaultView {
     }
 
     public showGarage() {
-        console.log(this.garageView);
         this.garageView.classList.add('show');
         this.garageView.classList.remove('hide');
+        localStorage.setItem('isGarage', 'true');
     }
 
     public hideGarage() {
-        console.log(this.garageView);
         this.garageView.classList.remove('show');
         this.garageView.classList.add('hide');
+        localStorage.setItem('isGarage', 'false');
     }
 }

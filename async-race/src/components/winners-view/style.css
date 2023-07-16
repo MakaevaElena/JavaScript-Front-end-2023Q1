@@ -25,7 +25,23 @@
 }
 
 .cell {
+    align-items: center;
+    justify-content: center;
     padding: 0.5rem;
     border: 1px solid white;
     margin: 0.2rem;
 }
+
+.winner-car.cell {
+    padding: 0;
+}
+
+.winner-car svg {
+    width: 80px;
+    height: 30px;
+}
+/* 
+.winner-car.svg {
+    width: 1%;
+    height: 1%;
+} */

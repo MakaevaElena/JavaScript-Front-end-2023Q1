@@ -37,7 +37,7 @@ export default class HeaderView extends DefaultView {
         header.append(this.headerButtons);
         // this.changePage();
         this.showGarage();
-        this.shawWinners();
+        this.showWinners();
         return header;
     }
 
@@ -48,7 +48,7 @@ export default class HeaderView extends DefaultView {
         });
     }
 
-    private shawWinners() {
+    private showWinners() {
         this.toWinnersButton.addEventListener('click', () => {
             this.garageView.hideGarage();
             this.winnersView.showWinners();

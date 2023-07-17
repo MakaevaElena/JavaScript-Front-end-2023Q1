@@ -10,7 +10,15 @@ export default class WinnersView extends DefaultView {
     protected winnersView: HTMLElement;
     private winners = document.createElement('div');
     private table = document.createElement('div');
+    private winnerHeader = document.createElement('h2');
+    private pageNumberHeader = document.createElement('h3');
     paginationView: PaginationView;
+
+    private tableHeaderNum = this.createTagElement('div', ['table-header-number', 'cell', 'button'], 'Number &uarr;');
+    private tableHeaderCar = this.createTagElement('div', ['table-header-car', 'cell', 'button'], 'Car');
+    private tableHeaderName = this.createTagElement('div', ['table-header-name', 'cell', 'button'], 'Name');
+    private tableHeaderWins = this.createTagElement('div', ['table-header-wins', 'cell', 'button'], 'Wins  &darr;');
+    private tableHeaderTime = this.createTagElement('div', ['table-header-time', 'cell', 'button'], 'Best time &uarr;');
 
     constructor(paginationView: PaginationView) {
         super();
@@ -24,30 +32,33 @@ export default class WinnersView extends DefaultView {
 
     private createWinnersPage() {
         this.winners.classList.add('winners', 'hide');
-
         const isGarage = localStorage.getItem('isGarage');
-        // const currentWinnersPage = localStorage.getItem('currentWinnersPage') || '1';
         isGarage === 'true' ? this.hideWinners() : this.showWinners();
-
-        this.winners.innerHTML = 'WINNERS';
-        this.winners.append(this.createWinnersTable());
-
+        this.createWinnersTable();
+        this.sortByID();
+        this.sortByTyme();
+        this.sortByWins();
         return this.winners;
     }
 
-    public createWinnersTable() {
-        // const table = document.createElement('div');
+    public createWinnersTable(sort = 'id', order = 'ASC') {
+        const currentWinnersPage = localStorage.getItem('currentWinnersPage') || '1';
         this.table.innerHTML = '';
+        this.pageNumberHeader.innerText = `Page #${currentWinnersPage}`;
         this.table.classList.add('winners-table');
 
         this.createTableHeaders(this.table);
-        const currentWinnersPage = localStorage.getItem('currentWinnersPage') || '1';
-        this.api.getWinnersByPage(+currentWinnersPage).then((winners) => {
+
+        this.api.getWinnersByPage(+currentWinnersPage, 7, sort, order).then((winners) => {
             winners.map((winner: winnerDataType) => {
-                const winnerRow = this.createTagElement('div', ['winner-row', 'cell']);
+                const winnerRow = this.createTagElement('div', ['winner-row']);
                 const winnerNum = this.createTagElement('div', ['winner-Num', 'cell'], `${winner.id}`);
                 const winnerWins = this.createTagElement('div', ['winner-wins', 'cell'], `${winner.wins}`);
-                const winnerTime = this.createTagElement('div', ['winner-time', 'cell'], `${Math.round(winner.time)}`);
+                const winnerTime = this.createTagElement(
+                    'div',
+                    ['winner-time', 'cell'],
+                    `${Math.round(winner.time)} &darr;`
+                );
 
                 this.api.getCar(winner.id).then((carData: CarType) => {
                     const winnerCar = this.createTagElement('div', ['winner-car', 'cell']);
@@ -63,20 +74,32 @@ export default class WinnersView extends DefaultView {
             });
         });
         this.api.getAllWinners().then((allWinners) => {
-            this.winners.append(this.paginationView.createButtons(`${allWinners.length}`, this));
+            this.winnerHeader.innerText = `Winners (${allWinners.length})`;
+            this.winners.append(
+                this.winnerHeader,
+                this.pageNumberHeader,
+                this.table,
+                this.paginationView.createButtons(`${allWinners.length}`, this)
+            );
         });
 
-        return this.table;
+        // return this.table;
     }
     private createTableHeaders(table: HTMLElement) {
         const tableHeader = this.createTagElement('div', ['winner-row', 'table-header']);
-        const tableHeaderNum = this.createTagElement('div', ['table-header-number', 'cell'], 'Number');
-        const tableHeaderCar = this.createTagElement('div', ['table-header-car', 'cell'], 'Car');
-        const tableHeaderName = this.createTagElement('div', ['table-header-name', 'cell'], 'Name');
-        const tableHeaderWins = this.createTagElement('div', ['table-header-wins', 'cell'], 'Wins');
-        const tableHeaderTime = this.createTagElement('div', ['table-header-time', 'cell'], 'Best time');
+        // const tableHeaderNum = this.createTagElement('div', ['table-header-number', 'cell', 'button'], 'Number');
+        // const tableHeaderCar = this.createTagElement('div', ['table-header-car', 'cell', 'button'], 'Car');
+        // const tableHeaderName = this.createTagElement('div', ['table-header-name', 'cell', 'button'], 'Name');
+        // const tableHeaderWins = this.createTagElement('div', ['table-header-wins', 'cell', 'button'], 'Wins');
+        // const tableHeaderTime = this.createTagElement('div', ['table-header-time', 'cell', 'button'], 'Best time');
 
-        tableHeader.append(tableHeaderNum, tableHeaderCar, tableHeaderName, tableHeaderWins, tableHeaderTime);
+        tableHeader.append(
+            this.tableHeaderNum,
+            this.tableHeaderCar,
+            this.tableHeaderName,
+            this.tableHeaderWins,
+            this.tableHeaderTime
+        );
         table.append(tableHeader);
     }
 
@@ -90,5 +113,17 @@ export default class WinnersView extends DefaultView {
         this.winners.classList.remove('show');
         this.winners.classList.add('hide');
         localStorage.setItem('isGarage', 'true');
+    }
+
+    private sortByID() {
+        this.tableHeaderNum.addEventListener('click', () => this.createWinnersTable('id', 'ASC'));
+    }
+
+    private sortByWins() {
+        this.tableHeaderWins.addEventListener('click', () => this.createWinnersTable('wins', 'DESC'));
+    }
+
+    private sortByTyme() {
+        this.tableHeaderTime.addEventListener('click', () => this.createWinnersTable('time', 'ASC'));
     }
 }

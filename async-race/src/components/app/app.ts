@@ -2,7 +2,7 @@ import './style.css';
 import GarageView from '../garage-view/garage-view';
 import HeaderView from '../header-view/header-view';
 import WinnersView from '../winners-view/winners-view';
-// import FormView from '../garage-view/form-view/form-view';
+import PaginationView from '../pagination/pagination';
 
 export default class App {
     constructor() {
@@ -15,7 +15,8 @@ export default class App {
 
         // const form = new FormView();
         const garageView = new GarageView();
-        const winnersView = new WinnersView();
+        const paginationView = new PaginationView(garageView);
+        const winnersView = new WinnersView(paginationView);
         const headerView = new HeaderView(garageView, winnersView);
 
         // const garageElement = garageView.getGarageView();

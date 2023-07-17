@@ -6,10 +6,9 @@ export default class Api {
     private engine = `${this.url}/engine`;
     private winners = `${this.url}/winners`;
 
-    public getCars() {
+    public getAllCars() {
         return fetch(`${this.garage}`)
             .then((response) => response.json())
-            .then((json) => json)
             .catch((error) => console.log(error));
         // .finally(() => console.log('getCars finally'));
     }
@@ -84,7 +83,13 @@ export default class Api {
             .finally(() => console.log('Car is drived finally'));
     }
 
-    public getWinners(page: number, limit = 7, sort = 'id', order = 'ASC') {
+    public getAllWinners() {
+        return fetch(`${this.winners}`)
+            .then((response) => response.json())
+            .catch((error) => console.log(error));
+    }
+
+    public getWinnersByPage(page: number, limit = 7, sort = 'id', order = 'ASC') {
         return fetch(`${this.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
             .then((response) => response.json())
             .catch((error) => console.log(error));

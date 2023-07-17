@@ -100,7 +100,7 @@ export default class CarView {
         });
     }
 
-    private startEngine(id: number) {
+    public startEngine(id: number) {
         this.api.startStopEngine(id, 'started').then((response) => {
             this.driveCar(id, response.distance / response.velocity);
         });
@@ -108,7 +108,7 @@ export default class CarView {
         this.startButton.classList.add('disabled-button');
     }
 
-    private stopEngine(id: number) {
+    public stopEngine(id: number) {
         this.api.startStopEngine(id, 'stopped');
         // this.car.style.animationPlayState = 'paused';
         this.car.style.transform = `translateX(${0}vw)`;
@@ -116,7 +116,6 @@ export default class CarView {
 
     private animateCar(end: number, duration: number) {
         const width = window.screen.width;
-        console.log(width);
         const endX = end * (width / 100);
 
         let currentX = this.car.offsetLeft;
@@ -181,7 +180,7 @@ export default class CarView {
             });
     }
 
-    public reset() {
-        this.car.style.transform = `translateX(${0}vw)`;
-    }
+    // public resetCar() {
+    //     this.car.style.transform = `translateX(${0}vw)`;
+    // }
 }

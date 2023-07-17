@@ -3,15 +3,19 @@ import './style.css';
 import { carImage } from '../car-view/car-image';
 import Api from '../../api';
 import DefaultView from '../main-view/default-view';
+import PaginationView from '../pagination/pagination';
 
 export default class WinnersView extends DefaultView {
     private api = new Api();
     protected winnersView: HTMLElement;
     private winners = document.createElement('div');
+    private table = document.createElement('div');
+    paginationView: PaginationView;
 
-    constructor() {
+    constructor(paginationView: PaginationView) {
         super();
         this.winnersView = this.createWinnersPage();
+        this.paginationView = paginationView;
     }
 
     getWinnersView() {
@@ -22,25 +26,26 @@ export default class WinnersView extends DefaultView {
         this.winners.classList.add('winners', 'hide');
 
         const isGarage = localStorage.getItem('isGarage');
+        // const currentWinnersPage = localStorage.getItem('currentWinnersPage') || '1';
         isGarage === 'true' ? this.hideWinners() : this.showWinners();
 
         this.winners.innerHTML = 'WINNERS';
         this.winners.append(this.createWinnersTable());
+
         return this.winners;
     }
 
-    private createWinnersTable() {
-        const table = document.createElement('div');
-        table.classList.add('winners-table');
+    public createWinnersTable() {
+        // const table = document.createElement('div');
+        this.table.innerHTML = '';
+        this.table.classList.add('winners-table');
 
-        this.createTableHeaders(table);
-
-        this.api.getWinners(1).then((winners) => {
-            // console.log(winners);
-
-            winners.map((winner: winnerDataType, i: number) => {
+        this.createTableHeaders(this.table);
+        const currentWinnersPage = localStorage.getItem('currentWinnersPage') || '1';
+        this.api.getWinnersByPage(+currentWinnersPage).then((winners) => {
+            winners.map((winner: winnerDataType) => {
                 const winnerRow = this.createTagElement('div', ['winner-row', 'cell']);
-                const winnerNum = this.createTagElement('div', ['winner-Num', 'cell'], `${i}`);
+                const winnerNum = this.createTagElement('div', ['winner-Num', 'cell'], `${winner.id}`);
                 const winnerWins = this.createTagElement('div', ['winner-wins', 'cell'], `${winner.wins}`);
                 const winnerTime = this.createTagElement('div', ['winner-time', 'cell'], `${Math.round(winner.time)}`);
 
@@ -54,11 +59,14 @@ export default class WinnersView extends DefaultView {
                     winnerRow.append(winnerNum, winnerCar, winnerName, winnerWins, winnerTime);
                 });
 
-                table.append(winnerRow);
+                this.table.append(winnerRow);
             });
         });
+        this.api.getAllWinners().then((allWinners) => {
+            this.winners.append(this.paginationView.createButtons(`${allWinners.length}`, this));
+        });
 
-        return table;
+        return this.table;
     }
     private createTableHeaders(table: HTMLElement) {
         const tableHeader = this.createTagElement('div', ['winner-row', 'table-header']);

@@ -1,7 +1,9 @@
 import Api from '../../../api';
 import GarageView from '../../garage-view/garage-view';
 import PaginationView from '../../pagination/pagination';
+import CarView from '../../../components/car-view/car-view';
 import './style.css';
+import { CarsType } from '../../../types/types';
 
 import { MODELS } from './constants';
 
@@ -20,14 +22,14 @@ export default class FormView {
     private api = new Api();
     garageView: GarageView;
     paginationView: PaginationView;
+    carView: CarView;
 
-    constructor(garageView: GarageView, paginationView: PaginationView) {
+    constructor(garageView: GarageView, paginationView: PaginationView, carView: CarView) {
         this.paginationView = paginationView;
         this.garageView = garageView;
+        this.carView = carView;
         this.createForm();
         this.sendFormData();
-        this.startRace();
-        this.resetRace();
     }
 
     public createForm() {
@@ -74,7 +76,6 @@ export default class FormView {
             const color = this.buttonCreateColor.value;
             this.api.createCar({ name: name, color: color });
             this.garageView.createRaceRoad();
-            // this.api.getCars().then((allCars) => this.paginationView.createButtons(`${allCars.length}`));
         };
 
         const createHundredCars = (event: Event) => {
@@ -85,7 +86,6 @@ export default class FormView {
                 this.api.createCar({ name: randomName, color: randomColor });
             }
             this.garageView.createRaceRoad();
-            // this.api.getCars().then((allCars) => this.paginationView.createButtons(`${allCars.length}`));
         };
 
         const updateCar = (event: Event) => {
@@ -97,10 +97,54 @@ export default class FormView {
             this.garageView.createRaceRoad();
         };
 
+        const raceHandler = (event: Event) => {
+            event.preventDefault();
+            this.api.getAllCars().then((allCars: CarsType) => {
+                allCars.forEach((carData) => this.carView.startEngine(carData.id));
+            });
+        };
+
+        const resetHandler = (event: Event) => {
+            event.preventDefault();
+            // this.api.getCars().then((cars) => console.log(cars));
+            this.api.getAllCars().then((allCars: CarsType) => {
+                allCars.forEach((carData) => {
+                    // TODO потеряла this.carView = undefined
+                    console.log(this.carView);
+                    this.carView.stopEngine(carData.id);
+                });
+            });
+        };
+
         this.buttonCreate.addEventListener('click', createCar);
         this.buttonUpdate.addEventListener('click', updateCar);
         this.buttonGenerateCars.addEventListener('click', createHundredCars);
+        this.buttonRace.addEventListener('click', raceHandler);
+        this.buttonReset.addEventListener('click', resetHandler);
     }
+
+    // private startRace() {
+    //     this.buttonRace.addEventListener('click', this.raceHandler);
+    // }
+
+    // private raceHandler(event: Event) {
+    //     event.preventDefault();
+    //     this.api.getCars().then((allCars: CarsType) => {
+    //         allCars.forEach((carData) => this.carView.startEngine(carData.id));
+    //     });
+    // }
+
+    // private resetRace() {
+    //     this.buttonReset.addEventListener('click', this.resetHandler);
+    // }
+
+    // private resetHandler(event: Event) {
+    //     event.preventDefault();
+    //     // this.api.getCars().then((cars) => console.log(cars));
+    //     this.api.getCars().then((allCars: CarsType) => {
+    //         allCars.forEach((carData) => this.carView.stopEngine(carData.id));
+    //     });
+    // }
 
     public setItemName(name: string) {
         this.inputUpdateName.value = name;
@@ -108,22 +152,5 @@ export default class FormView {
 
     private getRandomInt(max: number) {
         return Math.floor(Math.random() * max);
-    }
-
-    private startRaceHandler(event: Event) {
-        event.preventDefault();
-    }
-
-    private startRace() {
-        this.buttonRace.addEventListener('click', this.startRaceHandler);
-        // this.api.getCars().then((allCars) => this.carView.driveCar());
-    }
-
-    private resetRaceHandler(event: Event) {
-        event.preventDefault();
-    }
-
-    private resetRace() {
-        this.buttonReset.addEventListener('click', this.resetRaceHandler);
     }
 }

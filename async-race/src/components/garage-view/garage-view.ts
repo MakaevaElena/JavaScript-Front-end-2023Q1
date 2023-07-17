@@ -19,7 +19,7 @@ export default class GarageView extends DefaultView {
     private api = new Api();
     private carView!: CarView;
     private paginationView = new PaginationView(this);
-    private formView = new FormView(this, this.paginationView);
+    private formView = new FormView(this, this.paginationView, this.carView);
     private allCars = new Array(4);
 
     constructor() {
@@ -49,12 +49,12 @@ export default class GarageView extends DefaultView {
         }
 
         this.api
-            .getCars()
+            .getAllCars()
             .then((allCars) => {
                 this.garage.append(
                     this.formView.createForm(),
                     this.raceRoads,
-                    this.paginationView.createButtons(`${allCars.length}`)
+                    this.paginationView.createButtons(`${allCars.length}`, null)
                 );
                 this.createRaceRoad();
                 return this.garage;
@@ -72,13 +72,14 @@ export default class GarageView extends DefaultView {
             this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
         }
 
-        this.api.getCars().then((allCars) => {
+        this.api.getAllCars().then((allCars) => {
             this.allCars = allCars;
-            this.paginationView.createButtons(`${this.allCars.length}`);
+            // console.log(this.allCars);
+            this.paginationView.createButtons(`${this.allCars.length}`, null);
         });
 
         this.currentPageNumber = localStorage.getItem('currentPage') || this.START_PAGE;
-        this.api.getCars().then((totalCountCars) => {
+        this.api.getAllCars().then((totalCountCars) => {
             this.roadHeader.innerText = `Garage (${totalCountCars.length})`;
         });
         this.raceRoads.classList.add('race-road');
@@ -98,12 +99,10 @@ export default class GarageView extends DefaultView {
     public showGarage() {
         this.garageView.classList.add('show');
         this.garageView.classList.remove('hide');
-        localStorage.setItem('isGarage', 'true');
     }
 
     public hideGarage() {
         this.garageView.classList.remove('show');
         this.garageView.classList.add('hide');
-        localStorage.setItem('isGarage', 'false');
     }
 }

@@ -45,6 +45,7 @@ export default class HeaderView extends DefaultView {
         this.toGarageButton.addEventListener('click', () => {
             this.garageView.showGarage();
             this.winnersView.hideWinners();
+            localStorage.setItem('isGarage', 'true');
         });
     }
 
@@ -52,6 +53,8 @@ export default class HeaderView extends DefaultView {
         this.toWinnersButton.addEventListener('click', () => {
             this.garageView.hideGarage();
             this.winnersView.showWinners();
+            this.winnersView.createWinnersTable();
+            localStorage.setItem('isGarage', 'false');
         });
     }
 }

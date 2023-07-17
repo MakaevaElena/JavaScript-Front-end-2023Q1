@@ -70,7 +70,7 @@
     top: 0;
     left: 80px;
 
-    transition: all 2s ease-in-out;
+    /* transition: all 2s ease-in-out; */
 }
 
 .car svg {
@@ -78,23 +78,14 @@
     height: 100%;
 }
 
-/* .drive-car {
-    animation: drive 3s;
-    animation-iteration-count: 1;
-}
+/* .move-right { */
+/* transform: translate(82vw, 0); */
+/* -webkit-transform: translate(350px, 0); * Chrome & Safari * */
+/* -o-transform: translate(350px, 0); * Opera * */
+/* -moz-transform: translate(350px, 0); * Firefox * */
+/* } */
 
-@keyframes drive {
-    from {
-        left: 80px;
-    }
-    to {
-        left: 800px;
-    }
-} */
-
-.move-right {
-    transform: translate(82vw, 0);
-    /* -webkit-transform: translate(350px, 0); * Chrome & Safari * */
-    /* -o-transform: translate(350px, 0); * Opera * */
-    /* -moz-transform: translate(350px, 0); * Firefox * */
+.disabled-button {
+    background-color: gray;
+    color: #a8a8a8;
 }

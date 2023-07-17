@@ -1,6 +1,6 @@
 import './style.css';
 import Api from '../../api';
-import { CarType, winnerDataType } from '../../types/types';
+import { CarType } from '../../types/types';
 import { carImage } from '../car-view/car-image';
 import FormView from '../garage-view/form-view/form-view';
 import GarageView from '../garage-view/garage-view';
@@ -17,6 +17,7 @@ export default class CarView {
     private carBottomButtons = document.createElement('div');
     private flag = document.createElement('div');
     private car = document.createElement('div');
+    private myReq!: number;
 
     private carData: CarType;
     private api = new Api();
@@ -76,8 +77,8 @@ export default class CarView {
         if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
         this.carBottom.append(this.car);
         document.addEventListener('animationend', () => {
-            // this.car.classList.remove('drive-car');
-            this.car.classList.remove('move-right');
+            // this.startButton.disabled = false;
+            // this.startButton.classList.remove('disabled-button');
         });
     }
 
@@ -103,57 +104,84 @@ export default class CarView {
         this.api.startStopEngine(id, 'started').then((response) => {
             this.driveCar(id, response.distance / response.velocity);
         });
+        this.startButton.disabled = true;
+        this.startButton.classList.add('disabled-button');
     }
 
     private stopEngine(id: number) {
         this.api.startStopEngine(id, 'stopped');
-        this.car.style.animationPlayState = 'paused';
+        // this.car.style.animationPlayState = 'paused';
+        this.car.style.transform = `translateX(${0}vw)`;
     }
 
-    private animateCar() {
-        this.car.classList.add('move-right');
-        requestAnimationFrame(this.animateCar);
+    private animateCar(end: number, duration: number) {
+        const width = window.screen.width;
+        console.log(width);
+        const endX = end * (width / 100);
+
+        let currentX = this.car.offsetLeft;
+        const frameCount = (duration / 1000) * 60;
+        const dX = (endX - this.car.offsetLeft) / frameCount;
+
+        const tick = () => {
+            currentX += dX;
+            this.car.style.transform = `translate(${currentX}px)`;
+            if (currentX < endX) {
+                this.myReq = requestAnimationFrame(tick);
+            }
+        };
+        tick();
+        // this.myReq = requestAnimationFrame(tick);
+        // cancelAnimationFrame(this.myReq); // остановить
     }
 
     private async driveCar(id: number, time: number) {
-        // this.car.classList.add('drive-car');
-        this.car.style.transitionDuration = `${time}`;
-        this.car.classList.add('move-right');
-        // this.animateCar();
-        await this.api.driveCar(id, 'drive').then((res) => {
-            console.log('res', res);
-            switch (true) {
-                case res.success === true:
-                    this.api.getWinner(id).then((res) => {
-                        switch (true) {
-                            case res instanceof Object:
-                                // console.log('winners', res);
-                                this.api.updateWinner(id, { wins: res.wins + 1, time: time });
-                                break;
-                            case res === 404:
-                                this.api.createWinner({ id: id, wins: 1, time: time });
-                                break;
-                            default:
-                                console.log('getWinner default error');
-                        }
-                    });
-                    break;
-                case res === 500:
-                    console.log('error 500');
-                    this.car.style.animationPlayState = 'paused';
-                    break;
-                case res === 400:
-                    console.log('error 400');
-                    break;
-                case res === 404:
-                    console.log('error 404');
-                    break;
-                case res === 429:
-                    console.log('error 429');
-                    break;
-                default:
-                    console.log('driveCar default error');
-            }
-        });
+        this.animateCar(75, time);
+
+        await this.api
+            .driveCar(id, 'drive')
+            .then((res) => {
+                switch (true) {
+                    case res.success === true:
+                        this.api.getWinner(id).then((res) => {
+                            switch (true) {
+                                case res instanceof Object:
+                                    this.api.updateWinner(id, { wins: res.wins + 1, time: time });
+                                    break;
+                                case res === 404:
+                                    this.api.createWinner({ id: id, wins: 1, time: time });
+                                    break;
+                                default:
+                                    console.log('getWinner default error');
+                            }
+                        });
+
+                        break;
+                    case res === 500:
+                        console.log('error 500');
+                        cancelAnimationFrame(this.myReq);
+
+                        break;
+                    case res === 400:
+                        console.log('error 400');
+                        break;
+                    case res === 404:
+                        console.log('error 404');
+                        break;
+                    case res === 429:
+                        console.log('error 429');
+                        break;
+                    default:
+                        console.log('driveCar default error');
+                }
+            })
+            .finally(() => {
+                this.startButton.disabled = false;
+                this.startButton.classList.remove('disabled-button');
+            });
+    }
+
+    public reset() {
+        this.car.style.transform = `translateX(${0}vw)`;
     }
 }

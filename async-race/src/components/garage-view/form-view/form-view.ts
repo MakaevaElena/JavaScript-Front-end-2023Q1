@@ -79,7 +79,6 @@ export default class FormView {
 
         const createHundredCars = (event: Event) => {
             event.preventDefault();
-            //TODO при большом количестве генерации, генерируются не все машины
             for (let i = 0; i < 100; i++) {
                 const randomName = MODELS[this.getRandomInt(MODELS.length)];
                 const randomColor = '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();

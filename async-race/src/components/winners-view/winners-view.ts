@@ -36,7 +36,7 @@ export default class WinnersView extends DefaultView {
         this.createTableHeaders(table);
 
         this.api.getWinners(1).then((winners) => {
-            console.log(winners);
+            // console.log(winners);
 
             winners.map((winner: winnerDataType, i: number) => {
                 const winnerRow = this.createTagElement('div', ['winner-row', 'cell']);

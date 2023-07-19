@@ -23,14 +23,13 @@ export default class GarageView extends DefaultView {
     private paginationView = new PaginationView(this);
     private allCars = new Array(4);
     private observer: Observer;
-    // private formView = new FormView(this, this.paginationView, this.carView);
     private formView: FormView;
 
     constructor(observer: Observer) {
         super();
         this.observer = observer;
         this.garageView = this.createGarage();
-        this.formView = new FormView(this, this.paginationView, this.carView, this.observer);
+        this.formView = new FormView(this, this.paginationView, this.observer);
     }
 
     getGarageView() {
@@ -71,13 +70,11 @@ export default class GarageView extends DefaultView {
     public async createRaceRoad() {
         this.carsListElement.innerHTML = '';
         if (this.allCars.length <= 7) {
-            // localStorage.setItem('currentPage', this.START_PAGE);
             this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
         }
 
         this.api.getAllCars().then((allCars) => {
             this.allCars = allCars;
-            // console.log(this.allCars);
             this.paginationView.createButtons(`${this.allCars.length}`, null);
         });
 

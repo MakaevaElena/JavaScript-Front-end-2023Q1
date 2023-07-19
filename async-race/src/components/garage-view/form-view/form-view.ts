@@ -1,12 +1,12 @@
 import Api from '../../../api';
 import GarageView from '../../garage-view/garage-view';
 import PaginationView from '../../pagination/pagination';
-import CarView from '../../../components/car-view/car-view';
 import './style.css';
 import { CarsType } from '../../../types/types';
 import { MODELS } from './constants';
 import Observer from '../../app/observer/observer';
 import { EventName } from '../../../enums/events/events-names';
+// import CarView from '../../../components/car-view/car-view';
 
 export default class FormView {
     private form = document.createElement('form');
@@ -24,14 +24,14 @@ export default class FormView {
     private api = new Api();
     private garageView: GarageView;
     private paginationView: PaginationView;
-    private carView: CarView;
     private observer: Observer;
+    // private carView: CarView;
 
-    constructor(garageView: GarageView, paginationView: PaginationView, carView: CarView, observer: Observer) {
+    constructor(garageView: GarageView, paginationView: PaginationView, observer: Observer) {
         this.observer = observer;
         this.paginationView = paginationView;
         this.garageView = garageView;
-        this.carView = carView;
+        // this.carView = carView;
         this.createForm();
         this.sendFormData();
         this.resetRace();
@@ -114,12 +114,13 @@ export default class FormView {
 
     private raceHandler = (event: Event) => {
         event.preventDefault();
-        this.api.getAllCars().then((allCars: CarsType) => {
-            allCars.forEach((carData) => {
-                // this.carView.startEngine(carData.id);
-                this.observer.notify(EventName.RACE, carData.id);
-            });
-        });
+        this.observer.notify(EventName.RACE);
+
+        // this.api.getAllCars().then((allCars: CarsType) => {
+        //     allCars.forEach((carData) => {
+        //         this.observer.notify(EventName.RACE, carData.id);
+        //     });
+        // });
     };
 
     private resetRace() {
@@ -129,15 +130,12 @@ export default class FormView {
     private resetHandler = (event: Event) => {
         event.preventDefault();
         // console.log(this);
-
-        this.api.getCarsByPage(+this.currentPageNumber).then((allCars: CarsType) => {
-            allCars.forEach((carData) => {
-                // console.log(this.carView);
-                this.observer.notify(EventName.RESET, carData.id);
-
-                // this.carView.stopEngine(carData.id);
-            });
-        });
+        this.observer.notify(EventName.RESET);
+        // this.api.getCarsByPage(+this.currentPageNumber).then((allCars: CarsType) => {
+        //     allCars.forEach((carData) => {
+        //         this.observer.notify(EventName.RESET, carData.id);
+        //     });
+        // });
     };
 
     public setItemName(name: string) {

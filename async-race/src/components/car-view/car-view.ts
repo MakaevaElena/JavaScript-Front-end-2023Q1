@@ -40,6 +40,9 @@ export default class CarView {
 
         observer?.subscribe(EventName.RESET, this.stopEngine.bind(this));
         observer?.subscribe(EventName.RACE, this.startEngine.bind(this));
+
+        // observer?.subscribe(EventName.RESET, this.stopAllEngine.bind(this));
+        // observer?.subscribe(EventName.RACE, this.startAllEngine.bind(this));
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -108,16 +111,21 @@ export default class CarView {
     }
 
     public startEngine<T>(id: T) {
-        this.api.startStopEngine(+id, 'started').then((response) => {
-            this.driveCar(+id, response.distance / response.velocity);
+        let currentId = 0;
+        id ? (currentId = +id) : (currentId = this.carData.id);
+
+        this.api.startStopEngine(+currentId, 'started').then((response) => {
+            this.driveCar(+currentId, response.distance / response.velocity);
         });
         this.startButton.disabled = true;
         this.startButton.classList.add('disabled-button');
     }
 
-    // public stopEngine(id: number) {
     public stopEngine<T>(id: T) {
-        this.api.startStopEngine(+id, 'stopped');
+        let currentId;
+        id ? (currentId = +id) : (currentId = this.carData.id);
+        this.api.startStopEngine(+currentId, 'stopped');
+        console.log(+currentId);
         this.car.style.transform = `translateX(${0}vw)`;
     }
 

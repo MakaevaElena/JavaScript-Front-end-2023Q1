@@ -6,7 +6,7 @@ import PaginationView from '../pagination/pagination';
 import FormView from './form-view/form-view';
 import DefaultView from '../main-view/default-view';
 import Observer from '../app/observer/observer';
-// import { EventName } from '../../enums/events/events-names';
+import { EventName } from '../../enums/events/events-names';
 
 export default class GarageView extends DefaultView {
     private START_PAGE = '1';
@@ -67,7 +67,7 @@ export default class GarageView extends DefaultView {
         return this.garage;
     }
 
-    public async createRaceRoad() {
+    public async createRaceRoad(): Promise<void> {
         this.carsListElement.innerHTML = '';
         if (this.allCars.length <= 7) {
             this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
@@ -90,10 +90,15 @@ export default class GarageView extends DefaultView {
 
         const carsListData: CarsType = await this.api.getCarsByPage(+this.currentPageNumber);
 
-        carsListData.map((carData) => {
+        const promise = carsListData.map((carData) => {
             this.carView = new CarView(carData, this.formView, this, this.observer);
             this.carView.createCarBlock(this.carsListElement);
+
+            // this.observer?.subscribe(EventName.RESET, this.carView.stopEngine.bind(this.carView));
+            // this.observer?.subscribe(EventName.RACE, this.carView.startEngine.bind(this.carView));
         });
+        //todo как получить массив промисов гонки
+        await Promise.all(promise).then((response) => console.log(response));
     }
 
     public showGarage() {
@@ -105,4 +110,12 @@ export default class GarageView extends DefaultView {
         this.garageView.classList.remove('show');
         this.garageView.classList.add('hide');
     }
+
+    // private startAllCars() {
+    //     this.currentPageNumber = localStorage.getItem('currentPage') || this.START_PAGE;
+    //     const carsListData: Promise<CarsType> = this.api.getCarsByPage(+this.currentPageNumber);
+    //     carsListData.map(car=> );
+    // }
+
+    // private stopAllCars() {}
 }

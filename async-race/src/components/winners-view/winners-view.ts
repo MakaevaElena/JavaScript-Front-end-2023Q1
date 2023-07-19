@@ -1,4 +1,4 @@
-import { winnerDataType, CarType } from './../../types/types';
+import { WinnerDataType, CarType } from './../../types/types';
 import './style.css';
 import { carImage } from '../car-view/car-image';
 import Api from '../../api';
@@ -58,7 +58,7 @@ export default class WinnersView extends DefaultView {
             .getWinnersByPage(+currentWinnersPage, 10, sort, order)
             .then((winners) => {
                 if (winners)
-                    winners.map((winner: winnerDataType, i: number) => {
+                    winners.map((winner: WinnerDataType, i: number) => {
                         const winnerRow = this.createTagElement('div', ['winner-row']);
                         const winnerNum = this.createTagElement(
                             'div',

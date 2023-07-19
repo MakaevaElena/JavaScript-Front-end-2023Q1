@@ -85,10 +85,8 @@ export default class CarView {
         const carSVGElement = this.car.querySelector('svg g');
         if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
         this.carBottom.append(this.car);
-        document.addEventListener('animationend', () => {
-            // this.startButton.disabled = false;
-            // this.startButton.classList.remove('disabled-button');
-        });
+        // document.addEventListener('animationend', () => {
+        // });
     }
 
     private updateCar(carData: CarType) {
@@ -114,9 +112,6 @@ export default class CarView {
         id ? (currentId = +id) : (currentId = this.carData.id);
 
         this.api.startStopEngine(+currentId, 'started').then((response) => {
-            // const promise = this.driveCar(+currentId, response.distance / response.velocity);
-            // this.racePromises.push(promise);
-
             this.driveCar(+currentId, response.distance / response.velocity).then(() =>
                 this.formView.unBlockRaceButton()
             );

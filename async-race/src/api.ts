@@ -1,4 +1,13 @@
-import { updatedCarDataType, newCarDataType, winnerDataType, updatedWinnerData } from './types/types';
+import {
+    UpdatedCarDataType,
+    NewCarDataType,
+    WinnerDataType,
+    WinnersDataType,
+    UpdatedWinnerData,
+    CarsType,
+    CarType,
+    EngineResponse,
+} from './types/types';
 
 export default class Api {
     private url = 'http://127.0.0.1:3000';
@@ -6,33 +15,27 @@ export default class Api {
     private engine = `${this.url}/engine`;
     private winners = `${this.url}/winners`;
 
-    public getAllCars() {
-        return (
-            fetch(`${this.garage}`)
-                .then((response) => response.json())
-                // .catch((error) => console.log(error));
-                // .finally(() => console.log('getCars finally'));
-                .catch(() => console.log('no cars'))
-        );
+    public getAllCars(): Promise<CarsType> {
+        return fetch(`${this.garage}`)
+            .then((response) => response.json())
+            .catch(() => console.log('no cars'));
     }
 
-    public getCarsByPage(page: number, limit = 7) {
+    public getCarsByPage(page: number, limit = 7): Promise<CarsType> {
         return fetch(`${this.garage}?_page=${page}&_limit=${limit}`)
             .then((response) => response.json())
             .then((json) => json)
             .catch((error) => console.log(error));
-        // .finally(() => console.log('getCars finally'));
     }
 
-    public getCar(id: number) {
+    public getCar(id: number): Promise<CarType> {
         return fetch(`${this.garage}/${id}`)
             .then((response) => response.json())
             .then((json) => json)
             .catch((error) => console.log(error));
-        // .finally(() => console.log('getCar finally'));
     }
 
-    public createCar(newCarData: newCarDataType) {
+    public createCar(newCarData: NewCarDataType): Promise<CarType> {
         return fetch(`${this.garage}`, {
             method: 'POST',
             headers: {
@@ -46,7 +49,7 @@ export default class Api {
             .finally(() => console.log('createCar finally'));
     }
 
-    public deleteCar(id: number) {
+    public deleteCar(id: number): Promise<CarType> {
         return fetch(`${this.garage}/${id}`, {
             method: 'DELETE',
         })
@@ -55,7 +58,7 @@ export default class Api {
             .finally(() => console.log('deleteCar finally'));
     }
 
-    public updateCar(id: number, updatedCarData: updatedCarDataType) {
+    public updateCar(id: number, updatedCarData: UpdatedCarDataType): Promise<CarType> {
         return fetch(`${this.garage}/${id}`, {
             method: 'PUT',
             headers: {
@@ -68,7 +71,7 @@ export default class Api {
             .finally(() => console.log('updateCar finally'));
     }
 
-    public startStopEngine(id: number, status: string) {
+    public startStopEngine(id: number, status: string): Promise<EngineResponse> {
         return fetch(`${this.engine}?id=${id}&status=${status}`, {
             method: 'PATCH',
         })
@@ -86,7 +89,7 @@ export default class Api {
             .finally(() => console.log('Car is drived finally'));
     }
 
-    public getAllWinners() {
+    public getAllWinners(): Promise<WinnersDataType> {
         return (
             fetch(`${this.winners}`)
                 .then((response) => response.json())
@@ -115,7 +118,7 @@ export default class Api {
             .finally(() => console.log('getWinner finally'));
     }
 
-    public createWinner(winnerData: winnerDataType) {
+    public createWinner(winnerData: WinnerDataType): Promise<WinnerDataType> {
         return fetch(`${this.winners}`, {
             method: 'POST',
             headers: {
@@ -135,7 +138,7 @@ export default class Api {
         }).catch((error) => console.log(error));
     }
 
-    public updateWinner(id: number, updatedWinnerData: updatedWinnerData) {
+    public updateWinner(id: number, updatedWinnerData: UpdatedWinnerData) {
         return fetch(`${this.winners}/${id}`, {
             method: 'PUT',
             headers: {

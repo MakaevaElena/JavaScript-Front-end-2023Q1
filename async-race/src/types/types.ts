@@ -6,23 +6,30 @@ export type CarType = {
     id: number;
 };
 
-export type updatedCarDataType = {
+export type UpdatedCarDataType = {
     name: string;
     color: string;
 };
 
-export type newCarDataType = {
+export type NewCarDataType = {
     name: string;
     color: string;
 };
 
-export type winnerDataType = {
+export type WinnersDataType = Array<WinnerDataType>;
+
+export type WinnerDataType = {
     id: number;
     wins: number;
     time: number;
 };
 
-export type updatedWinnerData = {
+export type UpdatedWinnerData = {
     wins: number;
     time: number;
+};
+
+export type EngineResponse = {
+    velocity: number;
+    distance: number;
 };

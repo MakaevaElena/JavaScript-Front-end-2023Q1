@@ -17,7 +17,7 @@ export default class App {
         const observer = new Observer();
         const garageView = new GarageView(observer);
         const paginationView = new PaginationView(garageView);
-        const winnersView = new WinnersView(paginationView);
+        const winnersView = new WinnersView(observer, paginationView);
         const headerView = new HeaderView(garageView, winnersView);
 
         app.append(headerView.getHeaderView(), garageView.getGarageView(), winnersView.getWinnersView());

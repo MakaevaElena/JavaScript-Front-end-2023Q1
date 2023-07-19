@@ -4,6 +4,7 @@ import { carImage } from '../car-view/car-image';
 import Api from '../../api';
 import DefaultView from '../main-view/default-view';
 import PaginationView from '../pagination/pagination';
+import Observer from '../app/observer/observer';
 
 export default class WinnersView extends DefaultView {
     private api = new Api();
@@ -12,16 +13,19 @@ export default class WinnersView extends DefaultView {
     private table = document.createElement('div');
     private winnerHeader = document.createElement('h2');
     private pageNumberHeader = document.createElement('h3');
-    paginationView: PaginationView;
+    private paginationView: PaginationView;
+    private observer: Observer;
 
-    private tableHeaderNum = this.createTagElement('div', ['table-header-number', 'cell', 'button'], 'Number &uarr;');
+    private tableHeaderNum = this.createTagElement('div', ['table-header-number', 'cell', 'button'], 'Number');
     private tableHeaderCar = this.createTagElement('div', ['table-header-car', 'cell', 'button'], 'Car');
     private tableHeaderName = this.createTagElement('div', ['table-header-name', 'cell', 'button'], 'Name');
     private tableHeaderWins = this.createTagElement('div', ['table-header-wins', 'cell', 'button'], 'Wins  &darr;');
     private tableHeaderTime = this.createTagElement('div', ['table-header-time', 'cell', 'button'], 'Best time &uarr;');
 
-    constructor(paginationView: PaginationView) {
+    constructor(observer: Observer, paginationView: PaginationView) {
+        //observer ?
         super();
+        this.observer = observer;
         this.winnersView = this.createWinnersPage();
         this.paginationView = paginationView;
     }
@@ -54,14 +58,24 @@ export default class WinnersView extends DefaultView {
             .getWinnersByPage(+currentWinnersPage, 10, sort, order)
             .then((winners) => {
                 if (winners)
-                    winners.map((winner: winnerDataType) => {
+                    winners.map((winner: winnerDataType, i: number) => {
                         const winnerRow = this.createTagElement('div', ['winner-row']);
-                        const winnerNum = this.createTagElement('div', ['winner-Num', 'cell'], `${winner.id}`);
+                        const winnerNum = this.createTagElement(
+                            'div',
+                            ['winner-Num', 'cell'],
+                            `${(+currentWinnersPage - 1) * 10 + i + 1}`
+                        );
                         const winnerWins = this.createTagElement('div', ['winner-wins', 'cell'], `${winner.wins}`);
+
+                        let lastBestTyme = localStorage.getItem(`${winner.id}Time`) || '0';
+                        if (winner.time < +lastBestTyme) {
+                            lastBestTyme = `${winner.time}`;
+                            localStorage.setItem(`${winner.id}Time`, lastBestTyme);
+                        }
                         const winnerTime = this.createTagElement(
                             'div',
                             ['winner-time', 'cell'],
-                            `${Math.round(winner.time)} &darr;`
+                            `${Math.round(+lastBestTyme)}`
                         );
 
                         this.api.getCar(winner.id).then((carData: CarType) => {

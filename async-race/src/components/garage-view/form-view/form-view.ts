@@ -2,8 +2,7 @@ import Api from '../../../api';
 import GarageView from '../../garage-view/garage-view';
 import PaginationView from '../../pagination/pagination';
 import './style.css';
-import { CarsType } from '../../../types/types';
-import { MODELS } from './constants';
+import { MODELS, CAR_BODIES } from './constants';
 import Observer from '../../app/observer/observer';
 import { EventName } from '../../../enums/events/events-names';
 // import CarView from '../../../components/car-view/car-view';
@@ -87,7 +86,9 @@ export default class FormView {
         const createHundredCars = (event: Event) => {
             event.preventDefault();
             for (let i = 0; i < 100; i++) {
-                const randomName = MODELS[this.getRandomInt(MODELS.length)];
+                const randomName = `${MODELS[this.getRandomInt(MODELS.length)]} ${
+                    CAR_BODIES[this.getRandomInt(CAR_BODIES.length)]
+                }`;
                 const randomColor = '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
                 this.api.createCar({ name: randomName, color: randomColor });
             }
@@ -115,12 +116,13 @@ export default class FormView {
     private raceHandler = (event: Event) => {
         event.preventDefault();
         this.observer.notify(EventName.RACE);
+        this.buttonRace.disabled = true;
+        this.buttonRace.classList.add('disabled-button');
+    };
 
-        // this.api.getAllCars().then((allCars: CarsType) => {
-        //     allCars.forEach((carData) => {
-        //         this.observer.notify(EventName.RACE, carData.id);
-        //     });
-        // });
+    public unBlockRaceButton = () => {
+        this.buttonRace.disabled = false;
+        this.buttonRace.classList.remove('disabled-button');
     };
 
     private resetRace() {
@@ -131,11 +133,6 @@ export default class FormView {
         event.preventDefault();
         // console.log(this);
         this.observer.notify(EventName.RESET);
-        // this.api.getCarsByPage(+this.currentPageNumber).then((allCars: CarsType) => {
-        //     allCars.forEach((carData) => {
-        //         this.observer.notify(EventName.RESET, carData.id);
-        //     });
-        // });
     };
 
     public setItemName(name: string) {

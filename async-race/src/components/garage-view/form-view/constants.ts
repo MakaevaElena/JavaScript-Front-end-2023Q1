@@ -78,3 +78,24 @@ export const MODELS = [
     'Pontiac',
     'Porsche',
 ];
+
+export const CAR_BODIES = [
+    'Sedan',
+    'coupe',
+    'hatchback',
+    'liftback',
+    'fastback',
+    'station wagon',
+    'crossover',
+    'SUV',
+    'Pickup',
+    'light van',
+    'Minivan',
+    'compact van',
+    'Microvan',
+    'Cabriolet',
+    'Roadster',
+    'Targa',
+    'Landau',
+    'Limousine',
+];

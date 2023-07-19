@@ -33,6 +33,14 @@ h3 {
     transition: 0.2s;
 }
 
+.button.disabled-button {
+    background-color: gray;
+    color: #a8a8a8;
+    cursor: none;
+    pointer-events: none;
+    box-shadow: none;
+}
+
 .button {
     background: #40c781;
     box-shadow: 0 -3px #35a76e inset;

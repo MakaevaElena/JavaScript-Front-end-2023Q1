@@ -26,6 +26,7 @@ export default class CarView {
     private formView: FormView;
     private garageView: GarageView;
     private observer: Observer;
+    private racePromises = [];
 
     constructor(carData: CarType, formView: FormView, garageView: GarageView, observer: Observer) {
         this.observer = observer;
@@ -40,9 +41,6 @@ export default class CarView {
 
         observer?.subscribe(EventName.RESET, this.stopEngine.bind(this));
         observer?.subscribe(EventName.RACE, this.startEngine.bind(this));
-
-        // observer?.subscribe(EventName.RESET, this.stopAllEngine.bind(this));
-        // observer?.subscribe(EventName.RACE, this.startAllEngine.bind(this));
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -64,6 +62,7 @@ export default class CarView {
     }
 
     private createBottom(carData: CarType) {
+        // this.carBottom.innerHTML = '';
         this.carBottom.classList.add('car-bottom');
         this.carBottomButtons.classList.add('car-bottom-buttons');
         this.startButton.classList.add('start-button', 'button');
@@ -105,7 +104,7 @@ export default class CarView {
             event.preventDefault();
             this.api.deleteCar(carData.id).then(() => {
                 this.garageView.createRaceRoad();
-                // this.api.deleteWinner(carData.id).then(() => this.winnersView.deleteWinner());
+                this.api.deleteWinner(carData.id).then(() => this.api.deleteWinner(carData.id));
             });
         });
     }
@@ -115,7 +114,12 @@ export default class CarView {
         id ? (currentId = +id) : (currentId = this.carData.id);
 
         this.api.startStopEngine(+currentId, 'started').then((response) => {
-            this.driveCar(+currentId, response.distance / response.velocity);
+            // const promise = this.driveCar(+currentId, response.distance / response.velocity);
+            // this.racePromises.push(promise);
+
+            this.driveCar(+currentId, response.distance / response.velocity).then(() =>
+                this.formView.unBlockRaceButton()
+            );
         });
         this.startButton.disabled = true;
         this.startButton.classList.add('disabled-button');
@@ -124,9 +128,16 @@ export default class CarView {
     public stopEngine<T>(id: T) {
         let currentId;
         id ? (currentId = +id) : (currentId = this.carData.id);
-        this.api.startStopEngine(+currentId, 'stopped');
-        console.log(+currentId);
-        this.car.style.transform = `translateX(${0}vw)`;
+        this.stopButton.disabled = true;
+        this.stopButton.classList.add('disabled-button');
+        this.api.startStopEngine(+currentId, 'stopped').then(() => {
+            cancelAnimationFrame(this.myReq);
+            this.car.style.transform = `translateX(${0}vw)`;
+            this.stopButton.disabled = false;
+            this.stopButton.classList.remove('disabled-button');
+            this.startButton.disabled = false;
+            this.startButton.classList.remove('disabled-button');
+        });
     }
 
     private animateCar(end: number, duration: number) {

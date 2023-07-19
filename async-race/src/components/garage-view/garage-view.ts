@@ -5,6 +5,8 @@ import './style.css';
 import PaginationView from '../pagination/pagination';
 import FormView from './form-view/form-view';
 import DefaultView from '../main-view/default-view';
+import Observer from '../app/observer/observer';
+// import { EventName } from '../../enums/events/events-names';
 
 export default class GarageView extends DefaultView {
     private START_PAGE = '1';
@@ -19,12 +21,16 @@ export default class GarageView extends DefaultView {
     private api = new Api();
     private carView!: CarView;
     private paginationView = new PaginationView(this);
-    private formView = new FormView(this, this.paginationView, this.carView);
     private allCars = new Array(4);
+    private observer: Observer;
+    // private formView = new FormView(this, this.paginationView, this.carView);
+    private formView: FormView;
 
-    constructor() {
+    constructor(observer: Observer) {
         super();
+        this.observer = observer;
         this.garageView = this.createGarage();
+        this.formView = new FormView(this, this.paginationView, this.carView, this.observer);
     }
 
     getGarageView() {
@@ -32,18 +38,15 @@ export default class GarageView extends DefaultView {
     }
 
     private createGarage() {
-        // if (this.garageView) this.garageView.innerHTML = '';
-        // this.garage.innerHTML = '';
-
         this.garage.classList.add('garage');
         const isGarage = localStorage.getItem('isGarage');
 
         //TODO ? почему не сработало this.hideGarage()
-        // isGarage === 'true' ? this.showGarage() : this.hideGarage();
-        if (isGarage === 'true') {
+        if (isGarage === 'true' || !isGarage) {
             this.garage.classList.add('show');
             this.garage.classList.remove('hide');
-        } else {
+        }
+        if (isGarage === 'false') {
             this.garage.classList.remove('show');
             this.garage.classList.add('hide');
         }
@@ -91,7 +94,7 @@ export default class GarageView extends DefaultView {
         const carsListData: CarsType = await this.api.getCarsByPage(+this.currentPageNumber);
 
         carsListData.map((carData) => {
-            this.carView = new CarView(carData, this.formView, this);
+            this.carView = new CarView(carData, this.formView, this, this.observer);
             this.carView.createCarBlock(this.carsListElement);
         });
     }

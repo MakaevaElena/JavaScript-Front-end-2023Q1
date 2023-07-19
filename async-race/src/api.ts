@@ -7,10 +7,13 @@ export default class Api {
     private winners = `${this.url}/winners`;
 
     public getAllCars() {
-        return fetch(`${this.garage}`)
-            .then((response) => response.json())
-            .catch((error) => console.log(error));
-        // .finally(() => console.log('getCars finally'));
+        return (
+            fetch(`${this.garage}`)
+                .then((response) => response.json())
+                // .catch((error) => console.log(error));
+                // .finally(() => console.log('getCars finally'));
+                .catch(() => console.log('no cars'))
+        );
     }
 
     public getCarsByPage(page: number, limit = 7) {
@@ -84,15 +87,21 @@ export default class Api {
     }
 
     public getAllWinners() {
-        return fetch(`${this.winners}`)
-            .then((response) => response.json())
-            .catch((error) => console.log(error));
+        return (
+            fetch(`${this.winners}`)
+                .then((response) => response.json())
+                // .catch((error) => console.log(error));
+                .catch(() => console.log('no winners'))
+        );
     }
 
     public getWinnersByPage(page: number, limit = 7, sort = 'id', order = 'ASC') {
-        return fetch(`${this.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
-            .then((response) => response.json())
-            .catch((error) => console.log(error));
+        return (
+            fetch(`${this.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
+                .then((response) => response.json())
+                // .catch((error) => console.log(error));
+                .catch(() => console.log('no winners'))
+        );
     }
 
     // public getWinner(id: number) {

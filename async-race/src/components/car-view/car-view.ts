@@ -4,6 +4,8 @@ import { CarType } from '../../types/types';
 import { carImage } from '../car-view/car-image';
 import FormView from '../garage-view/form-view/form-view';
 import GarageView from '../garage-view/garage-view';
+import Observer from '../app/observer/observer';
+import { EventName } from '../../enums/events/events-names';
 
 export default class CarView {
     private carBlock = document.createElement('div');
@@ -23,8 +25,10 @@ export default class CarView {
     private api = new Api();
     private formView: FormView;
     private garageView: GarageView;
+    private observer: Observer;
 
-    constructor(carData: CarType, formView: FormView, garageView: GarageView) {
+    constructor(carData: CarType, formView: FormView, garageView: GarageView, observer: Observer) {
+        this.observer = observer;
         this.garageView = garageView;
         this.formView = formView;
         this.carData = carData;
@@ -33,6 +37,9 @@ export default class CarView {
         this.createCar(carData);
         this.updateCar(carData);
         this.deleteCar(carData);
+
+        observer?.subscribe(EventName.RESET, this.stopEngine.bind(this));
+        observer?.subscribe(EventName.RACE, this.startEngine.bind(this));
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -100,17 +107,17 @@ export default class CarView {
         });
     }
 
-    public startEngine(id: number) {
-        this.api.startStopEngine(id, 'started').then((response) => {
-            this.driveCar(id, response.distance / response.velocity);
+    public startEngine<T>(id: T) {
+        this.api.startStopEngine(+id, 'started').then((response) => {
+            this.driveCar(+id, response.distance / response.velocity);
         });
         this.startButton.disabled = true;
         this.startButton.classList.add('disabled-button');
     }
 
-    public stopEngine(id: number) {
-        this.api.startStopEngine(id, 'stopped');
-        // this.car.style.animationPlayState = 'paused';
+    // public stopEngine(id: number) {
+    public stopEngine<T>(id: T) {
+        this.api.startStopEngine(+id, 'stopped');
         this.car.style.transform = `translateX(${0}vw)`;
     }
 
@@ -130,8 +137,6 @@ export default class CarView {
             }
         };
         tick();
-        // this.myReq = requestAnimationFrame(tick);
-        // cancelAnimationFrame(this.myReq); // остановить
     }
 
     private async driveCar(id: number, time: number) {
@@ -179,8 +184,4 @@ export default class CarView {
                 this.startButton.classList.remove('disabled-button');
             });
     }
-
-    // public resetCar() {
-    //     this.car.style.transform = `translateX(${0}vw)`;
-    // }
 }

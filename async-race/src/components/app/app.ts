@@ -3,6 +3,7 @@ import GarageView from '../garage-view/garage-view';
 import HeaderView from '../header-view/header-view';
 import WinnersView from '../winners-view/winners-view';
 import PaginationView from '../pagination/pagination';
+import Observer from '../app/observer/observer';
 
 export default class App {
     constructor() {
@@ -13,14 +14,11 @@ export default class App {
         const app = document.createElement('div');
         app.classList.add('app');
 
-        // const form = new FormView();
-        const garageView = new GarageView();
+        const observer = new Observer();
+        const garageView = new GarageView(observer);
         const paginationView = new PaginationView(garageView);
         const winnersView = new WinnersView(paginationView);
         const headerView = new HeaderView(garageView, winnersView);
-
-        // const garageElement = garageView.getGarageView();
-        // garageElement.append(form.createForm());
 
         app.append(headerView.getHeaderView(), garageView.getGarageView(), winnersView.getWinnersView());
         document.body.append(app);

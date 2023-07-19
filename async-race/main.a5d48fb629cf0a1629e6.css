@@ -132,6 +132,8 @@ input:active {
     position: absolute;
     top: 0;
     left: 80px;
+
+    /* transition: all 2s ease-in-out; */
 }
 
 .car svg {
@@ -139,18 +141,20 @@ input:active {
     height: 100%;
 }
 
-.drive-car {
-    animation: drive 3s;
-    animation-iteration-count: 1;
+/* .move-right { */
+/* transform: translate(82vw, 0); */
+/* -webkit-transform: translate(350px, 0); * Chrome & Safari * */
+/* -o-transform: translate(350px, 0); * Opera * */
+/* -moz-transform: translate(350px, 0); * Firefox * */
+/* } */
+
+.disabled-button {
+    background-color: gray;
+    color: #a8a8a8;
 }
 
-@keyframes drive {
-    from {
-        left: 80px;
-    }
-    to {
-        left: 800px;
-    }
+.garage {
+    transition: 0.2s;
 }
 
 .cars-list {
@@ -162,10 +166,19 @@ input:active {
     margin-top: 1rem;
 }
 
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
 .pagination {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: 1rem;
 }
 
@@ -176,6 +189,7 @@ input:active {
     margin-right: 0.5rem;
     height: 1.5rem;
     width: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .form {
@@ -247,4 +261,53 @@ input:active {
 .header-buttons .button {
     margin-right: 0.5rem;
 }
+
+.winners {
+    transition: 0.2s;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.winners-table {
+    margin-top: 0.2rem;
+    width: 50%;
+    /* border: 1px solid white; */
+    margin: 0.2rem;
+}
+
+.winner-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    /* border: 1px solid white; */
+    /* margin-top: 0.2rem; */
+}
+
+.cell {
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    /* border: 1px solid white; */
+    margin: 0.2rem;
+}
+
+.winner-car.cell {
+    padding: 0;
+}
+
+.winner-car svg {
+    width: 80px;
+    height: 30px;
+}
+/* 
+.winner-car.svg {
+    width: 1%;
+    height: 1%;
+} */
 

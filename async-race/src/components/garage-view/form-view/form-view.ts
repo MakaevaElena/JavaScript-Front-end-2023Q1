@@ -88,6 +88,10 @@ export default class FormView extends DefaultView {
 
         const createHundredCars = async (event: Event) => {
             event.preventDefault();
+
+            this.buttonGenerateCars.disabled = true;
+            this.buttonGenerateCars.classList.add('disabled-button');
+
             for (let i = 0; i < 100; i++) {
                 const randomName = `${MODELS[this.getRandomInt(MODELS.length)]} ${
                     CAR_BODIES[this.getRandomInt(CAR_BODIES.length)]
@@ -96,6 +100,8 @@ export default class FormView extends DefaultView {
                 await this.api.createCar({ name: randomName, color: randomColor });
             }
             this.garageView.createRaceRoad();
+            this.buttonGenerateCars.disabled = false;
+            this.buttonGenerateCars.classList.remove('disabled-button');
         };
 
         const updateCar = (event: Event) => {
@@ -147,9 +153,11 @@ export default class FormView extends DefaultView {
         this.winnerIds = [];
         this.countArrived = 0;
         event.preventDefault();
-        // console.log(this);
+
         this.observer.notify(EventName.RESET);
         if (document.body.contains(this.winnerPopup)) document.body.removeChild(this.winnerPopup);
+        this.buttonRace.disabled = false;
+        this.buttonRace.classList.remove('disabled-button');
     };
 
     public setItemName(name: string) {

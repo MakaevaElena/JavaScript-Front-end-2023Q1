@@ -31,9 +31,6 @@ export default class GarageView extends DefaultView {
         this.observer = observer;
         this.garageView = this.createGarage();
         this.formView = new FormView(this, this.paginationView, this.observer);
-
-        // this.observer?.subscribe(EventName.RESET, this.carView.stopEngine.bind(this.carView));
-        // this.observer?.subscribe(EventName.RACE, this.startAllCars.bind(this));
     }
 
     getGarageView() {

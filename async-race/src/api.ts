@@ -119,17 +119,19 @@ export default class Api {
     }
 
     public createWinner(winnerData: WinnerDataType): Promise<WinnerDataType> {
-        return fetch(`${this.winners}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(winnerData),
-        })
-            .then((response) => response.json())
-            .then((json) => json)
-            .catch((error) => console.log(error))
-            .finally(() => console.log('createWinner finally'));
+        return (
+            fetch(`${this.winners}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(winnerData),
+            })
+                .then((response) => response.json())
+                .then((json) => json)
+                // .catch((error) => console.log(error))
+                .finally(() => console.log('createWinner finally'))
+        );
     }
 
     public deleteWinner(id: number) {

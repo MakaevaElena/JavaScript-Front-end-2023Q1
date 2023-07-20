@@ -68,9 +68,9 @@ export default class CarView {
         this.flag.classList.add('flag');
         this.startButton.innerHTML = `<h3>A</h3>`;
 
-        this.stopButton.classList.add('stop-button', 'button');
+        this.stopButton.classList.add('stop-button', 'button', 'disabled-button');
         this.stopButton.innerHTML = `<h3>B</h3>`;
-
+        this.stopButton.disabled = true;
         this.startButton.addEventListener('click', () => this.startEngine(carData.id));
         this.stopButton.addEventListener('click', () => this.stopEngine(carData.id));
 
@@ -112,6 +112,8 @@ export default class CarView {
 
         this.startButton.disabled = true;
         this.startButton.classList.add('disabled-button');
+        this.stopButton.disabled = false;
+        this.stopButton.classList.remove('disabled-button');
 
         this.api.startStopEngine(+currentId, 'started').then((response) => {
             this.driveCar(+currentId, response.distance / response.velocity);
@@ -126,8 +128,8 @@ export default class CarView {
         this.api.startStopEngine(+currentId, 'stopped').then(() => {
             cancelAnimationFrame(this.myReq);
             this.car.style.transform = `translateX(${0}vw)`;
-            this.stopButton.disabled = false;
-            this.stopButton.classList.remove('disabled-button');
+            // this.stopButton.disabled = false;
+            // this.stopButton.classList.remove('disabled-button');
             this.startButton.disabled = false;
             this.startButton.classList.remove('disabled-button');
         });

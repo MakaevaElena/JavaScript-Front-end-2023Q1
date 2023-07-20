@@ -114,13 +114,8 @@ export default class CarView {
         this.startButton.classList.add('disabled-button');
 
         this.api.startStopEngine(+currentId, 'started').then((response) => {
-            this.driveCar(+currentId, response.distance / response.velocity).then(() =>
-                this.formView.unBlockRaceButton()
-            );
+            this.driveCar(+currentId, response.distance / response.velocity);
         });
-
-        this.startButton.disabled = false;
-        this.startButton.classList.remove('disabled-button');
     }
 
     public stopEngine<T>(id: T) {
@@ -205,6 +200,7 @@ export default class CarView {
             .finally(() => {
                 this.startButton.disabled = false;
                 this.startButton.classList.remove('disabled-button');
+                this.observer.notify(EventName.ARRAIVED);
             });
     }
 }

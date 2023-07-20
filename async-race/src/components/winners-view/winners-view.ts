@@ -67,8 +67,9 @@ export default class WinnersView extends DefaultView {
                         );
                         const winnerWins = this.createTagElement('div', ['winner-wins', 'cell'], `${winner.wins}`);
 
-                        let lastBestTyme = localStorage.getItem(`${winner.id}Time`) || '0';
-                        if (winner.time < +lastBestTyme) {
+                        let lastBestTyme = localStorage.getItem(`${winner.id}Time`);
+                        if (!lastBestTyme) lastBestTyme = '' + winner.time;
+                        if (winner.time <= +lastBestTyme) {
                             lastBestTyme = `${winner.time}`;
                             localStorage.setItem(`${winner.id}Time`, lastBestTyme);
                         }

@@ -4,7 +4,8 @@
     justify-content: center;
     align-items: flex-start;
     width: 88%;
-    border: 1px solid white;
+    /* border: 1px solid white; */
+    border-bottom: 3px dotted white;
     margin: 0.2rem;
 }
 
@@ -53,7 +54,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.2rem;
-    border-bottom: 1px dotted white;
+    /* border-bottom: 3px dotted white; */
     width: 100%;
 }
 

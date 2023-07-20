@@ -5,9 +5,10 @@ import './style.css';
 import { MODELS, CAR_BODIES } from './constants';
 import Observer from '../../app/observer/observer';
 import { EventName } from '../../../enums/events/events-names';
+import DefaultView from '../../main-view/default-view';
 // import CarView from '../../../components/car-view/car-view';
 
-export default class FormView {
+export default class FormView extends DefaultView {
     private form = document.createElement('form');
     private inputCreateName = document.createElement('input');
     private inputUpdateName = document.createElement('input');
@@ -18,15 +19,18 @@ export default class FormView {
     private buttonRace = document.createElement('button');
     private buttonReset = document.createElement('button');
     private buttonGenerateCars = document.createElement('button');
-    private currentPageNumber = localStorage.getItem('currentPage') || '1';
+    // private currentPageNumber = localStorage.getItem('currentPage') || '1';
+    private winnerPopup = this.createTagElement('div', ['winner-popup', 'grow']);
 
     private api = new Api();
     private garageView: GarageView;
     private paginationView: PaginationView;
     private observer: Observer;
     // private carView: CarView;
+    private winnerIds: Array<number> = [];
 
     constructor(garageView: GarageView, paginationView: PaginationView, observer: Observer) {
+        super();
         this.observer = observer;
         this.paginationView = paginationView;
         this.garageView = garageView;
@@ -83,14 +87,14 @@ export default class FormView {
             this.garageView.createRaceRoad();
         };
 
-        const createHundredCars = (event: Event) => {
+        const createHundredCars = async (event: Event) => {
             event.preventDefault();
             for (let i = 0; i < 100; i++) {
                 const randomName = `${MODELS[this.getRandomInt(MODELS.length)]} ${
                     CAR_BODIES[this.getRandomInt(CAR_BODIES.length)]
                 }`;
                 const randomColor = '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
-                this.api.createCar({ name: randomName, color: randomColor });
+                await this.api.createCar({ name: randomName, color: randomColor });
             }
             this.garageView.createRaceRoad();
         };
@@ -114,8 +118,11 @@ export default class FormView {
     }
 
     private raceHandler = (event: Event) => {
+        this.winnerIds = [];
         event.preventDefault();
         this.observer.notify(EventName.RACE);
+        this.observer?.subscribe(EventName.FINISH, this.setWinner.bind(this));
+
         this.buttonRace.disabled = true;
         this.buttonRace.classList.add('disabled-button');
     };
@@ -130,9 +137,11 @@ export default class FormView {
     }
 
     private resetHandler = (event: Event) => {
+        this.winnerIds = [];
         event.preventDefault();
         // console.log(this);
         this.observer.notify(EventName.RESET);
+        if (document.body.contains(this.winnerPopup)) document.body.removeChild(this.winnerPopup);
     };
 
     public setItemName(name: string) {
@@ -141,5 +150,33 @@ export default class FormView {
 
     private getRandomInt(max: number) {
         return Math.floor(Math.random() * max);
+    }
+
+    private setWinner<T>(id: T) {
+        this.winnerIds.push(+id);
+        console.log(this.winnerIds);
+        //todo отписка, попап
+        this.observer?.unsubscribe(EventName.FINISH);
+        this.showWinnerPopup(this.winnerIds[0]);
+    }
+
+    private showWinnerPopup(id: number) {
+        this.winnerPopup.innerHTML = '';
+        this.api.getCar(id).then((winnerData) => {
+            const message = this.createTagElement(
+                'h2',
+                ['winner-message'],
+                `Congratulates!<br>${winnerData.name} WON!`
+            );
+            this.winnerPopup.append(message);
+            document.body.append(this.winnerPopup);
+        });
+        document.body.addEventListener('click', () => {
+            if (document.body.contains(this.winnerPopup)) document.body.removeChild(this.winnerPopup);
+        });
+    }
+
+    public getAbsoluteWinner() {
+        return this.winnerIds[0];
     }
 }

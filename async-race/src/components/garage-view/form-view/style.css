@@ -53,3 +53,34 @@
 .generate-cars {
     grid-area: buttonGenerateCars;
 }
+
+.winner-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    top: 30%;
+    left: 50%;
+    /* background: #21935a4d; */
+    /* box-shadow: 0 3px #21935a inset; */
+    color: #40c781;
+    padding: 0.3rem;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 3rem;
+    transition: 0.2s;
+}
+
+.grow {
+    animation: grow 2s ease 1;
+}
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}

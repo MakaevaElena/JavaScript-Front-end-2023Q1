@@ -12,6 +12,10 @@ export default class Observer {
         listeners.push(listener);
     }
 
+    unsubscribe(EventName: EventName) {
+        this.listeners.delete(EventName);
+    }
+
     notify<T>(EventName: EventName, param?: T) {
         const listenerArray = this.listeners.get(EventName);
         if (listenerArray) {

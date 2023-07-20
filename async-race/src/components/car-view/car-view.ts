@@ -21,12 +21,11 @@ export default class CarView {
     private car = document.createElement('div');
     private myReq!: number;
 
-    private carData: CarType;
+    public carData: CarType;
     private api = new Api();
     private formView: FormView;
     private garageView: GarageView;
     private observer: Observer;
-    private racePromises = [];
 
     constructor(carData: CarType, formView: FormView, garageView: GarageView, observer: Observer) {
         this.observer = observer;
@@ -111,13 +110,17 @@ export default class CarView {
         let currentId = 0;
         id ? (currentId = +id) : (currentId = this.carData.id);
 
+        this.startButton.disabled = true;
+        this.startButton.classList.add('disabled-button');
+
         this.api.startStopEngine(+currentId, 'started').then((response) => {
             this.driveCar(+currentId, response.distance / response.velocity).then(() =>
                 this.formView.unBlockRaceButton()
             );
         });
-        this.startButton.disabled = true;
-        this.startButton.classList.add('disabled-button');
+
+        this.startButton.disabled = false;
+        this.startButton.classList.remove('disabled-button');
     }
 
     public stopEngine<T>(id: T) {
@@ -154,14 +157,18 @@ export default class CarView {
     }
 
     private async driveCar(id: number, time: number) {
-        this.animateCar(75, time);
+        this.animateCar(82, time);
 
         await this.api
             .driveCar(id, 'drive')
             .then((res) => {
                 switch (true) {
-                    case res.success === true:
-                        this.api.getWinner(id).then((res) => {
+                    case res.success === true: {
+                        // TODO finish
+                        this.observer.notify(EventName.FINISH, id);
+                        const absoluteWinnerId = this.formView.getAbsoluteWinner();
+
+                        this.api.getWinner(absoluteWinnerId).then((res) => {
                             switch (true) {
                                 case res instanceof Object:
                                     this.api.updateWinner(id, { wins: res.wins + 1, time: time });
@@ -175,6 +182,8 @@ export default class CarView {
                         });
 
                         break;
+                    }
+
                     case res === 500:
                         console.log('error 500');
                         cancelAnimationFrame(this.myReq);

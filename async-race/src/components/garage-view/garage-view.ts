@@ -6,7 +6,7 @@ import PaginationView from '../pagination/pagination';
 import FormView from './form-view/form-view';
 import DefaultView from '../main-view/default-view';
 import Observer from '../app/observer/observer';
-import { EventName } from '../../enums/events/events-names';
+// import { EventName } from '../../enums/events/events-names';
 
 export default class GarageView extends DefaultView {
     private START_PAGE = '1';
@@ -17,9 +17,10 @@ export default class GarageView extends DefaultView {
     private roadHeader = document.createElement('h2');
     private pageNumberHeader = document.createElement('h3');
     private carsListElement = document.createElement('div');
-    private currentPageNumber = localStorage.getItem('currentPage');
+    private currentPageNumber = localStorage.getItem('currentPage') || '1';
     private api = new Api();
     private carView!: CarView;
+    private carViews: Array<CarView> = [];
     private paginationView = new PaginationView(this);
     private allCars = new Array(4);
     private observer: Observer;
@@ -30,6 +31,9 @@ export default class GarageView extends DefaultView {
         this.observer = observer;
         this.garageView = this.createGarage();
         this.formView = new FormView(this, this.paginationView, this.observer);
+
+        // this.observer?.subscribe(EventName.RESET, this.carView.stopEngine.bind(this.carView));
+        // this.observer?.subscribe(EventName.RACE, this.startAllCars.bind(this));
     }
 
     getGarageView() {
@@ -40,7 +44,7 @@ export default class GarageView extends DefaultView {
         this.garage.classList.add('garage');
         const isGarage = localStorage.getItem('isGarage');
 
-        //TODO ? почему не сработало this.hideGarage()
+        //почему не сработало this.hideGarage()
         if (isGarage === 'true' || !isGarage) {
             this.garage.classList.add('show');
             this.garage.classList.remove('hide');
@@ -90,15 +94,11 @@ export default class GarageView extends DefaultView {
 
         const carsListData: CarsType = await this.api.getCarsByPage(+this.currentPageNumber);
 
-        const promise = carsListData.map((carData) => {
+        carsListData.map((carData) => {
             this.carView = new CarView(carData, this.formView, this, this.observer);
+            this.carViews.push(this.carView);
             this.carView.createCarBlock(this.carsListElement);
-
-            // this.observer?.subscribe(EventName.RESET, this.carView.stopEngine.bind(this.carView));
-            // this.observer?.subscribe(EventName.RACE, this.carView.startEngine.bind(this.carView));
         });
-        //todo как получить массив промисов гонки
-        await Promise.all(promise).then((response) => console.log(response));
     }
 
     public showGarage() {
@@ -112,9 +112,8 @@ export default class GarageView extends DefaultView {
     }
 
     // private startAllCars() {
-    //     this.currentPageNumber = localStorage.getItem('currentPage') || this.START_PAGE;
-    //     const carsListData: Promise<CarsType> = this.api.getCarsByPage(+this.currentPageNumber);
-    //     carsListData.map(car=> );
+    //     const promises = this.carViews.map((carView) => carView.startEngine(carView.carData.id));
+    //     Promise.allSettled(promises).then((responses) => console.log(responses));
     // }
 
     // private stopAllCars() {}

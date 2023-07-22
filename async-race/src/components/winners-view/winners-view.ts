@@ -4,7 +4,7 @@ import { carImage } from '../car-view/car-image';
 import Api from '../../api';
 import DefaultView from '../main-view/default-view';
 import PaginationView from '../pagination/pagination';
-import Observer from '../app/observer/observer';
+// import Observer from '../app/observer/observer';
 
 export default class WinnersView extends DefaultView {
     private api = new Api();
@@ -14,7 +14,7 @@ export default class WinnersView extends DefaultView {
     private winnerHeader = document.createElement('h2');
     private pageNumberHeader = document.createElement('h3');
     private paginationView: PaginationView;
-    private observer: Observer;
+    // private observer: Observer;
 
     private tableHeaderNum = this.createTagElement('div', ['table-header-number', 'cell', 'button'], 'Number');
     private tableHeaderCar = this.createTagElement('div', ['table-header-car', 'cell', 'button'], 'Car');
@@ -22,10 +22,10 @@ export default class WinnersView extends DefaultView {
     private tableHeaderWins = this.createTagElement('div', ['table-header-wins', 'cell', 'button'], 'Wins  &darr;');
     private tableHeaderTime = this.createTagElement('div', ['table-header-time', 'cell', 'button'], 'Best time &uarr;');
 
-    constructor(observer: Observer, paginationView: PaginationView) {
+    constructor(paginationView: PaginationView) {
         //observer ?
         super();
-        this.observer = observer;
+        // this.observer = observer;
         this.winnersView = this.createWinnersPage();
         this.paginationView = paginationView;
     }
@@ -72,6 +72,7 @@ export default class WinnersView extends DefaultView {
                         if (winner.time <= +lastBestTyme) {
                             lastBestTyme = `${winner.time}`;
                             localStorage.setItem(`${winner.id}Time`, lastBestTyme);
+                            // this.api.updateWinner(winner.id, { wins: winner.wins, time: +lastBestTyme });
                         }
                         const winnerTime = this.createTagElement(
                             'div',

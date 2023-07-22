@@ -11,6 +11,9 @@ export default class PaginationView {
     }
 
     public createButtons(totalCountCars: string, winnersView: WinnersView | null) {
+        // console.log(localStorage.getItem('currentPage'));
+        // if (localStorage.getItem('currentPage') === null) localStorage.setItem('currentPage', '1');
+
         this.pagination.innerHTML = '';
         this.pagination.classList.add('pagination');
         const buttonsCount = Math.ceil(+totalCountCars / 7);
@@ -30,7 +33,7 @@ export default class PaginationView {
 
     private choosePage(currentPage: number, winnersView: WinnersView | null) {
         const isGarage = localStorage.getItem('isGarage');
-        console.log(isGarage);
+        // console.log(isGarage);
         if (isGarage === 'true') {
             localStorage.setItem('currentPage', currentPage.toString());
             this.garageView.createRaceRoad();

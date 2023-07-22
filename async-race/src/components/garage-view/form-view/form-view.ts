@@ -19,7 +19,7 @@ export default class FormView extends DefaultView {
     private buttonRace = document.createElement('button');
     private buttonReset = document.createElement('button');
     private buttonGenerateCars = document.createElement('button');
-    private currentPageNumber = localStorage.getItem('currentPage') || '1';
+    // private currentPageNumber = localStorage.getItem('currentPage') || '1';
     private winnerPopup = this.createTagElement('div', ['winner-popup', 'grow']);
 
     private api = new Api();
@@ -61,7 +61,7 @@ export default class FormView extends DefaultView {
         this.buttonUpdate.innerHTML = `UPDATE`;
         this.buttonRace.innerHTML = `RACE`;
         this.buttonReset.innerHTML = `RESET`;
-        this.buttonGenerateCars.innerHTML = `GENERATE CAR`;
+        this.buttonGenerateCars.innerHTML = `GENERATE CARS`;
 
         this.form.append(
             this.inputCreateName,
@@ -127,7 +127,7 @@ export default class FormView extends DefaultView {
         event.preventDefault();
         this.observer.notify(EventName.RACE);
         this.observer?.subscribe(EventName.FINISH, this.setWinner.bind(this));
-        this.observer?.subscribe(EventName.ARRAIVED, this.unBlockRaceButton.bind(this));
+        // this.observer?.subscribe(EventName.ARRAIVED, this.unBlockRaceButton.bind(this));
 
         this.buttonRace.disabled = true;
         this.buttonRace.classList.add('disabled-button');
@@ -135,8 +135,8 @@ export default class FormView extends DefaultView {
 
     private unBlockRaceButton = async () => {
         this.countArrived += 1;
-        console.log(this.countArrived);
-        const countOnPage = (await this.api.getCarsByPage(+this.currentPageNumber)).length;
+        const currentPageNumber = localStorage.getItem('currentPage') || '1';
+        const countOnPage = (await this.api.getCarsByPage(+currentPageNumber)).length;
         if (this.countArrived >= countOnPage) {
             this.buttonRace.disabled = false;
             this.buttonRace.classList.remove('disabled-button');
@@ -158,6 +158,7 @@ export default class FormView extends DefaultView {
         if (document.body.contains(this.winnerPopup)) document.body.removeChild(this.winnerPopup);
         this.buttonRace.disabled = false;
         this.buttonRace.classList.remove('disabled-button');
+        this.unBlockRaceButton();
     };
 
     public setItemName(name: string) {
@@ -177,11 +178,7 @@ export default class FormView extends DefaultView {
     private showWinnerPopup(id: number) {
         this.winnerPopup.innerHTML = '';
         this.api.getCar(id).then((winnerData) => {
-            const message = this.createTagElement(
-                'h2',
-                ['winner-message'],
-                `Congratulates!<br>${winnerData.name} WON!`
-            );
+            const message = this.createTagElement('h2', ['winner-message'], `${winnerData.name} WON!`);
             this.winnerPopup.append(message);
             document.body.append(this.winnerPopup);
         });

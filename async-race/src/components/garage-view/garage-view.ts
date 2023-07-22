@@ -6,7 +6,7 @@ import PaginationView from '../pagination/pagination';
 import FormView from './form-view/form-view';
 import DefaultView from '../main-view/default-view';
 import Observer from '../app/observer/observer';
-// import { EventName } from '../../enums/events/events-names';
+import { EventName } from '../../enums/events/events-names';
 
 export default class GarageView extends DefaultView {
     private START_PAGE = '1';
@@ -17,7 +17,7 @@ export default class GarageView extends DefaultView {
     private roadHeader = document.createElement('h2');
     private pageNumberHeader = document.createElement('h3');
     private carsListElement = document.createElement('div');
-    private currentPageNumber = localStorage.getItem('currentPage') || '1';
+    // private currentPageNumber = localStorage.getItem('currentPage') || '1';
     private api = new Api();
     private carView!: CarView;
     private carViews: Array<CarView> = [];
@@ -31,6 +31,8 @@ export default class GarageView extends DefaultView {
         this.observer = observer;
         this.garageView = this.createGarage();
         this.formView = new FormView(this, this.paginationView, this.observer);
+
+        observer?.subscribe(EventName.RACE, this.raceAllCars.bind(this));
     }
 
     getGarageView() {
@@ -69,33 +71,38 @@ export default class GarageView extends DefaultView {
     }
 
     public async createRaceRoad(): Promise<void> {
+        this.carViews = [];
+        // console.log(this.carViews);
+        const currentPageNumber = localStorage.getItem('currentPage') || '1';
         this.carsListElement.innerHTML = '';
         if (this.allCars.length <= 7) {
-            this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
+            this.pageNumberHeader.innerText = `Page #${currentPageNumber}`;
         }
 
         this.api.getAllCars().then((allCars) => {
             this.allCars = allCars;
             this.paginationView.createButtons(`${this.allCars.length}`, null);
+            this.roadHeader.innerText = `Garage (${allCars.length})`;
         });
 
-        this.currentPageNumber = localStorage.getItem('currentPage') || this.START_PAGE;
-        this.api.getAllCars().then((totalCountCars) => {
-            this.roadHeader.innerText = `Garage (${totalCountCars.length})`;
-        });
         this.raceRoads.classList.add('race-road');
-        this.pageNumberHeader.innerText = `Page #${this.currentPageNumber}`;
+        this.pageNumberHeader.innerText = `Page #${currentPageNumber}`;
         this.carsListElement.classList.add('cars-list');
 
         this.raceRoads.append(this.roadHeader, this.pageNumberHeader, this.carsListElement);
 
-        const carsListData: CarsType = await this.api.getCarsByPage(+this.currentPageNumber);
+        const carsListData: CarsType = await this.api.getCarsByPage(+currentPageNumber);
 
         carsListData.map((carData) => {
             this.carView = new CarView(carData, this.formView, this, this.observer);
+            // console.log(this.carView.carData.id);
             this.carViews.push(this.carView);
-            this.carView.createCarBlock(this.carsListElement);
+            // console.log(this.carViews);
+
+            // this.carView.createCarBlock(this.carsListElement);
         });
+
+        this.carViews.map((carView) => carView.createCarBlock(this.carsListElement));
     }
 
     public showGarage() {
@@ -108,10 +115,10 @@ export default class GarageView extends DefaultView {
         this.garageView.classList.add('hide');
     }
 
-    // private startAllCars() {
-    //     const promises = this.carViews.map((carView) => carView.startEngine(carView.carData.id));
-    //     Promise.allSettled(promises).then((responses) => console.log(responses));
-    // }
-
-    // private stopAllCars() {}
+    public raceAllCars() {
+        const promise = this.carViews.map((carView) => carView.startEngine(carView.carData.id));
+        Promise.all(promise);
+        // const responses = Promise.all(promise);
+        // console.log(responses);
+    }
 }

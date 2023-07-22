@@ -37,9 +37,9 @@ export default class CarView {
         this.createCar(carData);
         this.updateCar(carData);
         this.deleteCar(carData);
-
+        // console.log(carData.id);
         observer?.subscribe(EventName.RESET, this.stopEngine.bind(this));
-        observer?.subscribe(EventName.RACE, this.startEngine.bind(this));
+        // observer?.subscribe(EventName.RACE, this.startEngine.bind(this));
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
@@ -107,9 +107,8 @@ export default class CarView {
     }
 
     public startEngine<T>(id: T) {
-        let currentId = 0;
+        let currentId: number;
         id ? (currentId = +id) : (currentId = this.carData.id);
-
         this.startButton.disabled = true;
         this.startButton.classList.add('disabled-button');
         this.stopButton.disabled = false;
@@ -128,8 +127,6 @@ export default class CarView {
         this.api.startStopEngine(+currentId, 'stopped').then(() => {
             cancelAnimationFrame(this.myReq);
             this.car.style.transform = `translateX(${0}vw)`;
-            // this.stopButton.disabled = false;
-            // this.stopButton.classList.remove('disabled-button');
             this.startButton.disabled = false;
             this.startButton.classList.remove('disabled-button');
         });
@@ -154,14 +151,19 @@ export default class CarView {
     }
 
     private async driveCar(id: number, time: number) {
-        this.animateCar(82, time);
+        // console.log(id);
+        const mediaQuery = window.matchMedia('(max-width: 700px)');
+        if (mediaQuery.matches) {
+            this.animateCar(60, time);
+        } else {
+            this.animateCar(82, time);
+        }
 
         await this.api
             .driveCar(id, 'drive')
             .then((res) => {
                 switch (true) {
                     case res.success === true: {
-                        // TODO finish
                         this.observer.notify(EventName.FINISH, id);
                         const absoluteWinnerId = this.formView.getAbsoluteWinner();
 

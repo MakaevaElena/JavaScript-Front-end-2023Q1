@@ -12,8 +12,7 @@
 
 .winners-table {
     margin-top: 0.2rem;
-    width: 50%;
-    /* border: 1px solid white; */
+    max-width: 920px;
     margin: 0.2rem;
 }
 
@@ -21,15 +20,12 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
-    /* border: 1px solid white; */
-    /* margin-top: 0.2rem; */
 }
 
 .cell {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
-    /* border: 1px solid white; */
     margin: 0.2rem;
 }
 
@@ -41,8 +37,3 @@
     width: 80px;
     height: 30px;
 }
-/* 
-.winner-car.svg {
-    width: 1%;
-    height: 1%;
-} */

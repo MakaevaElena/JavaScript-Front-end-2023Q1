@@ -1,5 +1,5 @@
 .form {
-    width: 25%;
+    width: 450px;
     display: grid;
     grid-template-columns: 25% 25% 20% 30%;
     grid-template-rows: repeat(3, 1fr);
@@ -61,11 +61,12 @@
     position: absolute;
     width: 10%;
     height: 10%;
-    top: 30%;
+    top: 40%;
     left: 50%;
-    /* background: #21935a4d; */
+    /* background: gray; */
     /* box-shadow: 0 3px #21935a inset; */
     color: #40c781;
+    /* color: white; */
     padding: 0.3rem;
     border-radius: 5px;
     font-weight: 600;
@@ -82,5 +83,16 @@
     }
     to {
         transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .form {
+        width: 90%;
+    }
+
+    .winner-popup {
+        top: 50%;
+        font-size: 1.8rem;
     }
 }

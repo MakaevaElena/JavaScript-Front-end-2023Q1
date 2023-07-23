@@ -7,17 +7,16 @@ import FormView from './form-view/form-view';
 import DefaultView from '../main-view/default-view';
 import Observer from '../app/observer/observer';
 import { EventName } from '../../enums/events/events-names';
+import { TagNames } from '../../enums/views/tag-names';
+import { GarageViewCssClasses, CommonCssClasses } from '../../enums/views/css-classes';
 
 export default class GarageView extends DefaultView {
     private START_PAGE = '1';
     protected garageView: HTMLElement;
-    private garage = document.createElement('div');
-
-    private raceRoads = document.createElement('div');
-    private roadHeader = document.createElement('h2');
-    private pageNumberHeader = document.createElement('h3');
-    private carsListElement = document.createElement('div');
-    // private currentPageNumber = localStorage.getItem('currentPage') || '1';
+    private raceRoads = this.createTagElement('div', ['race-road']);
+    private carsListElement = this.createTagElement('div', ['cars-list'], '');
+    private pageNumberHeader = this.createTagElement('h3', []);
+    private roadHeader = this.createTagElement('h2', []);
     private api = new Api();
     private carView!: CarView;
     private carViews: Array<CarView> = [];
@@ -30,7 +29,7 @@ export default class GarageView extends DefaultView {
         super();
         this.observer = observer;
         this.garageView = this.createGarage();
-        this.formView = new FormView(this, this.paginationView, this.observer);
+        this.formView = new FormView(this, this.observer);
 
         observer?.subscribe(EventName.RACE, this.raceAllCars.bind(this));
     }
@@ -40,54 +39,53 @@ export default class GarageView extends DefaultView {
     }
 
     private createGarage() {
-        this.garage.classList.add('garage');
+        const garage = this.createTagElement(TagNames.BLOCK, [GarageViewCssClasses.GARAGE]);
         const isGarage = localStorage.getItem('isGarage');
 
-        //почему не сработало this.hideGarage()
+        //?почему не сработало this.hideGarage()
         if (isGarage === 'true' || !isGarage) {
-            this.garage.classList.add('show');
-            this.garage.classList.remove('hide');
+            garage.classList.add(CommonCssClasses.SHOW);
+            garage.classList.remove(CommonCssClasses.HIDE);
         }
         if (isGarage === 'false') {
-            this.garage.classList.remove('show');
-            this.garage.classList.add('hide');
+            garage.classList.remove(CommonCssClasses.SHOW);
+            garage.classList.add(CommonCssClasses.HIDE);
         }
 
         this.api
             .getAllCars()
             .then((allCars) => {
-                this.garage.append(
+                garage.append(
                     this.formView.createForm(),
                     this.raceRoads,
-                    this.paginationView.createButtons(`${allCars.length}`, null)
+                    this.paginationView.createButtons(`${allCars.length}`, null, 7)
                 );
                 this.createRaceRoad();
-                return this.garage;
+                return garage;
             })
             .then((garage) => garage)
             .catch(() => alert('Server Error - failed to get cars'));
 
-        return this.garage;
+        return garage;
     }
 
     public async createRaceRoad(): Promise<void> {
-        this.carViews = [];
-        // console.log(this.carViews);
         const currentPageNumber = localStorage.getItem('currentPage') || '1';
+
+        this.carViews = [];
         this.carsListElement.innerHTML = '';
+
         if (this.allCars.length <= 7) {
-            this.pageNumberHeader.innerText = `Page #${currentPageNumber}`;
+            // pageNumberHeader.innerText = `Page #${currentPageNumber}`;
         }
 
         this.api.getAllCars().then((allCars) => {
             this.allCars = allCars;
-            this.paginationView.createButtons(`${this.allCars.length}`, null);
+            this.paginationView.createButtons(`${this.allCars.length}`, null, 7);
             this.roadHeader.innerText = `Garage (${allCars.length})`;
         });
 
-        this.raceRoads.classList.add('race-road');
         this.pageNumberHeader.innerText = `Page #${currentPageNumber}`;
-        this.carsListElement.classList.add('cars-list');
 
         this.raceRoads.append(this.roadHeader, this.pageNumberHeader, this.carsListElement);
 
@@ -95,29 +93,24 @@ export default class GarageView extends DefaultView {
 
         carsListData.map((carData) => {
             this.carView = new CarView(carData, this.formView, this, this.observer);
-            // console.log(this.carView.carData.id);
             this.carViews.push(this.carView);
-            // console.log(this.carViews);
-
-            // this.carView.createCarBlock(this.carsListElement);
         });
 
         this.carViews.map((carView) => carView.createCarBlock(this.carsListElement));
     }
 
     public showGarage() {
-        this.garageView.classList.add('show');
-        this.garageView.classList.remove('hide');
+        this.garageView.classList.add(CommonCssClasses.SHOW);
+        this.garageView.classList.remove(CommonCssClasses.HIDE);
     }
 
     public hideGarage() {
-        this.garageView.classList.remove('show');
-        this.garageView.classList.add('hide');
+        this.garageView.classList.remove(CommonCssClasses.SHOW);
+        this.garageView.classList.add(CommonCssClasses.HIDE);
     }
 
     public raceAllCars() {
-        const promise = this.carViews.map((carView) => carView.startEngine(carView.carData.id));
-        Promise.all(promise);
+        this.carViews.map((carView) => carView.startEngine(carView.carData.id));
         // const responses = Promise.all(promise);
         // console.log(responses);
     }

@@ -1,24 +1,42 @@
 import './style.css';
 import Api from '../../api';
 import { CarType } from '../../types/types';
-import { carImage } from '../car-view/car-image';
+import { CAR_IMAGE } from '../car-view/car-image';
 import FormView from '../garage-view/form-view/form-view';
 import GarageView from '../garage-view/garage-view';
 import Observer from '../app/observer/observer';
 import { EventName } from '../../enums/events/events-names';
+import DefaultView from '../main-view/default-view';
+import { TagNames } from '../../enums/views/tag-names';
+import { CarViewCssClasses, CommonCssClasses } from '../../enums/views/css-classes';
 
-export default class CarView {
-    private carBlock = document.createElement('div');
-    private selectButton = document.createElement('button');
-    private removeButton = document.createElement('button');
-    private carName = document.createElement('div');
-    private carTop = document.createElement('div');
-    private carBottom = document.createElement('div');
-    private startButton = document.createElement('button');
-    private stopButton = document.createElement('button');
-    private carBottomButtons = document.createElement('div');
-    private flag = document.createElement('div');
-    private car = document.createElement('div');
+export default class CarView extends DefaultView {
+    private selectButton = this.createTagElement(
+        TagNames.BUTTON,
+        [CarViewCssClasses.SELECT_BUTTON, CommonCssClasses.BUTTON],
+        `<h3>select</h3>`
+    );
+    private removeButton = this.createTagElement(
+        TagNames.BUTTON,
+        [CarViewCssClasses.REMOVE_BUTTON, CommonCssClasses.BUTTON],
+        `<h3>remove</h3>`
+    );
+
+    private carTop = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_TOP]);
+    private carBottom = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_BOTTOM]);
+    private startButton = this.createTagElement(
+        TagNames.BUTTON,
+        [CarViewCssClasses.START_BUTTON, CommonCssClasses.BUTTON],
+        `<h3>A</h3>`
+    );
+    private stopButton = this.createTagElement(
+        TagNames.BUTTON,
+        [CarViewCssClasses.STOP_BUTTON, CommonCssClasses.BUTTON, CommonCssClasses.DISABLED_BUTTON],
+        `<h3>B</h3>`
+    );
+    private carBottomButtons = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_BOTTOM_BUTTONS]);
+
+    private car = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR], CAR_IMAGE);
     private myReq!: number;
 
     public carData: CarType;
@@ -28,6 +46,7 @@ export default class CarView {
     private observer: Observer;
 
     constructor(carData: CarType, formView: FormView, garageView: GarageView, observer: Observer) {
+        super();
         this.observer = observer;
         this.garageView = garageView;
         this.formView = formView;
@@ -37,55 +56,36 @@ export default class CarView {
         this.createCar(carData);
         this.updateCar(carData);
         this.deleteCar(carData);
-        // console.log(carData.id);
         observer?.subscribe(EventName.RESET, this.stopEngine.bind(this));
-        // observer?.subscribe(EventName.RACE, this.startEngine.bind(this));
     }
 
     public createCarBlock(carsListElement: HTMLDivElement) {
-        this.carBlock = document.createElement('div');
-        this.carBlock.classList.add('car-block');
-        this.carBlock.append(this.carTop, this.carBottom);
-        carsListElement.append(this.carBlock);
+        const carBlock = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_BLOCK]);
+        carBlock.append(this.carTop, this.carBottom);
+        carsListElement.append(carBlock);
     }
 
     private createTop(carData: CarType) {
-        this.carTop.classList.add('car-top');
-        this.selectButton.classList.add('select-button', 'button');
-        this.removeButton.classList.add('remove-button', 'button');
-        this.carName.classList.add('car-name');
-        this.carName.innerHTML = `<h3>${carData.name}</h3>`;
-        this.selectButton.innerHTML = `<h3>select</h3>`;
-        this.removeButton.innerHTML = `<h3>remove</h3>`;
-        this.carTop.append(this.selectButton, this.removeButton, this.carName);
+        const carName = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_NAME], `<h3>${carData.name}</h3>`);
+        this.carTop.append(this.selectButton, this.removeButton, carName);
     }
 
     private createBottom(carData: CarType) {
-        // this.carBottom.innerHTML = '';
-        this.carBottom.classList.add('car-bottom');
-        this.carBottomButtons.classList.add('car-bottom-buttons');
-        this.startButton.classList.add('start-button', 'button');
-        this.flag.classList.add('flag');
-        this.startButton.innerHTML = `<h3>A</h3>`;
+        const flag = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.FLAG]);
 
-        this.stopButton.classList.add('stop-button', 'button', 'disabled-button');
-        this.stopButton.innerHTML = `<h3>B</h3>`;
         this.stopButton.disabled = true;
+
         this.startButton.addEventListener('click', () => this.startEngine(carData.id));
         this.stopButton.addEventListener('click', () => this.stopEngine(carData.id));
 
         this.carBottomButtons.append(this.startButton, this.stopButton);
-        this.carBottom.append(this.carBottomButtons, this.flag);
+        this.carBottom.append(this.carBottomButtons, flag);
     }
 
     private createCar(carData: CarType) {
-        this.car.classList.add('car');
-        this.car.innerHTML = carImage;
-        const carSVGElement = this.car.querySelector('svg g');
+        const carSVGElement = this.car.querySelector(CarViewCssClasses.SVG);
         if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
         this.carBottom.append(this.car);
-        // document.addEventListener('animationend', () => {
-        // });
     }
 
     private updateCar(carData: CarType) {
@@ -110,9 +110,9 @@ export default class CarView {
         let currentId: number;
         id ? (currentId = +id) : (currentId = this.carData.id);
         this.startButton.disabled = true;
-        this.startButton.classList.add('disabled-button');
+        this.startButton.classList.add(CommonCssClasses.DISABLED_BUTTON);
         this.stopButton.disabled = false;
-        this.stopButton.classList.remove('disabled-button');
+        this.stopButton.classList.remove(CommonCssClasses.DISABLED_BUTTON);
 
         this.api.startStopEngine(+currentId, 'started').then((response) => {
             this.driveCar(+currentId, response.distance / response.velocity);
@@ -123,12 +123,12 @@ export default class CarView {
         let currentId;
         id ? (currentId = +id) : (currentId = this.carData.id);
         this.stopButton.disabled = true;
-        this.stopButton.classList.add('disabled-button');
+        this.stopButton.classList.add(CommonCssClasses.DISABLED_BUTTON);
         this.api.startStopEngine(+currentId, 'stopped').then(() => {
             cancelAnimationFrame(this.myReq);
             this.car.style.transform = `translateX(${0}vw)`;
             this.startButton.disabled = false;
-            this.startButton.classList.remove('disabled-button');
+            this.startButton.classList.remove(CommonCssClasses.DISABLED_BUTTON);
         });
     }
 
@@ -151,7 +151,6 @@ export default class CarView {
     }
 
     private async driveCar(id: number, time: number) {
-        // console.log(id);
         const mediaQuery = window.matchMedia('(max-width: 700px)');
         if (mediaQuery.matches) {
             this.animateCar(60, time);
@@ -161,16 +160,16 @@ export default class CarView {
 
         await this.api
             .driveCar(id, 'drive')
-            .then((res) => {
+            .then((response) => {
                 switch (true) {
-                    case res.success === true: {
+                    case response.success === true: {
                         this.observer.notify(EventName.FINISH, id);
                         const absoluteWinnerId = this.formView.getAbsoluteWinner();
 
                         this.api.getWinner(absoluteWinnerId).then((res) => {
                             switch (true) {
                                 case res instanceof Object:
-                                    this.api.updateWinner(id, { wins: res.wins + 1, time: time });
+                                    this.api.updateWinner(id, { wins: res.wins + 1, time: res.time });
                                     break;
                                 case res === 404:
                                     this.api.createWinner({ id: id, wins: 1, time: time });
@@ -183,18 +182,18 @@ export default class CarView {
                         break;
                     }
 
-                    case res === 500:
+                    case response === 500:
                         console.log('error 500');
                         cancelAnimationFrame(this.myReq);
 
                         break;
-                    case res === 400:
+                    case response === 400:
                         console.log('error 400');
                         break;
-                    case res === 404:
+                    case response === 404:
                         console.log('error 404');
                         break;
-                    case res === 429:
+                    case response === 429:
                         console.log('error 429');
                         break;
                     default:
@@ -203,7 +202,7 @@ export default class CarView {
             })
             .finally(() => {
                 this.startButton.disabled = false;
-                this.startButton.classList.remove('disabled-button');
+                this.startButton.classList.remove(CommonCssClasses.DISABLED_BUTTON);
                 this.observer.notify(EventName.ARRAIVED);
             });
     }

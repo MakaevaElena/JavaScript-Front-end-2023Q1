@@ -2,16 +2,24 @@ import GarageView from '../garage-view/garage-view';
 import DefaultView from '../main-view/default-view';
 import WinnersView from '../winners-view/winners-view';
 import './style.css';
-// import GarageView from '../garage-view/garage-view';
+import { TagNames } from '../../enums/views/tag-names';
+import { HeaderViewCssClasses, CommonCssClasses } from '../../enums/views/css-classes';
 
 export default class HeaderView extends DefaultView {
     private headerView: HTMLElement;
     garageView: GarageView;
     winnersView: WinnersView;
-    // private header = document.createElement('div');
-    private headerButtons = document.createElement('div');
-    private toGarageButton = document.createElement('button');
-    private toWinnersButton = document.createElement('button');
+
+    private toGarageButton = this.createTagElement(
+        TagNames.BUTTON,
+        [HeaderViewCssClasses.TO_GARAGE, CommonCssClasses.BUTTON],
+        `TO GARAGE`
+    );
+    private toWinnersButton = this.createTagElement(
+        TagNames.BUTTON,
+        [HeaderViewCssClasses.TO_WINNERS, CommonCssClasses.BUTTON],
+        `TO WINNERS`
+    );
 
     constructor(garageView: GarageView, winnersView: WinnersView) {
         super();
@@ -25,17 +33,11 @@ export default class HeaderView extends DefaultView {
     }
 
     private createHeader() {
-        const header = document.createElement('header');
-        header.classList.add('header');
-        this.headerButtons.classList.add('header-buttons');
-        this.toGarageButton.classList.add('to-garage', 'button');
-        this.toGarageButton.innerHTML = `TO GARAGE`;
-        this.toWinnersButton.classList.add('to-winners', 'button');
-        this.toWinnersButton.innerHTML = `TO WINNERS`;
-        this.headerButtons.append(this.toGarageButton, this.toWinnersButton);
+        const header = this.createTagElement(TagNames.HEADER, [HeaderViewCssClasses.HEADER]);
+        const headerButtons = this.createTagElement(TagNames.BLOCK, [HeaderViewCssClasses.HEADER_BUTTONS]);
+        headerButtons.append(this.toGarageButton, this.toWinnersButton);
 
-        header.append(this.headerButtons);
-        // this.changePage();
+        header.append(headerButtons);
         this.showGarage();
         this.showWinners();
         return header;

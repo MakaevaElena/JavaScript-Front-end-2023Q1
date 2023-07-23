@@ -1,38 +1,58 @@
 import Api from '../../../api';
 import GarageView from '../../garage-view/garage-view';
-import PaginationView from '../../pagination/pagination';
 import './style.css';
 import { MODELS, CAR_BODIES } from './constants';
 import Observer from '../../app/observer/observer';
 import { EventName } from '../../../enums/events/events-names';
 import DefaultView from '../../main-view/default-view';
-// import CarView from '../../../components/car-view/car-view';
+import { TagNames } from '../../../enums/views/tag-names';
+import { FormViewCssClasses, CommonCssClasses } from '../../../enums/views/css-classes';
 
 export default class FormView extends DefaultView {
-    private form = document.createElement('form');
-    private inputCreateName = document.createElement('input');
-    private inputUpdateName = document.createElement('input');
-    private buttonCreateColor = document.createElement('input');
-    private buttonUpdateColor = document.createElement('input');
-    private buttonCreate = document.createElement('button');
-    private buttonUpdate = document.createElement('button');
-    private buttonRace = document.createElement('button');
-    private buttonReset = document.createElement('button');
-    private buttonGenerateCars = document.createElement('button');
-    // private currentPageNumber = localStorage.getItem('currentPage') || '1';
-    private winnerPopup = this.createTagElement('div', ['winner-popup', 'grow']);
+    private form = this.createTagElement(TagNames.FORM, [FormViewCssClasses.FORM]);
+    private inputCreateName = this.createTagElement(TagNames.INPUT, [FormViewCssClasses.CREATE_NAME]);
+    private inputUpdateName = this.createTagElement(TagNames.INPUT, [FormViewCssClasses.UPDATE_NAME]);
+    private buttonCreateColor = this.createTagElement(TagNames.INPUT, [FormViewCssClasses.CREATE_COLOR]);
+    private buttonUpdateColor = this.createTagElement(TagNames.INPUT, [FormViewCssClasses.UPDATE_COLOR]);
+    private buttonCreate = this.createTagElement(
+        TagNames.BUTTON,
+        [FormViewCssClasses.BUTTON_CREATE, CommonCssClasses.BUTTON],
+        `CREATE`
+    );
+    private buttonUpdate = this.createTagElement(
+        TagNames.BUTTON,
+        [FormViewCssClasses.BUTTON_UPDATE, CommonCssClasses.BUTTON],
+        `UPDATE`
+    );
+    private buttonRace = this.createTagElement(
+        TagNames.BUTTON,
+        [FormViewCssClasses.BUTTON_RACE, CommonCssClasses.BUTTON],
+        `RACE`
+    );
+    private buttonReset = this.createTagElement(
+        TagNames.BUTTON,
+        [FormViewCssClasses.BUTTON_RESET, CommonCssClasses.BUTTON],
+        `RESET`
+    );
+    private buttonGenerateCars = this.createTagElement(
+        TagNames.BUTTON,
+        [FormViewCssClasses.GENERATE_CARS, CommonCssClasses.BUTTON],
+        `GENERATE CARS`
+    );
+    private winnerPopup = this.createTagElement(TagNames.BLOCK, [
+        FormViewCssClasses.WINNER_POPUP,
+        FormViewCssClasses.GROW,
+    ]);
 
     private api = new Api();
     private garageView: GarageView;
-    // private paginationView: PaginationView;
     private observer: Observer;
     private winnerIds: Array<number> = [];
     private countArrived = 0;
 
-    constructor(garageView: GarageView, paginationView: PaginationView, observer: Observer) {
+    constructor(garageView: GarageView, observer: Observer) {
         super();
         this.observer = observer;
-        // this.paginationView = paginationView;
         this.garageView = garageView;
         this.createForm();
         this.sendFormData();
@@ -41,27 +61,10 @@ export default class FormView extends DefaultView {
     }
 
     public createForm() {
-        this.form.classList.add('form');
-        this.inputCreateName.classList.add('create-name');
-        this.buttonCreateColor.classList.add('create-color');
-        this.buttonCreate.classList.add('button-create', 'button');
-        this.inputUpdateName.classList.add('update-name');
-        this.buttonUpdateColor.classList.add('update-color');
-        this.buttonUpdate.classList.add('button-update', 'button');
-        this.buttonRace.classList.add('button-race', 'button');
-        this.buttonReset.classList.add('button-reset', 'button');
-        this.buttonGenerateCars.classList.add('generate-cars', 'button');
-
         this.buttonCreateColor.setAttribute('type', 'color');
         this.buttonUpdateColor.setAttribute('type', 'color');
         this.buttonCreateColor.setAttribute('value', '#0000ff');
         this.buttonUpdateColor.setAttribute('value', '#0000ff');
-
-        this.buttonCreate.innerHTML = `CREATE`;
-        this.buttonUpdate.innerHTML = `UPDATE`;
-        this.buttonRace.innerHTML = `RACE`;
-        this.buttonReset.innerHTML = `RESET`;
-        this.buttonGenerateCars.innerHTML = `GENERATE CARS`;
 
         this.form.append(
             this.inputCreateName,
@@ -90,7 +93,8 @@ export default class FormView extends DefaultView {
             event.preventDefault();
 
             this.buttonGenerateCars.disabled = true;
-            this.buttonGenerateCars.classList.add('disabled-button');
+            this.buttonGenerateCars.classList.add(CommonCssClasses.DISABLED_BUTTON);
+            this.buttonGenerateCars.innerHTML = 'LOADING ...';
 
             for (let i = 0; i < 100; i++) {
                 const randomName = `${MODELS[this.getRandomInt(MODELS.length)]} ${
@@ -101,7 +105,8 @@ export default class FormView extends DefaultView {
             }
             this.garageView.createRaceRoad();
             this.buttonGenerateCars.disabled = false;
-            this.buttonGenerateCars.classList.remove('disabled-button');
+            this.buttonGenerateCars.classList.remove(CommonCssClasses.DISABLED_BUTTON);
+            this.buttonGenerateCars.innerHTML = 'GENERATE CARS';
         };
 
         const updateCar = (event: Event) => {
@@ -127,19 +132,18 @@ export default class FormView extends DefaultView {
         event.preventDefault();
         this.observer.notify(EventName.RACE);
         this.observer?.subscribe(EventName.FINISH, this.setWinner.bind(this));
-        // this.observer?.subscribe(EventName.ARRAIVED, this.unBlockRaceButton.bind(this));
 
         this.buttonRace.disabled = true;
-        this.buttonRace.classList.add('disabled-button');
+        this.buttonRace.classList.add(CommonCssClasses.DISABLED_BUTTON);
     };
 
-    private unBlockRaceButton = async () => {
+    public unBlockRaceButton = async () => {
         this.countArrived += 1;
         const currentPageNumber = localStorage.getItem('currentPage') || '1';
         const countOnPage = (await this.api.getCarsByPage(+currentPageNumber)).length;
         if (this.countArrived >= countOnPage) {
             this.buttonRace.disabled = false;
-            this.buttonRace.classList.remove('disabled-button');
+            this.buttonRace.classList.remove(CommonCssClasses.DISABLED_BUTTON);
             this.observer?.unsubscribe(EventName.ARRAIVED);
             this.countArrived = 0;
         }
@@ -157,7 +161,7 @@ export default class FormView extends DefaultView {
         this.observer.notify(EventName.RESET);
         if (document.body.contains(this.winnerPopup)) document.body.removeChild(this.winnerPopup);
         this.buttonRace.disabled = false;
-        this.buttonRace.classList.remove('disabled-button');
+        this.buttonRace.classList.remove(CommonCssClasses.DISABLED_BUTTON);
         this.unBlockRaceButton();
     };
 
@@ -178,7 +182,11 @@ export default class FormView extends DefaultView {
     private showWinnerPopup(id: number) {
         this.winnerPopup.innerHTML = '';
         this.api.getCar(id).then((winnerData) => {
-            const message = this.createTagElement('h2', ['winner-message'], `${winnerData.name} WON!`);
+            const message = this.createTagElement(
+                TagNames.HEADER_SECOND,
+                [FormViewCssClasses.WINNER_MESSAGE],
+                `${winnerData.name} WON!`
+            );
             this.winnerPopup.append(message);
             document.body.append(this.winnerPopup);
         });

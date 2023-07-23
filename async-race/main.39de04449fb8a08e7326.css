@@ -13,8 +13,6 @@ h3 {
 }
 
 .app {
-    /* width: 100%;
-    height: 100%; */
     margin: 0 auto;
     padding: 1rem 2rem;
     background-color: black;
@@ -31,6 +29,14 @@ h3 {
     border-radius: 3px;
 
     transition: 0.2s;
+}
+
+.button.disabled-button {
+    background-color: gray;
+    color: #a8a8a8;
+    cursor: none;
+    pointer-events: none;
+    box-shadow: none;
 }
 
 .button {
@@ -61,14 +67,29 @@ input:active {
     box-shadow: 0 3px #aeaeae inset;
 }
 
+@media screen and (max-width: 700px) {
+    .app {
+        padding: 0.5rem 1rem;
+    }
+}
+
 .car-block {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     width: 88%;
-    border: 1px solid white;
+    /* border: 1px solid white; */
+    border-bottom: 3px dotted white;
     margin: 0.2rem;
+}
+
+.car-block .button.disabled-button {
+    background-color: gray;
+    color: #a8a8a8;
+    cursor: none;
+    pointer-events: none;
+    box-shadow: none;
 }
 
 .car-block .button {
@@ -91,8 +112,7 @@ input:active {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.2rem 0.5rem;
-    /* width: 10%; */
+    padding: 0.2rem 0.2rem;
 }
 
 .car-top .button {
@@ -109,7 +129,7 @@ input:active {
     justify-content: space-between;
     align-items: center;
     padding: 0.2rem;
-    border-bottom: 1px dotted white;
+    /* border-bottom: 3px dotted white; */
     width: 100%;
 }
 
@@ -132,8 +152,6 @@ input:active {
     position: absolute;
     top: 0;
     left: 80px;
-
-    /* transition: all 2s ease-in-out; */
 }
 
 .car svg {
@@ -141,16 +159,13 @@ input:active {
     height: 100%;
 }
 
-/* .move-right { */
-/* transform: translate(82vw, 0); */
-/* -webkit-transform: translate(350px, 0); * Chrome & Safari * */
-/* -o-transform: translate(350px, 0); * Opera * */
-/* -moz-transform: translate(350px, 0); * Firefox * */
-/* } */
-
-.disabled-button {
-    background-color: gray;
-    color: #a8a8a8;
+@media screen and (max-width: 700px) {
+    .car {
+        top: 10px;
+        left: 60px;
+        width: 60px;
+        height: 30px;
+    }
 }
 
 .garage {
@@ -174,6 +189,12 @@ input:active {
     display: none;
 }
 
+@media screen and (max-width: 700px) {
+    .cars-list {
+        width: 100%;
+    }
+}
+
 .pagination {
     display: flex;
     justify-content: flex-start;
@@ -193,7 +214,7 @@ input:active {
 }
 
 .form {
-    width: 25%;
+    width: 450px;
     display: grid;
     grid-template-columns: 25% 25% 20% 30%;
     grid-template-rows: repeat(3, 1fr);
@@ -248,6 +269,49 @@ input:active {
     grid-area: buttonGenerateCars;
 }
 
+.winner-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    top: 40%;
+    left: 50%;
+    /* background: gray; */
+    /* box-shadow: 0 3px #21935a inset; */
+    color: #40c781;
+    /* color: white; */
+    padding: 0.3rem;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 3rem;
+    transition: 0.2s;
+}
+
+.grow {
+    animation: grow 2s ease 1;
+}
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .form {
+        width: 90%;
+    }
+
+    .winner-popup {
+        top: 50%;
+        font-size: 1.8rem;
+    }
+}
+
 .header {
     margin-bottom: 0.5rem;
 }
@@ -276,8 +340,7 @@ input:active {
 
 .winners-table {
     margin-top: 0.2rem;
-    width: 50%;
-    /* border: 1px solid white; */
+    max-width: 920px;
     margin: 0.2rem;
 }
 
@@ -285,15 +348,12 @@ input:active {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
-    /* border: 1px solid white; */
-    /* margin-top: 0.2rem; */
 }
 
 .cell {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
-    /* border: 1px solid white; */
     margin: 0.2rem;
 }
 
@@ -305,9 +365,4 @@ input:active {
     width: 80px;
     height: 30px;
 }
-/* 
-.winner-car.svg {
-    width: 1%;
-    height: 1%;
-} */
 

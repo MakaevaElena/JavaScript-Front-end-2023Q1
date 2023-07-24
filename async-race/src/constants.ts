@@ -99,3 +99,5 @@ export const CAR_BODIES = [
     'Landau',
     'Limousine',
 ];
+
+export const START_PAGE = '1';

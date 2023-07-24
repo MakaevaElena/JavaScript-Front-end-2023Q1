@@ -9,17 +9,32 @@ import { EventName } from '../../enums/events/events-names';
 import DefaultView from '../main-view/default-view';
 import { TagNames } from '../../enums/views/tag-names';
 import { CarViewCssClasses, CommonCssClasses } from '../../enums/views/css-classes';
+import { Attributes } from '../../enums/views/css-attributes';
+import { Storage } from '../../enums/storage-names';
+import { ApiAttributes } from '../../enums/api';
+
+const SELECT_BUTTON_INNER_HTML = `<h3>select</h3>`;
+const REMOVE_BUTTON_INNER_HTML = `<h3>remove</h3>`;
+const START_BUTTON_INNER_HTML = `<h3>A</h3>`;
+const STOP_BUTTON_INNER_HTML = `<h3>B</h3>`;
+const MEDIA_MOBILE = '(max-width: 700px)';
+const GET_WINNER_DEFAULT_ERROR = 'getWinner default error';
+const DRIVE_CAR_ERROR_500 = 'error 500';
+const DRIVE_CAR_ERROR_400 = 'error 400';
+const DRIVE_CAR_ERROR_404 = 'error 404';
+const DRIVE_CAR_ERROR_429 = 'error 429';
+const DRIVE_CAR_DEFAULT_ERROR = 'driveCar default error';
 
 export default class CarView extends DefaultView {
     private selectButton = this.createTagElement(
         TagNames.BUTTON,
         [CarViewCssClasses.SELECT_BUTTON, CommonCssClasses.BUTTON],
-        `<h3>select</h3>`
+        SELECT_BUTTON_INNER_HTML
     );
     private removeButton = this.createTagElement(
         TagNames.BUTTON,
         [CarViewCssClasses.REMOVE_BUTTON, CommonCssClasses.BUTTON],
-        `<h3>remove</h3>`
+        REMOVE_BUTTON_INNER_HTML
     );
 
     private carTop = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_TOP]);
@@ -27,12 +42,12 @@ export default class CarView extends DefaultView {
     private startButton = this.createTagElement(
         TagNames.BUTTON,
         [CarViewCssClasses.START_BUTTON, CommonCssClasses.BUTTON],
-        `<h3>A</h3>`
+        START_BUTTON_INNER_HTML
     );
     private stopButton = this.createTagElement(
         TagNames.BUTTON,
         [CarViewCssClasses.STOP_BUTTON, CommonCssClasses.BUTTON, CommonCssClasses.DISABLED_BUTTON],
-        `<h3>B</h3>`
+        STOP_BUTTON_INNER_HTML
     );
     private carBottomButtons = this.createTagElement(TagNames.BLOCK, [CarViewCssClasses.CAR_BOTTOM_BUTTONS]);
 
@@ -84,14 +99,14 @@ export default class CarView extends DefaultView {
 
     private createCar(carData: CarType) {
         const carSVGElement = this.car.querySelector(CarViewCssClasses.SVG);
-        if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
+        if (carSVGElement) carSVGElement.setAttribute(Attributes.FILL, `${carData.color}`);
         this.carBottom.append(this.car);
     }
 
     private updateCar(carData: CarType) {
         this.selectButton.addEventListener('click', () => {
-            localStorage.setItem('id', carData.id.toString());
-            localStorage.setItem('name', carData.name);
+            localStorage.setItem(Storage.ID, carData.id.toString());
+            localStorage.setItem(Storage.NAME, carData.name);
             this.formView.setItemName(carData.name);
         });
     }
@@ -114,7 +129,7 @@ export default class CarView extends DefaultView {
         this.stopButton.disabled = false;
         this.stopButton.classList.remove(CommonCssClasses.DISABLED_BUTTON);
 
-        this.api.startStopEngine(+currentId, 'started').then((response) => {
+        this.api.startStopEngine(+currentId, ApiAttributes.STARTED).then((response) => {
             this.driveCar(+currentId, response.distance / response.velocity);
         });
     }
@@ -124,7 +139,7 @@ export default class CarView extends DefaultView {
         id ? (currentId = +id) : (currentId = this.carData.id);
         this.stopButton.disabled = true;
         this.stopButton.classList.add(CommonCssClasses.DISABLED_BUTTON);
-        this.api.startStopEngine(+currentId, 'stopped').then(() => {
+        this.api.startStopEngine(+currentId, ApiAttributes.STOPPED).then(() => {
             cancelAnimationFrame(this.myReq);
             this.car.style.transform = `translateX(${0}vw)`;
             this.startButton.disabled = false;
@@ -151,7 +166,7 @@ export default class CarView extends DefaultView {
     }
 
     private async driveCar(id: number, time: number) {
-        const mediaQuery = window.matchMedia('(max-width: 700px)');
+        const mediaQuery = window.matchMedia(MEDIA_MOBILE);
         if (mediaQuery.matches) {
             this.animateCar(60, time);
         } else {
@@ -159,7 +174,7 @@ export default class CarView extends DefaultView {
         }
 
         await this.api
-            .driveCar(id, 'drive')
+            .driveCar(id, ApiAttributes.DRIVE)
             .then((response) => {
                 switch (true) {
                     case response.success === true: {
@@ -175,7 +190,7 @@ export default class CarView extends DefaultView {
                                     this.api.createWinner({ id: id, wins: 1, time: time });
                                     break;
                                 default:
-                                    console.log('getWinner default error');
+                                    console.log(GET_WINNER_DEFAULT_ERROR);
                             }
                         });
 
@@ -183,21 +198,21 @@ export default class CarView extends DefaultView {
                     }
 
                     case response === 500:
-                        console.log('error 500');
+                        console.log(DRIVE_CAR_ERROR_500);
                         cancelAnimationFrame(this.myReq);
 
                         break;
                     case response === 400:
-                        console.log('error 400');
+                        console.log(DRIVE_CAR_ERROR_400);
                         break;
                     case response === 404:
-                        console.log('error 404');
+                        console.log(DRIVE_CAR_ERROR_404);
                         break;
                     case response === 429:
-                        console.log('error 429');
+                        console.log(DRIVE_CAR_ERROR_429);
                         break;
                     default:
-                        console.log('driveCar default error');
+                        console.log(DRIVE_CAR_DEFAULT_ERROR);
                 }
             })
             .finally(() => {

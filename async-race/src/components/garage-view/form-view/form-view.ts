@@ -1,12 +1,26 @@
 import Api from '../../../api';
 import GarageView from '../../garage-view/garage-view';
 import './style.css';
-import { MODELS, CAR_BODIES } from './constants';
+import { MODELS, CAR_BODIES, START_PAGE } from '../../../constants';
 import Observer from '../../app/observer/observer';
 import { EventName } from '../../../enums/events/events-names';
 import DefaultView from '../../main-view/default-view';
 import { TagNames } from '../../../enums/views/tag-names';
 import { FormViewCssClasses, CommonCssClasses } from '../../../enums/views/css-classes';
+import { Storage } from '../../../enums/storage-names';
+import { Attributes } from '../../../enums/views/css-attributes';
+
+const BUTTON_CREATE_INNER_HTML = `CREATE`;
+const BUTTON_UPDATE_INNER_HTML = `UPDATE`;
+const BUTTON_RACE_INNER_HTML = `RACE`;
+const BUTTON_RESET_INNER_HTML = `RESET`;
+const GENERATE_CARS_INNER_HTML = `GENERATE CARS`;
+const GENERATE_CARS_INNER_HTML_LOADING = 'LOADING ...';
+const DEFAULT_CAR_NAME = 'Car';
+const BUTTON_CREATE_COLOR_ATTRIBUTE_TYPE = 'color';
+const BUTTON_UPDATE_COLOR_ATTRIBUTE_TYPE = 'color';
+const BUTTON_CREATE_COLOR_ATTRIBUTE_VALUE = '#0000ff';
+const BUTTON_UPDATE_COLOR_ATTRIBUTE_VALUE = '#0000ff';
 
 export default class FormView extends DefaultView {
     private form = this.createTagElement(TagNames.FORM, [FormViewCssClasses.FORM]);
@@ -17,27 +31,27 @@ export default class FormView extends DefaultView {
     private buttonCreate = this.createTagElement(
         TagNames.BUTTON,
         [FormViewCssClasses.BUTTON_CREATE, CommonCssClasses.BUTTON],
-        `CREATE`
+        BUTTON_CREATE_INNER_HTML
     );
     private buttonUpdate = this.createTagElement(
         TagNames.BUTTON,
         [FormViewCssClasses.BUTTON_UPDATE, CommonCssClasses.BUTTON],
-        `UPDATE`
+        BUTTON_UPDATE_INNER_HTML
     );
     private buttonRace = this.createTagElement(
         TagNames.BUTTON,
         [FormViewCssClasses.BUTTON_RACE, CommonCssClasses.BUTTON],
-        `RACE`
+        BUTTON_RACE_INNER_HTML
     );
     private buttonReset = this.createTagElement(
         TagNames.BUTTON,
         [FormViewCssClasses.BUTTON_RESET, CommonCssClasses.BUTTON],
-        `RESET`
+        BUTTON_RESET_INNER_HTML
     );
     private buttonGenerateCars = this.createTagElement(
         TagNames.BUTTON,
         [FormViewCssClasses.GENERATE_CARS, CommonCssClasses.BUTTON],
-        `GENERATE CARS`
+        GENERATE_CARS_INNER_HTML
     );
     private winnerPopup = this.createTagElement(TagNames.BLOCK, [
         FormViewCssClasses.WINNER_POPUP,
@@ -61,10 +75,10 @@ export default class FormView extends DefaultView {
     }
 
     public createForm() {
-        this.buttonCreateColor.setAttribute('type', 'color');
-        this.buttonUpdateColor.setAttribute('type', 'color');
-        this.buttonCreateColor.setAttribute('value', '#0000ff');
-        this.buttonUpdateColor.setAttribute('value', '#0000ff');
+        this.buttonCreateColor.setAttribute(Attributes.TYPE, BUTTON_CREATE_COLOR_ATTRIBUTE_TYPE);
+        this.buttonUpdateColor.setAttribute(Attributes.TYPE, BUTTON_UPDATE_COLOR_ATTRIBUTE_TYPE);
+        this.buttonCreateColor.setAttribute(Attributes.VALUE, BUTTON_CREATE_COLOR_ATTRIBUTE_VALUE);
+        this.buttonUpdateColor.setAttribute(Attributes.VALUE, BUTTON_UPDATE_COLOR_ATTRIBUTE_VALUE);
 
         this.form.append(
             this.inputCreateName,
@@ -83,7 +97,7 @@ export default class FormView extends DefaultView {
     private sendFormData() {
         const createCar = (event: Event) => {
             event.preventDefault();
-            const name = this.inputCreateName.value || 'Car';
+            const name = this.inputCreateName.value || DEFAULT_CAR_NAME;
             const color = this.buttonCreateColor.value;
             this.api.createCar({ name: name, color: color });
             this.garageView.createRaceRoad();
@@ -94,7 +108,7 @@ export default class FormView extends DefaultView {
 
             this.buttonGenerateCars.disabled = true;
             this.buttonGenerateCars.classList.add(CommonCssClasses.DISABLED_BUTTON);
-            this.buttonGenerateCars.innerHTML = 'LOADING ...';
+            this.buttonGenerateCars.innerHTML = GENERATE_CARS_INNER_HTML_LOADING;
 
             for (let i = 0; i < 100; i++) {
                 const randomName = `${MODELS[this.getRandomInt(MODELS.length)]} ${
@@ -106,12 +120,12 @@ export default class FormView extends DefaultView {
             this.garageView.createRaceRoad();
             this.buttonGenerateCars.disabled = false;
             this.buttonGenerateCars.classList.remove(CommonCssClasses.DISABLED_BUTTON);
-            this.buttonGenerateCars.innerHTML = 'GENERATE CARS';
+            this.buttonGenerateCars.innerHTML = GENERATE_CARS_INNER_HTML;
         };
 
         const updateCar = (event: Event) => {
             event.preventDefault();
-            const id = localStorage.getItem('id');
+            const id = localStorage.getItem(Storage.ID);
             const newName = this.inputUpdateName.value;
             const newColor = this.buttonUpdateColor.value;
             if (id && newName) this.api.updateCar(+id, { name: newName, color: newColor });
@@ -139,7 +153,7 @@ export default class FormView extends DefaultView {
 
     public unBlockRaceButton = async () => {
         this.countArrived += 1;
-        const currentPageNumber = localStorage.getItem('currentPage') || '1';
+        const currentPageNumber = localStorage.getItem(Storage.CURRENT_PAGE) || START_PAGE;
         const countOnPage = (await this.api.getCarsByPage(+currentPageNumber)).length;
         if (this.countArrived >= countOnPage) {
             this.buttonRace.disabled = false;

@@ -50,6 +50,8 @@ export enum FormViewCssClasses {
 
 export enum GarageViewCssClasses {
     GARAGE = 'garage',
+    RACE_ROAD = 'race-road',
+    CAR_LIST = 'cars-list',
 }
 
 export enum WinnersViewCssClasses {

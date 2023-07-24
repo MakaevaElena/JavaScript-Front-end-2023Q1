@@ -6,6 +6,19 @@ import DefaultView from '../main-view/default-view';
 import PaginationView from '../pagination/pagination';
 import { TagNames } from '../../enums/views/tag-names';
 import { WinnersViewCssClasses, CommonCssClasses, CarViewCssClasses } from '../../enums/views/css-classes';
+import { Storage } from '../../enums/storage-names';
+import { START_PAGE } from '../../constants';
+import { ApiAttributes } from '../../enums/api';
+import { Attributes } from '../../enums/views/css-attributes';
+
+const TABLE_HEADER_NUMBER_INNER_HTML = 'Number';
+const TABLE_HEADER_CAR_INNER_HTML = 'Car';
+const TABLE_HEADER_NAME_INNER_HTML = 'Name';
+const TABLE_HEADER_WINS_INNER_HTML = 'Wins  &darr;';
+const TABLE_HEADER_TIME_INNER_HTML = 'Best time &uarr;';
+const WINNERS_LIMIT = 10;
+const GET_WINNERS_BY_PAGE_ERROR = 'no winners';
+const GET_ALL_WINNERS_ERROR = 'no winners';
 
 export default class WinnersView extends DefaultView {
     private api = new Api();
@@ -19,27 +32,27 @@ export default class WinnersView extends DefaultView {
     private tableHeaderNum = this.createTagElement(
         TagNames.BLOCK,
         [WinnersViewCssClasses.TABLE_HEADER_NUMBER, WinnersViewCssClasses.CELL, CommonCssClasses.BUTTON],
-        'Number'
+        TABLE_HEADER_NUMBER_INNER_HTML
     );
     private tableHeaderCar = this.createTagElement(
         TagNames.BLOCK,
         [WinnersViewCssClasses.TABLE_HEADER_CAR, WinnersViewCssClasses.CELL, CommonCssClasses.BUTTON],
-        'Car'
+        TABLE_HEADER_CAR_INNER_HTML
     );
     private tableHeaderName = this.createTagElement(
         TagNames.BLOCK,
         [WinnersViewCssClasses.TABLE_HEADER_NAME, WinnersViewCssClasses.CELL, CommonCssClasses.BUTTON],
-        'Name'
+        TABLE_HEADER_NAME_INNER_HTML
     );
     private tableHeaderWins = this.createTagElement(
         TagNames.BLOCK,
         [WinnersViewCssClasses.TABLE_HEADER_WINS, WinnersViewCssClasses.CELL, CommonCssClasses.BUTTON],
-        'Wins  &darr;'
+        TABLE_HEADER_WINS_INNER_HTML
     );
     private tableHeaderTime = this.createTagElement(
         TagNames.BLOCK,
         [WinnersViewCssClasses.TABLE_HEADER_TIME, WinnersViewCssClasses.CELL, CommonCssClasses.BUTTON],
-        'Best time &uarr;'
+        TABLE_HEADER_TIME_INNER_HTML
     );
 
     constructor(paginationView: PaginationView) {
@@ -53,7 +66,7 @@ export default class WinnersView extends DefaultView {
     }
 
     private createWinnersPage() {
-        const isGarage = localStorage.getItem('isGarage');
+        const isGarage = localStorage.getItem(Storage.IS_GARAGE);
         if (isGarage === 'true' || !isGarage) this.hideWinners();
         if (isGarage === 'false') this.showWinners();
         this.createWinnersTable();
@@ -63,8 +76,8 @@ export default class WinnersView extends DefaultView {
         return this.winners;
     }
 
-    public createWinnersTable(sort = 'id', order = 'ASC') {
-        const currentWinnersPage = localStorage.getItem('currentWinnersPage') || '1';
+    public createWinnersTable(sort = ApiAttributes.ID, order = ApiAttributes.ASC) {
+        const currentWinnersPage = localStorage.getItem(Storage.CURRENT_WINNERS_PAGE) || START_PAGE;
         this.table.innerHTML = '';
         this.pageNumberHeader.innerText = `Page #${currentWinnersPage}`;
 
@@ -79,7 +92,7 @@ export default class WinnersView extends DefaultView {
                         const winnerNum = this.createTagElement(
                             TagNames.BLOCK,
                             [WinnersViewCssClasses.WINNER_NUM, WinnersViewCssClasses.CELL],
-                            `${(+currentWinnersPage - 1) * 10 + i + 1}`
+                            `${(+currentWinnersPage - 1) * WINNERS_LIMIT + i + 1}`
                         );
                         const winnerWins = this.createTagElement(
                             TagNames.BLOCK,
@@ -108,7 +121,7 @@ export default class WinnersView extends DefaultView {
                             ]);
                             winnerCar.innerHTML = CAR_IMAGE;
                             const carSVGElement = winnerCar.querySelector(CarViewCssClasses.SVG);
-                            if (carSVGElement) carSVGElement.setAttribute('fill', `${carData.color}`);
+                            if (carSVGElement) carSVGElement.setAttribute(Attributes.FILL, `${carData.color}`);
 
                             const winnerName = this.createTagElement(
                                 TagNames.BLOCK,
@@ -121,7 +134,7 @@ export default class WinnersView extends DefaultView {
                         this.table.append(winnerRow);
                     });
             })
-            .catch(() => console.log('no winners'));
+            .catch(() => console.log(GET_WINNERS_BY_PAGE_ERROR));
 
         this.api
             .getAllWinners()
@@ -132,11 +145,11 @@ export default class WinnersView extends DefaultView {
                         this.winnerHeader,
                         this.pageNumberHeader,
                         this.table,
-                        this.paginationView.createButtons(`${allWinners.length}`, this, 10)
+                        this.paginationView.createButtons(`${allWinners.length}`, this, WINNERS_LIMIT)
                     );
                 }
             })
-            .catch(() => console.log('no winners'));
+            .catch(() => console.log(GET_ALL_WINNERS_ERROR));
 
         // return this.table;
     }
@@ -159,24 +172,30 @@ export default class WinnersView extends DefaultView {
     public showWinners() {
         this.winners.classList.add(CommonCssClasses.SHOW);
         this.winners.classList.remove(CommonCssClasses.HIDE);
-        localStorage.setItem('isGarage', 'false');
+        localStorage.setItem(Storage.IS_GARAGE, 'false');
     }
 
     public hideWinners() {
         this.winners.classList.remove(CommonCssClasses.SHOW);
         this.winners.classList.add(CommonCssClasses.HIDE);
-        localStorage.setItem('isGarage', 'true');
+        localStorage.setItem(Storage.IS_GARAGE, 'true');
     }
 
     private sortByID() {
-        this.tableHeaderNum.addEventListener('click', () => this.createWinnersTable('id', 'ASC'));
+        this.tableHeaderNum.addEventListener('click', () =>
+            this.createWinnersTable(ApiAttributes.ID, ApiAttributes.ASC)
+        );
     }
 
     private sortByWins() {
-        this.tableHeaderWins.addEventListener('click', () => this.createWinnersTable('wins', 'DESC'));
+        this.tableHeaderWins.addEventListener('click', () =>
+            this.createWinnersTable(ApiAttributes.WINS, ApiAttributes.DESC)
+        );
     }
 
     private sortByTyme() {
-        this.tableHeaderTime.addEventListener('click', () => this.createWinnersTable('time', 'ASC'));
+        this.tableHeaderTime.addEventListener('click', () =>
+            this.createWinnersTable(ApiAttributes.TYME, ApiAttributes.ASC)
+        );
     }
 }

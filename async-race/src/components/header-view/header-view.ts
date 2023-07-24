@@ -4,6 +4,10 @@ import WinnersView from '../winners-view/winners-view';
 import './style.css';
 import { TagNames } from '../../enums/views/tag-names';
 import { HeaderViewCssClasses, CommonCssClasses } from '../../enums/views/css-classes';
+import { Storage } from '../../enums/storage-names';
+
+const TO_GARAGE_INNER_HTML = `TO GARAGE`;
+const TO_WINNERS_INNER_HTML = `TO WINNERS`;
 
 export default class HeaderView extends DefaultView {
     private headerView: HTMLElement;
@@ -13,12 +17,12 @@ export default class HeaderView extends DefaultView {
     private toGarageButton = this.createTagElement(
         TagNames.BUTTON,
         [HeaderViewCssClasses.TO_GARAGE, CommonCssClasses.BUTTON],
-        `TO GARAGE`
+        TO_GARAGE_INNER_HTML
     );
     private toWinnersButton = this.createTagElement(
         TagNames.BUTTON,
         [HeaderViewCssClasses.TO_WINNERS, CommonCssClasses.BUTTON],
-        `TO WINNERS`
+        TO_WINNERS_INNER_HTML
     );
 
     constructor(garageView: GarageView, winnersView: WinnersView) {
@@ -47,7 +51,7 @@ export default class HeaderView extends DefaultView {
         this.toGarageButton.addEventListener('click', () => {
             this.garageView.showGarage();
             this.winnersView.hideWinners();
-            localStorage.setItem('isGarage', 'true');
+            localStorage.setItem(Storage.IS_GARAGE, 'true');
         });
     }
 
@@ -56,7 +60,7 @@ export default class HeaderView extends DefaultView {
             this.garageView.hideGarage();
             this.winnersView.showWinners();
             this.winnersView.createWinnersTable();
-            localStorage.setItem('isGarage', 'false');
+            localStorage.setItem(Storage.IS_GARAGE, 'false');
         });
     }
 }

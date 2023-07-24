@@ -4,6 +4,8 @@ import './style.css';
 import { TagNames } from '../../enums/views/tag-names';
 import { CommonCssClasses, PaginationViewCssClasses } from '../../enums/views/css-classes';
 import DefaultView from '../main-view/default-view';
+import { Attributes } from '../../enums/views/css-attributes';
+import { Storage } from '../../enums/storage-names';
 
 export default class PaginationView extends DefaultView {
     private pagination = this.createTagElement(TagNames.BLOCK, [PaginationViewCssClasses.PAGINATION]);
@@ -24,7 +26,7 @@ export default class PaginationView extends DefaultView {
                 [PaginationViewCssClasses.PAGE_BUTTON, CommonCssClasses.BUTTON],
                 i.toString()
             );
-            pageButton.setAttribute('id', `${i}`);
+            pageButton.setAttribute(Attributes.ID, `${i}`);
 
             pageButton.addEventListener('click', () => this.choosePage(i, winnersView));
 
@@ -34,13 +36,13 @@ export default class PaginationView extends DefaultView {
     }
 
     private choosePage(currentPage: number, winnersView: WinnersView | null) {
-        const isGarage = localStorage.getItem('isGarage');
+        const isGarage = localStorage.getItem(Storage.IS_GARAGE);
         if (isGarage === 'true') {
-            localStorage.setItem('currentPage', currentPage.toString());
+            localStorage.setItem(Storage.CURRENT_PAGE, currentPage.toString());
             this.garageView.createRaceRoad();
         }
         if (isGarage === 'false') {
-            localStorage.setItem('currentWinnersPage', currentPage.toString());
+            localStorage.setItem(Storage.CURRENT_WINNERS_PAGE, currentPage.toString());
             if (winnersView !== null) winnersView.createWinnersTable();
         }
     }

@@ -9,14 +9,18 @@ import Observer from '../app/observer/observer';
 import { EventName } from '../../enums/events/events-names';
 import { TagNames } from '../../enums/views/tag-names';
 import { GarageViewCssClasses, CommonCssClasses } from '../../enums/views/css-classes';
+import { Storage } from '../../enums/storage-names';
+import { START_PAGE } from '../../constants';
+
+const SERVER_ERROR_MESSAGE = 'Server Error - failed to get cars';
+const CARS_LIMIT = 7;
 
 export default class GarageView extends DefaultView {
-    private START_PAGE = '1';
     protected garageView: HTMLElement;
-    private raceRoads = this.createTagElement('div', ['race-road']);
-    private carsListElement = this.createTagElement('div', ['cars-list'], '');
-    private pageNumberHeader = this.createTagElement('h3', []);
-    private roadHeader = this.createTagElement('h2', []);
+    private raceRoads = this.createTagElement(TagNames.BLOCK, [GarageViewCssClasses.RACE_ROAD]);
+    private carsListElement = this.createTagElement(TagNames.BLOCK, [GarageViewCssClasses.CAR_LIST], '');
+    private pageNumberHeader = this.createTagElement(TagNames.HEADER_THIRD, []);
+    private roadHeader = this.createTagElement(TagNames.HEADER_SECOND, []);
     private api = new Api();
     private carView!: CarView;
     private carViews: Array<CarView> = [];
@@ -40,7 +44,7 @@ export default class GarageView extends DefaultView {
 
     private createGarage() {
         const garage = this.createTagElement(TagNames.BLOCK, [GarageViewCssClasses.GARAGE]);
-        const isGarage = localStorage.getItem('isGarage');
+        const isGarage = localStorage.getItem(Storage.IS_GARAGE);
 
         //?почему не сработало this.hideGarage()
         if (isGarage === 'true' || !isGarage) {
@@ -58,30 +62,30 @@ export default class GarageView extends DefaultView {
                 garage.append(
                     this.formView.createForm(),
                     this.raceRoads,
-                    this.paginationView.createButtons(`${allCars.length}`, null, 7)
+                    this.paginationView.createButtons(`${allCars.length}`, null, CARS_LIMIT)
                 );
                 this.createRaceRoad();
                 return garage;
             })
             .then((garage) => garage)
-            .catch(() => alert('Server Error - failed to get cars'));
+            .catch(() => alert(SERVER_ERROR_MESSAGE));
 
         return garage;
     }
 
     public async createRaceRoad(): Promise<void> {
-        const currentPageNumber = localStorage.getItem('currentPage') || '1';
+        const currentPageNumber = localStorage.getItem(Storage.CURRENT_PAGE) || START_PAGE;
 
         this.carViews = [];
         this.carsListElement.innerHTML = '';
 
-        if (this.allCars.length <= 7) {
+        if (this.allCars.length <= CARS_LIMIT) {
             // pageNumberHeader.innerText = `Page #${currentPageNumber}`;
         }
 
         this.api.getAllCars().then((allCars) => {
             this.allCars = allCars;
-            this.paginationView.createButtons(`${this.allCars.length}`, null, 7);
+            this.paginationView.createButtons(`${this.allCars.length}`, null, CARS_LIMIT);
             this.roadHeader.innerText = `Garage (${allCars.length})`;
         });
 

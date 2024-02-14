@@ -9,4 +9,4 @@ https://makaevaelena.github.io/JavaScript-Front-end-2023Q1/async-race/
 
 https://makaevaelena.github.io/JavaScript-Front-end-2023Q1/rs-css/
 
-https://makaevaelena.github.io/JavaScript-Front-end-2023Q1/shelter-part3/
+https://makaevaelena.github.io/JavaScript-Front-end-2023Q1/shelter/
